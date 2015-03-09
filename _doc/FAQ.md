@@ -4,13 +4,14 @@ title: Frequently Asked Questions
 ---
 <!--
 
-NOTE TO CONTRIBUTORS: Please add new questions to the end of their sections, so
-section/question numbers remain stable.
+NOTE TO CONTRIBUTORS: Please add new questions to the correct section.
 
 -->
 
 [mailinglist]: http://TODO
 [contributing]: https://github.com/OfflineIMAP/offlineimap/blob/next/CONTRIBUTING.rst
+[offlineimap]: https://github.com/OfflineIMAP/offlineimap
+
 
 If you don't get hints here, feel free to ask in our [mailing list][mailinglist].
 
@@ -23,7 +24,7 @@ Most recent [FAQ]({{ site.base }}/doc/FAQ.html).
 
 ### Where do I get OfflineIMAP?
 
-See the information on the Home page OfflineIMAP
+See the information at the [Homepage][offlineimap].
 
 
 ### How fast is it?

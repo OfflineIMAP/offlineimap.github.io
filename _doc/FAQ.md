@@ -7,16 +7,10 @@ title: Frequently Asked Questions
 NOTE TO CONTRIBUTORS: Please add new questions to the end of their sections, so
 section/question numbers remain stable.
 
-.. _FAQ: https://github.com/OfflineIMAP/offlineimap/blob/next/docs/doc-src/FAQ.rst
-.. _Contributing: https://github.com/OfflineIMAP/offlineimap/blob/next/CONTRIBUTING.rst
-
-
-> :Web site: https://github.com/nicolas33/offlineimap
-> :Copyright: This document is licensed under GPLv2.
-
 -->
 
 [mailinglist]: http://TODO
+[contributing]: https://github.com/OfflineIMAP/offlineimap/blob/next/CONTRIBUTING.rst
 
 If you don't get hints here, feel free to ask in our [mailing list][mailinglist].
 
@@ -367,7 +361,7 @@ The choice is up to you. :-)
 
 ### How to submit a patch?
 
-Read `Contributing`.
+Read [Contributing][contributing].
 
 <!--
 vim : ts=2 expandtab :

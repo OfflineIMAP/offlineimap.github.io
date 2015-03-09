@@ -1,0 +1,9 @@
+.*.swp
+.*.swo
+*~
+
+# User drafts (no collaboration on them).
+/_mydrafts
+# Jeykyll
+/_site
+/.sass-cache

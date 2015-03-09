@@ -1,0 +1,17 @@
+---
+layout: default
+---
+
+<div class="home">
+  <div class='post-content'>
+
+  <!-- Jekyll at Github won't render markdown as HTML without capture. -->
+  {% capture home %}{% include home.md %}{% endcapture %}
+  {{ home | markdownify }}
+
+  </div>
+</div>
+
+<!--
+vim: ts=2 expandtab :
+-->

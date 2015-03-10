@@ -1,0 +1,322 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Folder filtering and Name translation &mdash; OfflineIMAP 6.5.7-rc2 documentation</title>
+    
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '6.5.7-rc2',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="OfflineIMAP 6.5.7-rc2 documentation" href="index.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li><a href="index.html">OfflineIMAP 6.5.7-rc2 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="folder-filtering-and-name-translation">
+<span id="id1"></span><h1>Folder filtering and Name translation<a class="headerlink" href="#folder-filtering-and-name-translation" title="Permalink to this headline">¶</a></h1>
+<p>OfflineImap provides advanced and potentially complex possibilities for
+filtering and translating folder names. If you don&#8217;t need any of this, you can
+safely skip this section.</p>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">Starting with v6.4.0, OfflineImap supports the creation of folders on the remote repostory. This change means that people that only had a nametrans option on the remote repository (everyone) will need to have a nametrans setting on the local repository too that will reverse the name transformation. See section <a class="reference internal" href="#reverse-nametrans">Reverse nametrans</a> for details.</p>
+</div>
+<div class="section" id="folderfilter">
+<h2>folderfilter<a class="headerlink" href="#folderfilter" title="Permalink to this headline">¶</a></h2>
+<p>If you do not want to synchronize all your folders, you can specify a
+<a class="reference internal" href="#folderfilter">folderfilter</a> function that determines which folders to include in a sync and
+which to exclude. Typically, you would set a folderfilter option on the remote
+repository only, and it would be a lambda or any other python function.</p>
+<p>The only parameter to that function is the folder name. If the filter
+function returns True, the folder will be synced, if it returns False,
+it. will be skipped. The folderfilter operates on the <em>UNTRANSLATED</em>
+name (before any <a class="reference internal" href="#nametrans">nametrans</a> fudging takes place). Consider the
+examples below to get an idea of what they do.</p>
+<p>Example 1: synchronizing only INBOX and Sent:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">folderfilter</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">folder</span><span class="p">:</span> <span class="n">folder</span> <span class="ow">in</span> <span class="p">[</span><span class="s">&#39;INBOX&#39;</span><span class="p">,</span> <span class="s">&#39;Sent&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>Example 2: synchronizing everything except Trash:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">folderfilter</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">folder</span><span class="p">:</span> <span class="n">folder</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="s">&#39;Trash&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>Example 3: Using a regular expression to exclude Trash and all folders
+containing the characters &#8220;Del&#8221;:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">folderfilter</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">folder</span><span class="p">:</span> <span class="ow">not</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s">&#39;(^Trash$|Del)&#39;</span><span class="p">,</span> <span class="n">folder</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">If folderfilter is not specified, ALL remote folders will be
+synchronized.</p>
+</div>
+<p>You can span multiple lines by indenting the others.  (Use backslashes
+at the end when required by Python syntax)  For instance:</p>
+<div class="highlight-python"><div class="highlight"><pre>folderfilter = lambda foldername: foldername in
+       [&#39;INBOX&#39;, &#39;Sent Mail&#39;, &#39;Deleted Items&#39;,
+        &#39;Received&#39;]
+</pre></div>
+</div>
+<p>Usually it suffices to put a <a class="reference internal" href="#folderfilter">folderfilter</a> setting in the remote repository
+section. You might want to put a folderfilter option on the local repository if
+you want to prevent some folders on the local repository to be created on the
+remote one. (Even in this case, folder filters on the remote repository will
+prevent that)</p>
+</div>
+<div class="section" id="folderincludes">
+<h2>folderincludes<a class="headerlink" href="#folderincludes" title="Permalink to this headline">¶</a></h2>
+<p>You can specify <a class="reference internal" href="#folderincludes">folderincludes</a> to manually include additional folders to be
+synced, even if they had been filtered out by a folderfilter setting.
+<a class="reference internal" href="#folderincludes">folderincludes</a> should return a Python list.</p>
+<p>This can be used to 1) add a folder that was excluded by your
+folderfilter rule, 2) to include a folder that your server does not specify
+with its LIST option, or 3) to include a folder that is outside your basic
+<cite>reference</cite>. The <cite>reference</cite> value will not be prefixed to this folder
+name, even if you have specified one.  For example:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">folderincludes</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;debian.user&#39;</span><span class="p">,</span> <span class="s">&#39;debian.personal&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>This will add the &#8220;debian.user&#8221; and &#8220;debian.personal&#8221; folders even if you
+have filtered out everything starting with &#8220;debian&#8221; in your folderfilter
+settings.</p>
+</div>
+<div class="section" id="createfolders">
+<h2>createfolders<a class="headerlink" href="#createfolders" title="Permalink to this headline">¶</a></h2>
+<p>By default OfflineImap propagates new folders in both
+directions. Sometimes this is not what you want. E.g. you might want
+new folders on your IMAP server to propagate to your local MailDir,
+but not the other way around. The &#8216;readonly&#8217; setting on a repository
+will not help here, as it prevents any change from occuring on that
+repository. This is what the <cite>createfolders</cite> setting is for. By
+default it is <cite>True</cite>, meaning that new folders can be created on this
+repository. To prevent folders from ever being created on a
+repository, set this to <cite>False</cite>. If you set this to False on the
+REMOTE repository, you will not have to create the <a class="reference internal" href="#reverse-nametrans">Reverse
+nametrans</a> rules on the LOCAL repository.</p>
+</div>
+<div class="section" id="nametrans">
+<h2>nametrans<a class="headerlink" href="#nametrans" title="Permalink to this headline">¶</a></h2>
+<p>Sometimes, folders need to have different names on the remote and the local
+repositories. To achieve this you can specify a folder name translator.  This
+must be a eval-able Python expression that takes a foldername arg and returns
+the new value.  We suggest a lambda function, but it could be any python
+function really. If you use nametrans rules, you will need to set them both on
+the remote and the local repository, see <a class="reference internal" href="#reverse-nametrans">Reverse nametrans</a> just below for
+details. The following examples are thought to be put in the remote repository
+section.</p>
+<p>The below will remove &#8220;INBOX.&#8221; from the leading edge of folders (great
+for Courier IMAP users):</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">nametrans</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">folder</span><span class="p">:</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="s">&#39;^INBOX\.&#39;</span><span class="p">,</span> <span class="s">&#39;&#39;</span><span class="p">,</span> <span class="n">folder</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Using Courier remotely and want to duplicate its mailbox naming
+locally?  Try this:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">nametrans</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">folder</span><span class="p">:</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="s">&#39;^INBOX\.*&#39;</span><span class="p">,</span> <span class="s">&#39;.&#39;</span><span class="p">,</span> <span class="n">folder</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">You MUST construct nametrans rules such that it NEVER returns the
+same value for two folders, UNLESS the second values are filtered
+out by folderfilter below. That is, two filters on one side may
+never point to the same folder on the other side. Failure to follow
+this rule will result in undefined behavior. See also <em>Sharing a
+maildir with multiple IMAP servers</em> in the <a class="reference internal" href="MANUAL.html#pitfalls"><em>PITFALLS &amp; ISSUES</em></a> section.</p>
+</div>
+<div class="section" id="reverse-nametrans">
+<h3>Reverse nametrans<a class="headerlink" href="#reverse-nametrans" title="Permalink to this headline">¶</a></h3>
+<p>Since 6.4.0, OfflineImap supports the creation of folders on the remote
+repository and that complicates things. Previously, only one nametrans setting
+on the remote repository was needed and that transformed a remote to a local
+name. However, nametrans transformations are one-way, and OfflineImap has no way
+using those rules on the remote repository to back local names to remote names.</p>
+<p>Take a remote nametrans rule <cite>lambda f: re.sub(&#8216;^INBOX/&#8217;,&#8217;&#8216;,f)</cite> which cuts off
+any existing INBOX prefix. Now, if we parse a list of local folders, finding
+e.g. a folder &#8220;Sent&#8221;, is it supposed to map to &#8220;INBOX/Sent&#8221; or to &#8220;Sent&#8221;? We
+have no way of knowing. This is why <strong>every nametrans setting on a remote
+repository requires an equivalent nametrans rule on the local repository that
+reverses the transformation</strong>.</p>
+<p>Take the above examples. If your remote nametrans setting was:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">nametrans</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">folder</span><span class="p">:</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="s">&#39;^INBOX\.&#39;</span><span class="p">,</span> <span class="s">&#39;&#39;</span><span class="p">,</span> <span class="n">folder</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>then you will want to have this in your local repository, prepending &#8220;INBOX.&#8221; to
+any local folder name:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">nametrans</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">folder</span><span class="p">:</span> <span class="s">&#39;INBOX.&#39;</span> <span class="o">+</span> <span class="n">folder</span>
+</pre></div>
+</div>
+<p>Failure to set the local nametrans rule will lead to weird-looking error
+messages of -for instance- this type:</p>
+<div class="highlight-python"><div class="highlight"><pre>ERROR: Creating folder moo.foo on repository remote
+Folder &#39;moo.foo&#39;[remote] could not be created. Server responded: (&#39;NO&#39;, [&#39;Unknown namespace.&#39;])
+</pre></div>
+</div>
+<p>(This indicates that you attempted to create a folder &#8220;Sent&#8221; when all remote
+folders needed to be under the prefix of &#8220;INBOX.&#8221;).</p>
+<p>OfflineImap will make some sanity checks if it needs to create a new
+folder on the remote side and a back-and-forth nametrans-lation does not
+yield the original foldername (as that could potentially lead to
+infinite folder creation cycles).</p>
+<p>You can probably already see now that creating nametrans rules can be a pretty
+daunting and complex endeavour. Check out the Use cases in the manual. If you
+have some interesting use cases that we can present as examples here, please let
+us know.</p>
+</div>
+</div>
+<div class="section" id="debugging-folderfilter-and-nametrans">
+<h2>Debugging folderfilter and nametrans<a class="headerlink" href="#debugging-folderfilter-and-nametrans" title="Permalink to this headline">¶</a></h2>
+<p>Given the complexity of the functions and regexes involved, it is easy to
+misconfigure things. One way to test your configuration without danger to
+corrupt anything or to create unwanted folders is to invoke offlineimap with the
+<cite>&#8211;info</cite> option.</p>
+<p>It will output a list of folders and their transformations on the screen (save
+them to a file with -l info.log), and will help you to tweak your rules as well
+as to understand your configuration. It also provides good output for bug
+reporting.</p>
+</div>
+<div class="section" id="faq-on-nametrans">
+<h2>FAQ on nametrans<a class="headerlink" href="#faq-on-nametrans" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="where-to-put-nametrans-rules-on-the-remote-and-or-local-repository">
+<h3>Where to put nametrans rules, on the remote and/or local repository?<a class="headerlink" href="#where-to-put-nametrans-rules-on-the-remote-and-or-local-repository" title="Permalink to this headline">¶</a></h3>
+<p>If you never intend to create new folders on the LOCAL repository that
+need to be synced to the REMOTE repository, it is sufficient to create a
+nametrans rule on the remote Repository section. This will be used to
+determine the names of new folder names on the LOCAL repository, and to
+match existing folders that correspond.</p>
+<dl class="docutils">
+<dt><em>IF</em> you create folders on the local repository, that are supposed to be</dt>
+<dd>automatically created on the remote repository, you will need to create
+a nametrans rule that provides the reverse name translation.</dd>
+</dl>
+<p>(A nametrans rule provides only a one-way translation of names and in
+order to know which names folders on the LOCAL side would have on the
+REMOTE side, you need to specify the reverse nametrans rule on the local
+repository)</p>
+<p>OfflineImap will complain if it needs to create a new folder on the
+remote side and a back-and-forth nametrans-lation does not yield the
+original foldername (as that could potentially lead to infinite folder
+creation cycles).</p>
+</div>
+<div class="section" id="what-folder-separators-do-i-need-to-use-in-nametrans-rules">
+<h3>What folder separators do I need to use in nametrans rules?<a class="headerlink" href="#what-folder-separators-do-i-need-to-use-in-nametrans-rules" title="Permalink to this headline">¶</a></h3>
+<dl class="docutils">
+<dt><strong>Q:</strong> If I sync from an IMAP server with folder separator &#8216;/&#8217; to a</dt>
+<dd><p class="first">Maildir using the default folder separator &#8216;.&#8217; which do I need to use
+in nametrans rules?:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">nametrans</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">f</span><span class="p">:</span> <span class="s">&quot;INBOX/&quot;</span> <span class="o">+</span> <span class="n">f</span>
+</pre></div>
+</div>
+<dl class="last docutils">
+<dt>or::</dt>
+<dd>nametrans = lambda f: &#8220;INBOX.&#8221; + f</dd>
+</dl>
+</dd>
+<dt><strong>A:</strong> Generally use the folder separator as defined in the repository</dt>
+<dd>you write the nametrans rule for. That is, use &#8216;/&#8217; in the above
+case. We will pass in the untranslated name of the IMAP folder as
+parameter (here <cite>f</cite>). The translated name will ultimately have all
+folder separators be replaced with the destination repositories&#8217;
+folder separator.</dd>
+</dl>
+<p>So if &#8216;f&#8217; was &#8220;Sent&#8221;, the first nametrans yields the translated name
+&#8220;INBOX/Sent&#8221; to be used on the other side. As that repository uses the
+folder separator &#8216;.&#8217; rather than &#8216;/&#8217;, the ultimate name to be used will
+be &#8220;INBOX.Sent&#8221;.</p>
+<p>(As a final note, the smart will see that both variants of the above
+nametrans rule would have worked identically in this case)</p>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Folder filtering and Name translation</a><ul>
+<li><a class="reference internal" href="#folderfilter">folderfilter</a></li>
+<li><a class="reference internal" href="#folderincludes">folderincludes</a></li>
+<li><a class="reference internal" href="#createfolders">createfolders</a></li>
+<li><a class="reference internal" href="#nametrans">nametrans</a><ul>
+<li><a class="reference internal" href="#reverse-nametrans">Reverse nametrans</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#debugging-folderfilter-and-nametrans">Debugging folderfilter and nametrans</a></li>
+<li><a class="reference internal" href="#faq-on-nametrans">FAQ on nametrans</a><ul>
+<li><a class="reference internal" href="#where-to-put-nametrans-rules-on-the-remote-and-or-local-repository">Where to put nametrans rules, on the remote and/or local repository?</a></li>
+<li><a class="reference internal" href="#what-folder-separators-do-i-need-to-use-in-nametrans-rules">What folder separators do I need to use in nametrans rules?</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/nametrans.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li><a href="index.html">OfflineIMAP 6.5.7-rc2 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright Copyright 2002-2015 John Goerzen &amp; contributors.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.
+    </div>
+  </body>
+</html>

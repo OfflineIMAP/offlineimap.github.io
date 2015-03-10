@@ -1,0 +1,147 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Description &mdash; OfflineIMAP 6.5.7-rc2 documentation</title>
+    
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '6.5.7-rc2',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="OfflineIMAP 6.5.7-rc2 documentation" href="index.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li><a href="index.html">OfflineIMAP 6.5.7-rc2 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="description">
+<h1>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a></h1>
+<p>OfflineIMAP is a tool to simplify your e-mail reading. With OfflineIMAP, you can
+read the same mailbox from multiple computers. You get a current copy of your
+messages on each computer, and changes you make one place will be visible on all
+other systems. For instance, you can delete a message on your home computer, and
+it will appear deleted on your work computer as well. OfflineIMAP is also useful
+if you want to use a mail reader that does not have IMAP support, has poor IMAP
+support, or does not provide disconnected operation.</p>
+<p>OfflineIMAP works on pretty much any POSIX operating system, such as Linux, BSD
+operating systems, MacOS X, Solaris, etc.</p>
+<p>OfflineIMAP is a Free Software project licensed under the GNU General Public
+License. You can download it for free, and you can modify it. In fact, you are
+encouraged to contribute to OfflineIMAP, and doing so is fast and easy.</p>
+<p>OfflineIMAP is FAST; it synchronizes my two accounts with over 50 folders in 3
+seconds.  Other similar tools might take over a minute, and achieve a
+less-reliable result.  Some mail readers can take over 10 minutes to do the same
+thing, and some don&#8217;t even support it at all.  Unlike other mail tools,
+OfflineIMAP features a multi-threaded synchronization algorithm that can
+dramatically speed up performance in many situations by synchronizing several
+different things simultaneously.</p>
+<p>OfflineIMAP is FLEXIBLE; you can customize which folders are synced via regular
+expressions, lists, or Python expressions; a versatile and comprehensive
+configuration file is used to control behavior; two user interfaces are
+built-in; fine-tuning of synchronization performance is possible; internal or
+external automation is supported; SSL and PREAUTH tunnels are both supported;
+offline (or &#8220;unplugged&#8221;) reading is supported; and esoteric IMAP features are
+supported to ensure compatibility with the widest variety of IMAP servers.</p>
+<p>OfflineIMAP is SAFE; it uses an algorithm designed to prevent mail loss at all
+costs.  Because of the design of this algorithm, even programming errors should
+not result in loss of mail.  I am so confident in the algorithm that I use my
+own personal and work accounts for testing of OfflineIMAP pre-release,
+development, and beta releases.  Of course, legally speaking, OfflineIMAP comes
+with no warranty, so I am not responsible if this turns out to be wrong.</p>
+</div>
+<div class="section" id="method-of-operation">
+<h1>Method of Operation<a class="headerlink" href="#method-of-operation" title="Permalink to this headline">¶</a></h1>
+<p>OfflineIMAP traditionally operates by maintaining a hierarchy of mail folders in
+Maildir format locally.  Your own mail reader will read mail from this tree, and
+need never know that the mail comes from IMAP.  OfflineIMAP will detect changes
+to the mail folders on your IMAP server and your own computer and
+bi-directionally synchronize them, copying, marking, and deleting messages as
+necessary.</p>
+<p>With OfflineIMAP 4.0, a powerful new ability has been introduced ― the program
+can now synchronize two IMAP servers with each other, with no need to have a
+Maildir layer in-between.  Many people use this if they use a mail reader on
+their local machine that does not support Maildirs.  People may install an IMAP
+server on their local machine, and point both OfflineIMAP and their mail reader
+of choice at it.  This is often preferable to the mail reader&#8217;s own IMAP support
+since OfflineIMAP supports many features (offline reading, for one) that most
+IMAP-aware readers don&#8217;t.  However, this feature is not as time-tested as
+traditional syncing, so my advice is to stick with normal methods of operation
+for the time being.</p>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Description</a></li>
+<li><a class="reference internal" href="#method-of-operation">Method of Operation</a></li>
+</ul>
+
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/features.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li><a href="index.html">OfflineIMAP 6.5.7-rc2 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright Copyright 2002-2015 John Goerzen &amp; contributors.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.
+    </div>
+  </body>
+</html>

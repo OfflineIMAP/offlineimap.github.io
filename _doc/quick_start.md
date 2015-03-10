@@ -2,11 +2,9 @@
 layout: page
 title: Quick Start
 ---
+{% assign links = site.data.links %}
 
-First, install OfflineIMAP. See `docs/INSTALL.rst` or read <http://docs.offlineimap.org/en/latest/INSTALL.html>
-(hint: `sudo python setup.py install`).
-
-Second, set up your configuration file and run it! The distribution includes offlineimap.conf.minimal (Debian users may find this at `/usr/share/doc/offlineimap/examples/offlineimap.conf.minimal`) that provides you with the bare minimum of setting up OfflineIMAP.  You can simply copy this file into your home directory and name it `.offlineimaprc`.  A command such as `cp offlineimap.conf.minimal ~/.offlineimaprc` will do it.  Or, if you prefer, you can just copy this text to `~/.offlineimaprc`:
+The distribution includes offlineimap.conf.minimal (Debian users may find this at `/usr/share/doc/offlineimap/examples/offlineimap.conf.minimal`) that provides you with the bare minimum of setting up OfflineIMAP.  You can simply copy this file into your home directory and name it `.offlineimaprc`.  A command such as `cp offlineimap.conf.minimal ~/.offlineimaprc` will do it.  Or, if you prefer, you can just copy this text to `~/.offlineimaprc`:
 
     [general]
     accounts = Test

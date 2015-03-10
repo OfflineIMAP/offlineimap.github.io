@@ -25,6 +25,3 @@ excerpt_separator: <!--more-->
 collections:
   doc:
     output: true
-
-link:
-  mailing_list_archives: http://dir.gmane.org/gmane.mail.imap.offlineimap.general

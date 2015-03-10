@@ -2,17 +2,15 @@
 layout: page
 title: Installation
 ---
+{% assign links = site.data.links %}
 
-[offlineimap]: https://github.com/OfflineIMAP/offlineimap
-[repository]: git://github.com/OfflineIMAP/offlineimap.git
-[downloads]: https://github.com/OfflineIMAP/offlineimap/tags
 
 * Junk
 {:toc}
 
 ## Prerequisites
 
-In order to use [OfflineIMAP][offlineimap], you need to have these conditions satisfied:
+In order to use [OfflineIMAP]({{ links.offlineimap }}), you need to have these conditions satisfied:
 
 1. Your mail server must support **IMAP**. Mail access via POP is not
    supported. A special Gmail mailbox type is available to interface
@@ -54,7 +52,7 @@ BSD distributions.
 {: #ball}
 ### Installation from tarball or zipball
 
-Download the latest archive from the [download page][downloads].
+Download the latest archive from the [download page]({{ links.downloads }}).
 
 Unpack and continue with the [system-wide](#system-wide) or [single-user](#single-user) installation.
 
@@ -62,10 +60,10 @@ Unpack and continue with the [system-wide](#system-wide) or [single-user](#singl
 {: #git}
 ### Installation with git
 
-Get your own copy of the official git repository.
+Get your own copy of the [official git repository]({{ links.repository }}).
 
 {% highlight bash %}
-$ git clone https://github.com/OfflineIMAP/offlineimap.git
+$ git clone {{ links.repository }}
 {% endhighlight %}
 
 This will download the source with history. By default, git sets up the

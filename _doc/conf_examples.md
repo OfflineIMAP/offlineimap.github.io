@@ -37,15 +37,15 @@ Finally, add these lines to your `~/.muttrc`:
     spoolfile=+Personal/INBOX
 
 
-That's it!
+> That's it!
 
 
 ## UW-IMAPD and References
 
 Some users with a UW-IMAPD server need to use OfflineIMAP's "reference" feature
 to get at their mailboxes, specifying a reference of `~/Mail` or `#mh/`
-depending on the configuration.  The below configuration from (originally from
-docwhat@gerf.org) shows using a reference of Mail, a `nametrans` that strips the
+depending on the configuration.  The below configuration (originally from
+*docwhat@gerf.org*) shows using a reference of Mail, a `nametrans` that strips the
 leading `Mail/` off incoming folder names, and a `folderfilter` that limits the
 folders synced to just three:
 

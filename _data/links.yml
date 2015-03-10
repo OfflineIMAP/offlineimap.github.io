@@ -1,0 +1,17 @@
+#
+# Factorize most used links.
+#
+# Put
+#   {% assign links = site.data.links %}
+# after the Front Matter to reduce the variable size.
+#
+
+offlineimap: 'https://github.com/OfflineIMAP/offlineimap'
+repository: 'https://github.com/OfflineIMAP/offlineimap.git'
+downloads: 'https://github.com/OfflineIMAP/offlineimap/tags'
+
+contributing: 'https://github.com/OfflineIMAP/offlineimap/blob/next/CONTRIBUTING.rst'
+
+mailing_list_archives: 'http://dir.gmane.org/gmane.mail.imap.offlineimap.general'
+mailing_list_address: mailto:offlineimap-project@lists.alioth.debian.org
+mailing_list_subscribe: 'http://lists.alioth.debian.org/mailman/listinfo/offlineimap-project'

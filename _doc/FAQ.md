@@ -2,18 +2,17 @@
 layout: page
 title: Frequently Asked Questions
 ---
+{% assign links = site.data.links %}
+
 <!--
 
 NOTE TO CONTRIBUTORS: Please add new questions to the correct section.
 
 -->
 
-[mailinglist]: http://TODO
-[contributing]: https://github.com/OfflineIMAP/offlineimap/blob/next/CONTRIBUTING.rst
-[offlineimap]: https://github.com/OfflineIMAP/offlineimap
 
+If you don't get hints here, feel free to ask in our [mailing list]({{ links.mailing_list_address }}) or search in [the archives]({{ links.mailing_list_archives }}).
 
-If you don't get hints here, feel free to ask in our [mailing list][mailinglist].
 
 * This text will be scraped and stands here to generate the TOC.
 {:toc}
@@ -24,7 +23,7 @@ Most recent [FAQ]({{ site.base }}/doc/FAQ.html).
 
 ### Where do I get OfflineIMAP?
 
-See the information at the [Homepage][offlineimap].
+See the information at the [Homepage]({{ links.offlineimap }}).
 
 
 ### How fast is it?
@@ -362,7 +361,7 @@ The choice is up to you. :-)
 
 ### How to submit a patch?
 
-Read [Contributing][contributing].
+Read [Contributing]({{ links.contributing }}).
 
 <!--
 vim : ts=2 expandtab :

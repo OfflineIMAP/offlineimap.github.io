@@ -1,26 +1,35 @@
+#
 # Site settings
+#
+
+version: 0.9
+
 title: OfflineIMAP community's website
 email: offlineimap-project@lists.alioth.debian.org
+baseurl: "" # the subpath of your site, e.g. /blog/
+url: "http://offlineimap.github.io"
 description: > # this means to ignore newlines until "baseurl:"
   OfflineIMAP community's website.
   Generated from the official repository, branch gh-pages.
   Powered by Jekyll.
-baseurl: "" # the subpath of your site, e.g. /blog/
-url: "http://offlineimap.github.io"
 
+#
+# Build settings
+#
 highlighter: pygments
 github: [Repository metadata]
 paginate: 10
 
-github_username: OfflineIMAP
-
-# Build settings
 markdown: kramdown
 kramdown:
   input: GFM
 
+#
 # Posts
+#
 excerpt_separator: <!--more-->
+
+github_username: OfflineIMAP
 
 collections:
   doc:

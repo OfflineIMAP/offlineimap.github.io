@@ -12,8 +12,15 @@ title: Documentation
 
 - [Features]({{ site.base }}/doc/features.html) *(old)*
 
-## Developers documentation
+## Developer documentation
 
+<ul>
+  {% for version in site.data.versions %}
+  <li>
+    <a href="{{ site.base }}/doc/versions/{{ version }}">{{ version }}</a>
+  </li>
+  {% endfor %}
+</ul>
 
 <!-- DEBUG
 
@@ -21,4 +28,8 @@ title: Documentation
 {{ doc.title }}: {{ doc.url }}
 {% endfor %}
 
+-->
+
+<!--
+vim: ts=2 expandtab
 -->

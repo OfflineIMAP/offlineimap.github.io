@@ -8,7 +8,6 @@ title: Documentation
 
 - [Installation]({{ site.base }}/doc/installation.html)
 - [Quick Start]({{ site.base }}/doc/quick_start.html)
-- [Manual]({{ links.offlineimap }}/blob/master/docs/MANUAL.rst) *(at Github)*
 - [Configuration Examples]({{ site.base }}/doc/conf_examples.html)
 - [Frequently Ask Questions]({{ site.base }}/doc/FAQ.html)
 

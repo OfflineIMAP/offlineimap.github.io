@@ -10,7 +10,7 @@ I've started a new website. Let us know your feedbacks!
 
 <!--more-->
 
-It's is done with the Github gh-pages, powered by Jeykyll behind the hood.
+It's is done with the [Github pages](https://github.com/OfflineIMAP/offlineimap.github.io) and is powered by Jeykyll behind the hood.
 
 ### Why a new website? ###
 
@@ -20,8 +20,8 @@ I hope this will allow more contributions from our community.
 Also, I think this is a good opportunity to rewrite parts of the documentation
 which tend to be fragmented and badly structured.
 
-So, the big change is that it's made *open*, *static* and *easy*. Refer to the
-[About page]({{ site.baseurl }}/about) for more detailed information.
+So, the big change is that it's made **open**, **static** and **easy**. Refer to the
+[About]({{ site.baseurl }}/about) page for more detailed information.
 
 <!--
 vim: ts=2 expandtab :

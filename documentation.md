@@ -16,7 +16,13 @@ title: Documentation
 
 ## Advanced
 
-- [filtering and nametrans]({{ site.base }}/doc/nametrans.html)
+- [Folder filtering and nametrans]({{ site.base }}/doc/nametrans.html)
+- [Some real use cases]({{ site.base }}/doc/use_cases.html)
+
+## Changelogs
+
+- [Changelog of mainline]({{ site.base }}/doc/Changelog.html) *(active branch, recommended)*
+- [Changelog of stable branch]({{ site.base }}/doc/Changelog.maint.html) *(previous branch, deprecated)*
 
 ## Developer documentation
 

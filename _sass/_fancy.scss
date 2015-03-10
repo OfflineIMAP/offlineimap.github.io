@@ -1,0 +1,25 @@
+// vim: ts=4 expandtab :
+
+@mixin fancy {
+    margin-left: 10px;
+    margin-right: 10px;
+    padding: 10px 20px 10px 20px;
+}
+
+@mixin fancytext {
+    @include fancy;
+    border: 1px solid;
+    border-radius: 5px;
+}
+
+.warning {
+    @include fancytext;
+    border-color: #f66;
+    background-color: #ffe4e4;
+}
+
+.note {
+    @include fancytext;
+    border-color: #ccc;
+    background-color: #eee;
+}

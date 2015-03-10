@@ -38,6 +38,10 @@ Make your changes and sumbit them to the maintainers, as for usual patches.
 
 *TODO*
 
+### Highlight
+
+Highlight is made with [pygments](http://pygments.org/docs/quickstart).
+
 
 ## About Jekyll
 

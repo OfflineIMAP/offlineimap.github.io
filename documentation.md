@@ -14,6 +14,10 @@ title: Documentation
 
 - [Features]({{ site.base }}/doc/features.html) *(old)*
 
+## Advanced
+
+- [filtering and nametrans]({{ site.base }}/doc/nametrans.html)
+
 ## Developer documentation
 
 Available sphinx documentation:

@@ -1,0 +1,245 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>The offlineimap ‘binary’ command line options &mdash; OfflineImap 6.5.6.1 documentation</title>
+    
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '6.5.6.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="OfflineImap 6.5.6.1 documentation" href="index.html" />
+    <link rel="next" title="1   OfflineIMAP FAQ (Frequently Asked Questions)" href="FAQ.html" />
+    <link rel="prev" title="Message filtering" href="advanced_config.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="FAQ.html" title="1   OfflineIMAP FAQ (Frequently Asked Questions)"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="advanced_config.html" title="Message filtering"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">OfflineImap 6.5.6.1 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="the-offlineimap-binary-command-line-options">
+<h1>The offlineimap &#8216;binary&#8217; command line options<a class="headerlink" href="#the-offlineimap-binary-command-line-options" title="Permalink to this headline">¶</a></h1>
+<p>Offlineimap is invoked with the following pattern: <cite>offlineimap [args...]</cite>.</p>
+<p>Where [args...] are as follows:</p>
+<dl class="docutils">
+<dt>Options:</dt>
+<dd><table class="first docutils option-list" frame="void" rules="none">
+<col class="option" />
+<col class="description" />
+<tbody valign="top">
+<tr><td class="option-group">
+<kbd><span class="option">--dry-run</span></kbd></td>
+<td>This mode protects us from performing any actual action.
+It will not precisely give the exact information what
+will happen. If e.g. it would need to create a folder,
+it merely outputs &#8220;Would create folder X&#8221;, but not how
+many and which mails it would transfer.</td></tr>
+<tr><td class="option-group">
+<kbd><span class="option">--info</span></kbd></td>
+<td>Output information on the configured email
+repositories. Useful for debugging and bug reporting.
+Use in conjunction with the -a option to limit the
+output to a single account.</td></tr>
+<tr><td class="option-group">
+<kbd><span class="option">--version</span></kbd></td>
+<td>show program&#8217;s version number and exit</td></tr>
+<tr><td class="option-group">
+<kbd><span class="option">-h</span>, <span class="option">--help</span></kbd></td>
+<td>show this help message and exit</td></tr>
+<tr><td class="option-group">
+<kbd><span class="option">-1</span></kbd></td>
+<td>Disable all multithreading operations and use solely a
+single-thread sync. This effectively sets the
+maxsyncaccounts and all maxconnections configuration
+file variables to 1.</td></tr>
+<tr><td class="option-group">
+<kbd><span class="option">-P <var>DIR</var></span></kbd></td>
+<td>Sets OfflineIMAP into profile mode. The program will
+create DIR (it must not already exist). As it runs,
+Python profiling information about each thread is
+logged into profiledir. Please note: This option is
+present for debugging and optimization only, and
+should NOT be used unless you have a specific reason
+to do so. It will significantly slow program
+performance, may reduce reliability, and can generate
+huge amounts of  data. This option implies the
+singlethreading option (-1).</td></tr>
+<tr><td class="option-group">
+<kbd><span class="option">-a <var>ACCOUNTS</var></span></kbd></td>
+<td>Overrides the accounts section in the config file.
+Lets you specify a particular account or set of
+accounts to sync without having to edit the config
+file. You might use this to exclude certain accounts,
+or to sync some accounts that you normally prefer not
+to.</td></tr>
+<tr><td class="option-group">
+<kbd><span class="option">-c <var>FILE</var></span></kbd></td>
+<td>Specifies a configuration file to use in lieu of
+~/.offlineimaprc.</td></tr>
+</tbody>
+</table>
+<dl class="docutils">
+<dt>-d type1,[type2...]   Enables debugging for OfflineIMAP.  This is useful if</dt>
+<dd>you are trying to track down a malfunction or figure
+out what is going on under the hood.  I suggest that
+you use this with -1 in order to make the results more
+sensible. This option requires one or more debugtypes,
+separated by commas. These define what exactly  will
+be debugged, and so far include the options: imap,
+thread,maildir or ALL.  The imap option will enable
+IMAP protocol stream and parsing debugging.  Note that
+the output may contain passwords, so take care to
+remove  that from the debugging output before sending
+it to anyone else. The maildir option will enable
+debugging for certain Maildir operations.</dd>
+</dl>
+<table class="docutils option-list" frame="void" rules="none">
+<col class="option" />
+<col class="description" />
+<tbody valign="top">
+<tr><td class="option-group">
+<kbd><span class="option">-l <var>FILE</var></span></kbd></td>
+<td>Log to FILE</td></tr>
+</tbody>
+</table>
+<dl class="docutils">
+<dt>-f folder1,[folder2...]</dt>
+<dd>Only sync the specified folders. The &#8216;folder&#8217;s are the
+<em>untranslated</em> foldernames. This command-line option
+overrides any &#8216;folderfilter&#8217; and &#8216;folderincludes&#8217;
+options in the configuration file.</dd>
+<dt>-k <cite>[section:]option=value</cite></dt>
+<dd>Override configuration file option.  If&#8221;section&#8221; is
+omitted, it defaults to &#8220;general&#8221;.  Any underscores
+&#8220;_&#8221; in the section name are replaced with spaces:
+for instance, to override option &#8220;autorefresh&#8221; in
+the &#8220;[Account Personal]&#8221; section in the config file
+one would use &#8220;-k Account_Personal:autorefresh=30&#8221;.</dd>
+</dl>
+<table class="last docutils option-list" frame="void" rules="none">
+<col class="option" />
+<col class="description" />
+<tbody valign="top">
+<tr><td class="option-group">
+<kbd><span class="option">-o</span></kbd></td>
+<td>Run only once, ignoring any autorefresh setting in the
+configuration file.</td></tr>
+<tr><td class="option-group">
+<kbd><span class="option">-q</span></kbd></td>
+<td>Run only quick synchronizations. Ignore any flag
+updates on IMAP servers.</td></tr>
+<tr><td class="option-group">
+<kbd><span class="option">-u <var>INTERFACE</var></span></kbd></td>
+<td>Specifies an alternative user interface to use. This
+overrides the default specified in the configuration
+file. The UI specified with -u  will be forced to be
+used, even if checks determine that it is not usable.
+Possible interface choices are: Curses.Blinkenlights,
+TTY.TTYUI, Noninteractive.Basic, Noninteractive.Quiet,
+Machine.MachineUI</td></tr>
+</tbody>
+</table>
+</dd>
+</dl>
+</div>
+<div class="section" id="indices-and-tables">
+<h1>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Permalink to this headline">¶</a></h1>
+<ul class="simple">
+<li><a class="reference internal" href="genindex.html"><em>Index</em></a></li>
+<li><a class="reference internal" href="search.html"><em>Search Page</em></a></li>
+</ul>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">The offlineimap &#8216;binary&#8217; command line options</a></li>
+<li><a class="reference internal" href="#indices-and-tables">Indices and tables</a></li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="advanced_config.html"
+                        title="previous chapter">Message filtering</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="FAQ.html"
+                        title="next chapter">1&nbsp;&nbsp;&nbsp;OfflineIMAP FAQ (Frequently Asked Questions)</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/offlineimap.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="FAQ.html" title="1   OfflineIMAP FAQ (Frequently Asked Questions)"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="advanced_config.html" title="Message filtering"
+             >previous</a> |</li>
+        <li><a href="index.html">OfflineImap 6.5.6.1 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2002-2010, John Goerzen.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.
+    </div>
+  </body>
+</html>

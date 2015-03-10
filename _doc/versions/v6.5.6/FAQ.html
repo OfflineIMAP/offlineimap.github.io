@@ -1,0 +1,679 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>1   OfflineIMAP FAQ (Frequently Asked Questions) &mdash; OfflineImap 6.5.6.1 documentation</title>
+    
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '6.5.6.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="OfflineImap 6.5.6.1 documentation" href="index.html" />
+    <link rel="next" title="Hacking OfflineIMAP" href="HACKING.html" />
+    <link rel="prev" title="The offlineimap ‘binary’ command line options" href="offlineimap.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="HACKING.html" title="Hacking OfflineIMAP"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="offlineimap.html" title="The offlineimap ‘binary’ command line options"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">OfflineImap 6.5.6.1 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="offlineimap-faq-frequently-asked-questions">
+<h1><a class="toc-backref" href="#id2">1&nbsp;&nbsp;&nbsp;OfflineIMAP FAQ (Frequently Asked Questions)</a><a class="headerlink" href="#offlineimap-faq-frequently-asked-questions" title="Permalink to this headline">¶</a></h1>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Web site:</th><td class="field-body"><a class="reference external" href="https://github.com/nicolas33/offlineimap">https://github.com/nicolas33/offlineimap</a></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Copyright:</th><td class="field-body">This document is licensed under GPLv2.</td>
+</tr>
+</tbody>
+</table>
+<div class="contents topic" id="contents">
+<p class="topic-title first">Contents</p>
+<ul class="auto-toc simple">
+<li><a class="reference internal" href="#offlineimap-faq-frequently-asked-questions" id="id2">1&nbsp;&nbsp;&nbsp;OfflineIMAP FAQ (Frequently Asked Questions)</a><ul class="auto-toc">
+<li><a class="reference internal" href="#id1" id="id3">1.1&nbsp;&nbsp;&nbsp;OfflineIMAP</a><ul class="auto-toc">
+<li><a class="reference internal" href="#where-do-i-get-offlineimap" id="id4">1.1.1&nbsp;&nbsp;&nbsp;Where do I get OfflineIMAP?</a></li>
+<li><a class="reference internal" href="#how-fast-is-it" id="id5">1.1.2&nbsp;&nbsp;&nbsp;How fast is it?</a></li>
+<li><a class="reference internal" href="#what-platforms-does-offlineimap-support" id="id6">1.1.3&nbsp;&nbsp;&nbsp;What platforms does OfflineIMAP support?</a></li>
+<li><a class="reference internal" href="#does-offlineimap-supports-xdg-base-directory-specification" id="id7">1.1.4&nbsp;&nbsp;&nbsp;Does OfflineIMAP supports XDG Base Directory specification?</a></li>
+<li><a class="reference internal" href="#does-offlineimap-support-mbox-mh-or-anything-else-other-than-maildir" id="id8">1.1.5&nbsp;&nbsp;&nbsp;Does OfflineIMAP support mbox, mh, or anything else other than Maildir?</a></li>
+<li><a class="reference internal" href="#what-is-the-uid-validity-problem-for-folder" id="id9">1.1.6&nbsp;&nbsp;&nbsp;What is the UID validity problem for folder?</a></li>
+<li><a class="reference internal" href="#how-do-i-automatically-delete-a-folder" id="id10">1.1.7&nbsp;&nbsp;&nbsp;How do I automatically delete a folder?</a></li>
+<li><a class="reference internal" href="#may-i-delete-local-folders" id="id11">1.1.8&nbsp;&nbsp;&nbsp;May I delete local folders?</a></li>
+<li><a class="reference internal" href="#can-i-run-multiple-instances" id="id12">1.1.9&nbsp;&nbsp;&nbsp;Can I run multiple instances?</a></li>
+<li><a class="reference internal" href="#can-i-copy-messages-between-folders" id="id13">1.1.10&nbsp;&nbsp;&nbsp;Can I copy messages between folders?</a></li>
+<li><a class="reference internal" href="#does-offlineimap-support-pop" id="id14">1.1.11&nbsp;&nbsp;&nbsp;Does OfflineIMAP support POP?</a></li>
+<li><a class="reference internal" href="#how-is-offlineimap-conformance" id="id15">1.1.12&nbsp;&nbsp;&nbsp;How is OfflineIMAP conformance?</a></li>
+<li><a class="reference internal" href="#can-i-force-offlineimap-to-sync-a-folder-right-now" id="id16">1.1.13&nbsp;&nbsp;&nbsp;Can I force OfflineIMAP to sync a folder right now?</a></li>
+<li><a class="reference internal" href="#i-get-a-mailbox-already-exists-error" id="id17">1.1.14&nbsp;&nbsp;&nbsp;I get a &#8220;Mailbox already exists&#8221; error</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#configuration-questions" id="id18">1.2&nbsp;&nbsp;&nbsp;Configuration Questions</a><ul class="auto-toc">
+<li><a class="reference internal" href="#can-i-synchronize-multiple-accounts-with-offlineimap" id="id19">1.2.1&nbsp;&nbsp;&nbsp;Can I synchronize multiple accounts with OfflineIMAP?</a></li>
+<li><a class="reference internal" href="#how-do-i-specify-the-names-of-folders" id="id20">1.2.2&nbsp;&nbsp;&nbsp;How do I specify the names of folders?</a></li>
+<li><a class="reference internal" href="#how-do-i-prevent-certain-folders-from-being-synced" id="id21">1.2.3&nbsp;&nbsp;&nbsp;How do I prevent certain folders from being synced?</a></li>
+<li><a class="reference internal" href="#what-is-the-mailbox-name-recorder-mbnames-for" id="id22">1.2.4&nbsp;&nbsp;&nbsp;What is the mailbox name recorder (mbnames) for?</a></li>
+<li><a class="reference internal" href="#does-offlineimap-verify-ssl-certificates" id="id23">1.2.5&nbsp;&nbsp;&nbsp;Does OfflineIMAP verify SSL certificates?</a></li>
+<li><a class="reference internal" href="#how-do-i-generate-an-sslcacertfile-file" id="id24">1.2.6&nbsp;&nbsp;&nbsp;How do I generate an <cite>sslcacertfile</cite> file?</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#imap-server-notes" id="id25">1.3&nbsp;&nbsp;&nbsp;IMAP Server Notes</a></li>
+<li><a class="reference internal" href="#client-notes" id="id26">1.4&nbsp;&nbsp;&nbsp;Client Notes</a><ul class="auto-toc">
+<li><a class="reference internal" href="#what-clients-does-offlineimap-work-with" id="id27">1.4.1&nbsp;&nbsp;&nbsp;What clients does OfflineIMAP work with?</a></li>
+<li><a class="reference internal" href="#evolution" id="id28">1.4.2&nbsp;&nbsp;&nbsp;Evolution</a></li>
+<li><a class="reference internal" href="#kmail" id="id29">1.4.3&nbsp;&nbsp;&nbsp;KMail</a></li>
+<li><a class="reference internal" href="#mutt" id="id30">1.4.4&nbsp;&nbsp;&nbsp;Mutt</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#miscellaneous-questions" id="id31">1.5&nbsp;&nbsp;&nbsp;Miscellaneous Questions</a><ul class="auto-toc">
+<li><a class="reference internal" href="#i-m-using-git-to-install-offlineimap-and-found-these-branches-called-master-maint-next-pu-and-gh-pages-what-are-they" id="id32">1.5.1&nbsp;&nbsp;&nbsp;I&#8217;m using git to install OfflineIMAP and found these branches called &#8220;master&#8221;, &#8220;maint&#8221;, &#8220;next&#8221;, &#8220;pu&#8221; and &#8220;gh-pages&#8221;. What are they?</a></li>
+<li><a class="reference internal" href="#why-are-your-maildir-message-filenames-so-long" id="id33">1.5.2&nbsp;&nbsp;&nbsp;Why are your Maildir message filenames so long?</a></li>
+<li><a class="reference internal" href="#what-can-i-do-to-ensure-offlineimap-is-still-running-and-hasnt-crashed" id="id34">1.5.3&nbsp;&nbsp;&nbsp;What can I do to ensure OfflineIMAP is still running and hasn’t crashed?</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#contributing" id="id35">1.6&nbsp;&nbsp;&nbsp;Contributing</a><ul class="auto-toc">
+<li><a class="reference internal" href="#how-to-test-offlineimap" id="id36">1.6.1&nbsp;&nbsp;&nbsp;How to test OfflineIMAP?</a></li>
+<li><a class="reference internal" href="#how-to-submit-a-patch" id="id37">1.6.2&nbsp;&nbsp;&nbsp;How to submit a patch?</a></li>
+<li><a class="reference internal" href="#where-from-should-my-patches-be-based-on" id="id38">1.6.3&nbsp;&nbsp;&nbsp;Where from should my patches be based on?</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<p>This is a work in progress.</p>
+<p>Please feel free to ask questions and/or provide answers; send email to the
+<a class="reference external" href="http://lists.alioth.debian.org/mailman/listinfo/offlineimap-project">mailing list</a>.</p>
+<div class="section" id="id1">
+<h2><a class="toc-backref" href="#id3">1.1&nbsp;&nbsp;&nbsp;OfflineIMAP</a><a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="where-do-i-get-offlineimap">
+<h3><a class="toc-backref" href="#id4">1.1.1&nbsp;&nbsp;&nbsp;Where do I get OfflineIMAP?</a><a class="headerlink" href="#where-do-i-get-offlineimap" title="Permalink to this headline">¶</a></h3>
+<p>See the information on the Home page <a class="reference external" href="https://github.com/nicolas33/offlineimap">OfflineIMAP</a>.</p>
+</div>
+<div class="section" id="how-fast-is-it">
+<h3><a class="toc-backref" href="#id5">1.1.2&nbsp;&nbsp;&nbsp;How fast is it?</a><a class="headerlink" href="#how-fast-is-it" title="Permalink to this headline">¶</a></h3>
+<p>OfflineIMAP has a multithreaded sync, so it should have very nice performance.</p>
+<p>OfflineIMAP versions 2.0 and above contain a multithreaded system. A good way
+to experiment is by setting maxsyncaccounts to 3 and maxconnections to 3 in
+each account clause.</p>
+<p>This lets OfflineIMAP open up multiple connections simultaneously. That will
+let it process multiple folders and messages at once. In most cases, this will
+increase performance of the sync.</p>
+<p>Don’t set the number too high. If you do that, things might actually slow down
+as your link gets saturated. Also, too many connections can cause mail servers
+to have excessive load. Administrators might take unkindly to this, and the
+server might bog down. There are many variables in the optimal setting; experimentation may help.</p>
+<p>See the Performance section in the MANUAL for some tips.</p>
+</div>
+<div class="section" id="what-platforms-does-offlineimap-support">
+<h3><a class="toc-backref" href="#id6">1.1.3&nbsp;&nbsp;&nbsp;What platforms does OfflineIMAP support?</a><a class="headerlink" href="#what-platforms-does-offlineimap-support" title="Permalink to this headline">¶</a></h3>
+<p>It should run on most platforms supported by Python, with one exception: we do not support Windows, but some have made it work there.</p>
+<p>The following has been reported by OfflineIMAP users. We do not test
+OfflineIMAP on Windows, so we can’t directly address their accuracy.</p>
+<p>The basic answer is that it’s possible and doesn’t require hacking OfflineIMAP
+source code. However, it’s not necessarily trivial. The information below is
+based in instructions submitted by Chris Walker:</p>
+<div class="highlight-python"><div class="highlight"><pre>First, you must run OfflineIMAP in the Cygwin environment. The Windows
+filesystem is not powerful enough to accomodate Maildir by itself.
+
+Next, you’ll need to mount your Maildir directory in a special
+way. There is information for doing that at
+http://barnson.org/node/295. That site gives this example::
+
+  mount -f -s -b -o managed &quot;d:/tmp/mail&quot; &quot;/home/of/mail&quot;
+
+That URL also has more details on making OfflineIMAP work with Windows.
+</pre></div>
+</div>
+</div>
+<div class="section" id="does-offlineimap-supports-xdg-base-directory-specification">
+<h3><a class="toc-backref" href="#id7">1.1.4&nbsp;&nbsp;&nbsp;Does OfflineIMAP supports XDG Base Directory specification?</a><a class="headerlink" href="#does-offlineimap-supports-xdg-base-directory-specification" title="Permalink to this headline">¶</a></h3>
+<p>Yes.  We are trying to use <cite>$XDG_CONFIG_HOME/offlineimap/config</cite>
+as the primary configuration file, falling back to <cite>~/.offlineimaprc</cite>
+if configuration file location was not explicitely specified at the
+command line.</p>
+</div>
+<div class="section" id="does-offlineimap-support-mbox-mh-or-anything-else-other-than-maildir">
+<h3><a class="toc-backref" href="#id8">1.1.5&nbsp;&nbsp;&nbsp;Does OfflineIMAP support mbox, mh, or anything else other than Maildir?</a><a class="headerlink" href="#does-offlineimap-support-mbox-mh-or-anything-else-other-than-maildir" title="Permalink to this headline">¶</a></h3>
+<p>Not directly. Maildir was the easiest to implement. We are not planning
+to write an mbox-backend, though if someone sent me well-written mbox
+support and pledged to support it, it would be committed it to the tree.</p>
+<p>However, OfflineIMAP can directly sync accounts on two different IMAP servers
+together. So you could install an IMAP server on your local machine that
+supports mbox, sync to it, and then instruct your mail readers to use the
+mboxes.</p>
+<p>Or you could install whatever IMAP server you like on the local machine, and
+point your mail readers to that IMAP server on localhost.</p>
+</div>
+<div class="section" id="what-is-the-uid-validity-problem-for-folder">
+<h3><a class="toc-backref" href="#id9">1.1.6&nbsp;&nbsp;&nbsp;What is the UID validity problem for folder?</a><a class="headerlink" href="#what-is-the-uid-validity-problem-for-folder" title="Permalink to this headline">¶</a></h3>
+<p>IMAP servers use a folders UIDVALIDITY value in combination with a
+unique ID (UID) to refer to a specific message.  This is guaranteed to
+be unique to a particular message forever.  No other message in the same
+folder will ever get the same UID as long as UIDVALIDITY remains
+unchanged.  UIDs are an integral part of <a class="reference external" href="https://github.com/nicolas33/offlineimap">OfflineIMAP</a>&#8216;s
+synchronization scheme; they are used to match up messages on your
+computer to messages on the server.</p>
+<p>Sometimes, the UIDs on the server might get reset.  Usually this will
+happen if you delete and then recreate a folder.  When you create a
+folder, the server will often start the UID back from 1.  But
+<a class="reference external" href="https://github.com/nicolas33/offlineimap">OfflineIMAP</a> might still have the UIDs from the previous folder by the
+same name stored.  <a class="reference external" href="https://github.com/nicolas33/offlineimap">OfflineIMAP</a> will detect this condition because of
+the changed UIDVALIDITY value and skip the folder.  This is GOOD,
+because it prevents data loss.</p>
+<p>In the IMAP&lt;-&gt;Maildir case, you can fix it by removing your local folder
+and cache data.  For instance, if your folders are under <cite>~/Folders</cite> and
+the folder with the problem is INBOX, you&#8217;d type this:</p>
+<div class="highlight-python"><div class="highlight"><pre>rm -r ~/Folders/INBOX
+rm -r ~/.offlineimap/Account-AccountName/LocalStatus/INBOX
+rm -r ~/.offlineimap/Repository-RemoteRepositoryName/FolderValidity/INBOX
+</pre></div>
+</div>
+<p>(Of course, replace AccountName and RemoteRepositoryName with the names as
+specified in <cite>~/.offlineimaprc</cite>).</p>
+<p>Next time you run <a class="reference external" href="https://github.com/nicolas33/offlineimap">OfflineIMAP</a>, it will re-download the folder with the new
+UIDs.  Note that the procedure specified above will lose any local changes made
+to the folder.</p>
+<p>Some IMAP servers are broken and do not support UIDs properly.  If you continue
+to get this error for all your folders even after performing the above
+procedure, it is likely that your IMAP server falls into this category.
+<a class="reference external" href="https://github.com/nicolas33/offlineimap">OfflineIMAP</a> is incompatible with such servers.  Using <a class="reference external" href="https://github.com/nicolas33/offlineimap">OfflineIMAP</a> with
+them will not destroy any mail, but at the same time, it will not actually
+synchronize it either.  (<a class="reference external" href="https://github.com/nicolas33/offlineimap">OfflineIMAP</a> will detect this condition and abort
+prior to synchronization.)</p>
+<p>This question comes up frequently on the <a class="reference external" href="http://lists.alioth.debian.org/mailman/listinfo/offlineimap-project">mailing list</a>.  You can find a detailed
+discussion of the problem there
+<a class="reference external" href="http://lists.complete.org/offlineimap&#64;complete.org/2003/04/msg00012.html.gz">http://lists.complete.org/offlineimap&#64;complete.org/2003/04/msg00012.html.gz</a>.</p>
+</div>
+<div class="section" id="how-do-i-automatically-delete-a-folder">
+<h3><a class="toc-backref" href="#id10">1.1.7&nbsp;&nbsp;&nbsp;How do I automatically delete a folder?</a><a class="headerlink" href="#how-do-i-automatically-delete-a-folder" title="Permalink to this headline">¶</a></h3>
+<p>OfflineIMAP does not currently provide this feature. You will have to delete folders manually. See next entry too.</p>
+</div>
+<div class="section" id="may-i-delete-local-folders">
+<h3><a class="toc-backref" href="#id11">1.1.8&nbsp;&nbsp;&nbsp;May I delete local folders?</a><a class="headerlink" href="#may-i-delete-local-folders" title="Permalink to this headline">¶</a></h3>
+<p><a class="reference external" href="https://github.com/nicolas33/offlineimap">OfflineIMAP</a> does a two-way synchronization.  That is, if you make a change
+to the mail on the server, it will be propagated to your local copy, and
+vise-versa.  Some people might think that it would be wise to just delete all
+their local mail folders periodically.  If you do this with <a class="reference external" href="https://github.com/nicolas33/offlineimap">OfflineIMAP</a>,
+remember to also remove your local status cache (<cite>~/.offlineimap</cite> by default).
+Otherwise, <a class="reference external" href="https://github.com/nicolas33/offlineimap">OfflineIMAP</a> will take this as an intentional deletion of many
+messages and will interpret your action as requesting them to be deleted from
+the server as well.  (If you don&#8217;t understand this, don&#8217;t worry; you probably
+won&#8217;t encounter this situation.)</p>
+</div>
+<div class="section" id="can-i-run-multiple-instances">
+<h3><a class="toc-backref" href="#id12">1.1.9&nbsp;&nbsp;&nbsp;Can I run multiple instances?</a><a class="headerlink" href="#can-i-run-multiple-instances" title="Permalink to this headline">¶</a></h3>
+<p><a class="reference external" href="https://github.com/nicolas33/offlineimap">OfflineIMAP</a> is not designed to have several instances (for instance, a cron
+job and an interactive invocation) run over the same mailbox simultaneously.
+It will perform a check on startup and abort if another <a class="reference external" href="https://github.com/nicolas33/offlineimap">OfflineIMAP</a> is
+already running.  If you need to schedule synchronizations, you&#8217;ll probably
+find autorefresh settings more convenient than cron.  Alternatively, you can
+set a separate metadata directory for each instance.
+In the future, we will lock each account individually rather than having one global lock.</p>
+</div>
+<div class="section" id="can-i-copy-messages-between-folders">
+<h3><a class="toc-backref" href="#id13">1.1.10&nbsp;&nbsp;&nbsp;Can I copy messages between folders?</a><a class="headerlink" href="#can-i-copy-messages-between-folders" title="Permalink to this headline">¶</a></h3>
+<p>Normally, when you copy a message between folders or add a new message to a
+folder locally, <a class="reference external" href="https://github.com/nicolas33/offlineimap">OfflineIMAP</a> will just do the right thing.  However,
+sometimes this can be tricky ― if your IMAP server does not provide the SEARCH
+command, or does not return something useful, <a class="reference external" href="https://github.com/nicolas33/offlineimap">OfflineIMAP</a> cannot determine
+the new UID of the message.  So, in these rare instances, OfflineIMAP will
+upload the message to the IMAP server and delete it from your local folder.
+Then, on your next sync, the message will be re-downloaded with the proper UID.
+<a class="reference external" href="https://github.com/nicolas33/offlineimap">OfflineIMAP</a> makes sure that the message was properly uploaded before
+deleting it, so there should be no risk of data loss.</p>
+<p>But if you try to sync between two IMAP servers, where both are unable to
+provide you with UID of the new message, then this will lead to infinite loop.
+<a class="reference external" href="https://github.com/nicolas33/offlineimap">OfflineIMAP</a> will upload the message to one server and delete on second. On
+next run it will upload the message to second server and delete on first, etc.</p>
+</div>
+<div class="section" id="does-offlineimap-support-pop">
+<h3><a class="toc-backref" href="#id14">1.1.11&nbsp;&nbsp;&nbsp;Does OfflineIMAP support POP?</a><a class="headerlink" href="#does-offlineimap-support-pop" title="Permalink to this headline">¶</a></h3>
+<p>No.</p>
+</div>
+<div class="section" id="how-is-offlineimap-conformance">
+<h3><a class="toc-backref" href="#id15">1.1.12&nbsp;&nbsp;&nbsp;How is OfflineIMAP conformance?</a><a class="headerlink" href="#how-is-offlineimap-conformance" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>Internet Message Access Protocol version 4rev1 (IMAP 4rev1) as specified in
+<span class="target" id="index-0"></span><a class="rfc reference external" href="http://tools.ietf.org/html/rfc2060.html"><strong>RFC 2060</strong></a> and <span class="target" id="index-1"></span><a class="rfc reference external" href="http://tools.ietf.org/html/rfc3501.html"><strong>RFC 3501</strong></a></li>
+<li>CRAM-MD5 as specified in <span class="target" id="index-2"></span><a class="rfc reference external" href="http://tools.ietf.org/html/rfc2195.html"><strong>RFC 2195</strong></a></li>
+<li>Maildir as specified in the Maildir manpage and the qmail website</li>
+<li>Standard Python 2.6 as implemented on POSIX-compliant systems</li>
+</ul>
+</div>
+<div class="section" id="can-i-force-offlineimap-to-sync-a-folder-right-now">
+<h3><a class="toc-backref" href="#id16">1.1.13&nbsp;&nbsp;&nbsp;Can I force OfflineIMAP to sync a folder right now?</a><a class="headerlink" href="#can-i-force-offlineimap-to-sync-a-folder-right-now" title="Permalink to this headline">¶</a></h3>
+<p>Yes:</p>
+<p>1) if you use the <cite>Blinkenlights</cite> UI.  That UI shows the active
+accounts as follows:</p>
+<div class="highlight-python"><div class="highlight"><pre>4: [active]      *Control: .
+3: [  4:36]      personal:
+2: [  3:37]          work: .
+1: [  6:28]           uni:
+
+Simply press the appropriate digit (`3` for `personal`, etc.) to
+resync that account immediately.  This will be ignored if a resync is
+already in progress for that account.
+</pre></div>
+</div>
+<ol class="arabic simple" start="2">
+<li>while in sleep mode, you can also send a SIGUSR1. See the <a class="reference internal" href="MANUAL.html#unix-signals"><em>UNIX Signals</em></a> section in the MANUAL for details.</li>
+</ol>
+</div>
+<div class="section" id="i-get-a-mailbox-already-exists-error">
+<h3><a class="toc-backref" href="#id17">1.1.14&nbsp;&nbsp;&nbsp;I get a &#8220;Mailbox already exists&#8221; error</a><a class="headerlink" href="#i-get-a-mailbox-already-exists-error" title="Permalink to this headline">¶</a></h3>
+<p><strong>Q:</strong> When synchronizing, I receive errors such as:</p>
+<div class="highlight-python"><div class="highlight"><pre>Folder &#39;sent&#39;[main-remote] could not be created. Server responded:
+(&#39;NO&#39;, [&#39;Mailbox already exists.&#39;])
+</pre></div>
+</div>
+<dl class="docutils">
+<dt><strong>A:</strong> IMAP folders are usually case sensitive. But some IMAP servers seem</dt>
+<dd><p class="first">to treat &#8220;special&#8221; folders as case insensitive (e.g. the initial
+INBOX. part, or folders such as &#8220;Sent&#8221; or &#8220;Trash&#8221;). If you happen to
+have a folder &#8220;sent&#8221; on one side of things and a folder called &#8220;Sent&#8221;
+on the other side, offlineimap will try to create those folders on
+both sides. If you server happens to treat those folders as
+case-insensitive you can then see this warning.</p>
+<p>You can solve this by excluding the &#8220;sent&#8221; folder by filtering it from
+the repository settings:</p>
+<div class="last highlight-python"><div class="highlight"><pre><span class="n">folderfilter</span><span class="o">=</span> <span class="k">lambda</span> <span class="n">f</span><span class="p">:</span> <span class="n">f</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="s">&#39;sent&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</div>
+</div>
+<div class="section" id="configuration-questions">
+<h2><a class="toc-backref" href="#id18">1.2&nbsp;&nbsp;&nbsp;Configuration Questions</a><a class="headerlink" href="#configuration-questions" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="can-i-synchronize-multiple-accounts-with-offlineimap">
+<h3><a class="toc-backref" href="#id19">1.2.1&nbsp;&nbsp;&nbsp;Can I synchronize multiple accounts with OfflineIMAP?</a><a class="headerlink" href="#can-i-synchronize-multiple-accounts-with-offlineimap" title="Permalink to this headline">¶</a></h3>
+<p>Of course!</p>
+<p>Just name them all in the accounts line in the general section of the
+configuration file, and add a per-account section for each one.</p>
+<p>You can also optionally use the -a option when you run OfflineIMAP to request
+that it only operate upon a subset of the accounts for a particular run.</p>
+</div>
+<div class="section" id="how-do-i-specify-the-names-of-folders">
+<h3><a class="toc-backref" href="#id20">1.2.2&nbsp;&nbsp;&nbsp;How do I specify the names of folders?</a><a class="headerlink" href="#how-do-i-specify-the-names-of-folders" title="Permalink to this headline">¶</a></h3>
+<p>You do not need to. OfflineIMAP is smart enough to automatically figure out
+what folders are present on the IMAP server and synchronize them. You can use
+the folderfilter and nametrans configuration file options to request only
+certain folders and rename them as they come in if you like.</p>
+<p>Also you can configure OfflineImap to only synchronize &#8220;subscribed&#8221; folders.</p>
+</div>
+<div class="section" id="how-do-i-prevent-certain-folders-from-being-synced">
+<h3><a class="toc-backref" href="#id21">1.2.3&nbsp;&nbsp;&nbsp;How do I prevent certain folders from being synced?</a><a class="headerlink" href="#how-do-i-prevent-certain-folders-from-being-synced" title="Permalink to this headline">¶</a></h3>
+<p>Use the folderfilter option. See the MANUAL for details and examples.</p>
+</div>
+<div class="section" id="what-is-the-mailbox-name-recorder-mbnames-for">
+<h3><a class="toc-backref" href="#id22">1.2.4&nbsp;&nbsp;&nbsp;What is the mailbox name recorder (mbnames) for?</a><a class="headerlink" href="#what-is-the-mailbox-name-recorder-mbnames-for" title="Permalink to this headline">¶</a></h3>
+<p>Some mail readers, such as mutt, are not capable of automatically determining the names of your mailboxes. OfflineIMAP can help these programs by writing the names of the folders in a format you specify. See the example offlineimap.conf for details.</p>
+</div>
+<div class="section" id="does-offlineimap-verify-ssl-certificates">
+<h3><a class="toc-backref" href="#id23">1.2.5&nbsp;&nbsp;&nbsp;Does OfflineIMAP verify SSL certificates?</a><a class="headerlink" href="#does-offlineimap-verify-ssl-certificates" title="Permalink to this headline">¶</a></h3>
+<p>You can verify an imapserver&#8217;s certificate by specifying the CA
+certificate on a per-repository basis by setting the <cite>sslcacertfile</cite>
+option in the config file. (See the example offlineimap.conf for
+details.) If you do not specify any CA certificate, you will be presented with the server&#8217;s certificate fingerprint and add that to the configuration file, to make sure it remains unchanged.
+No verification happens if connecting via STARTTLS.</p>
+</div>
+<div class="section" id="how-do-i-generate-an-sslcacertfile-file">
+<h3><a class="toc-backref" href="#id24">1.2.6&nbsp;&nbsp;&nbsp;How do I generate an <cite>sslcacertfile</cite> file?</a><a class="headerlink" href="#how-do-i-generate-an-sslcacertfile-file" title="Permalink to this headline">¶</a></h3>
+<p>The <cite>sslcacertfile</cite> file must contain an SSL certificate (or a concatenated
+certificates chain) in PEM format.  (See the documentation of
+<a class="reference external" href="http://docs.python.org/library/ssl.html#ssl.wrap_socket">ssl.wrap_socket</a>&#8216;s <cite>certfile</cite> parameter for the gory details.)  You can use either openssl or gnutls to create a certificate file in the required format.</p>
+<ol class="arabic">
+<li><p class="first">via openssl:</p>
+<div class="highlight-python"><div class="highlight"><pre>openssl s_client -CApath /etc/ssl/certs -connect ${hostname}:imaps -showcerts \
+   | perl -ne &#39;print if /BEGIN/../END/; print STDERR if /return/&#39; &gt; $sslcacertfile
+^D
+</pre></div>
+</div>
+</li>
+<li><dl class="first docutils">
+<dt>via gnutls::</dt>
+<dd><p class="first last">gnutls-cli &#8211;print-cert -p imaps ${host} &lt;/dev/null | sed -n |     &#8216;/^&#8212;&#8211;BEGIN CERT/,/^&#8212;&#8211;END CERT/p&#8217; &gt; $sslcacertfile</p>
+</dd>
+</dl>
+</li>
+</ol>
+<p>The path <cite>/etc/ssl/certs</cite> is not standardized; your system may store
+SSL certificates elsewhere.  (On some systems it may be in
+<cite>/usr/local/share/certs/</cite>.)</p>
+<p>Before using the resulting file, ensure that openssl verified the certificate
+successfully. In case of problems, you can test the certificate using a command such as (credits to Daniel Shahaf for this) to verify the certificate:</p>
+<div class="highlight-python"><div class="highlight"><pre>% openssl s_client -CAfile $sslcacertfile -connect ${hostname}:imaps 2&gt;&amp;1 &lt;/dev/null
+</pre></div>
+</div>
+<p>If the server uses STARTTLS, pass the -starttls option and the &#8216;imap&#8217; port.</p>
+<dl class="docutils">
+<dt>Also, you can test using gnutls::</dt>
+<dd>gnutls-cli &#8211;x509cafile certs/mail.mydomain.eu.cert -p 993 mail.mydomain.eu</dd>
+</dl>
+</div>
+</div>
+<div class="section" id="imap-server-notes">
+<h2><a class="toc-backref" href="#id25">1.3&nbsp;&nbsp;&nbsp;IMAP Server Notes</a><a class="headerlink" href="#imap-server-notes" title="Permalink to this headline">¶</a></h2>
+<p>In general, OfflineIMAP works with any IMAP server that provides compatibility
+with the IMAP RFCs. Some servers provide imperfect compatibility that may be
+good enough for general clients. OfflineIMAP needs more features, specifically
+support for UIDs, in order to do its job accurately and completely.</p>
+</div>
+<div class="section" id="client-notes">
+<h2><a class="toc-backref" href="#id26">1.4&nbsp;&nbsp;&nbsp;Client Notes</a><a class="headerlink" href="#client-notes" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="what-clients-does-offlineimap-work-with">
+<h3><a class="toc-backref" href="#id27">1.4.1&nbsp;&nbsp;&nbsp;What clients does OfflineIMAP work with?</a><a class="headerlink" href="#what-clients-does-offlineimap-work-with" title="Permalink to this headline">¶</a></h3>
+<p>Any client that supports Maildir. Popular ones include mutt, Evolution and
+KMail. Thunderbird does not have maildir suppport.</p>
+<p>With OfflineIMAP’s IMAP-to-IMAP syncing, this can be even wider; see the next
+question.</p>
+</div>
+<div class="section" id="evolution">
+<h3><a class="toc-backref" href="#id28">1.4.2&nbsp;&nbsp;&nbsp;Evolution</a><a class="headerlink" href="#evolution" title="Permalink to this headline">¶</a></h3>
+<p>OfflineIMAP can work with Evolution. To do so, first configure your OfflineIMAP
+account to have sep = / in its configuration. Then, configure Evolution with
+the “Maildir-format mail directories” server type. For the path, you will need
+to specify the name of the top-level folder inside your OfflineIMAP storage
+location. You’re now set!</p>
+</div>
+<div class="section" id="kmail">
+<h3><a class="toc-backref" href="#id29">1.4.3&nbsp;&nbsp;&nbsp;KMail</a><a class="headerlink" href="#kmail" title="Permalink to this headline">¶</a></h3>
+<p>At this time, I believe that OfflineIMAP with Maildirs is not compatible with
+KMail. KMail cannot work in any mode other than to move all messages out of all
+folders immediately, which (besides being annoying and fundamentally broken) is
+incompatible with OfflineIMAP.</p>
+<p>However, I have made KMail version 3 work well with OfflineIMAP by installing
+an IMAP server on my local machine, having OfflineIMAP sync to that, and
+pointing KMail at the same server.</p>
+<p>Another way to see mails downloaded with offlineimap in KMail (KDE4) is to
+create a local folder (e.g. Backup) and then use <tt class="docutils literal"><span class="pre">ln</span> <span class="pre">-s</span>
+<span class="pre">localfolders_in_offlineimaprc</span> <span class="pre">~/.kde/share/apps/kmail/mail/.Backup.directory</span></tt>.
+Maybe you have to rebuild the index of the new folder. Works well with KMail
+1.11.4 (KDE4.x), offlineimap 6.1.2 and ArchLinux and sep = / in .offlineimaprc.</p>
+</div>
+<div class="section" id="mutt">
+<h3><a class="toc-backref" href="#id30">1.4.4&nbsp;&nbsp;&nbsp;Mutt</a><a class="headerlink" href="#mutt" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>Do I need to use set maildir_trash?</li>
+</ul>
+<p>Other IMAP sync programs require you to do this. OfflineIMAP does not. You’ll
+get the best results without it, in fact, though turning it on won’t hurt
+anything.</p>
+<ul class="simple">
+<li>How do I set up mbnames with mutt?</li>
+</ul>
+<p>The example offlineimap.conf file has this example. In your offlineimap.conf,
+you’ll list this:</p>
+<div class="highlight-python"><div class="highlight"><pre>[mbnames]
+enabled = yes
+filename = ~/Mutt/muttrc.mailboxes
+header = &quot;mailboxes &quot;
+peritem = &quot;+%(accountname)s/%(foldername)s&quot;
+sep = &quot; &quot;
+footer = &quot;\n&quot;
+</pre></div>
+</div>
+<p>Then in your <tt class="docutils literal"><span class="pre">.muttrc</span></tt>:</p>
+<div class="highlight-python"><div class="highlight"><pre>source ~/Mutt/muttrc.mailboxes
+</pre></div>
+</div>
+<p>You might also want to set:</p>
+<div class="highlight-python"><div class="highlight"><pre>set mbox_type=Maildir
+set folder=$HOME/Maildirpath
+</pre></div>
+</div>
+<p>The OfflineIMAP manual has a more detailed example for doing this for multiple
+accounts.</p>
+</div>
+</div>
+<div class="section" id="miscellaneous-questions">
+<h2><a class="toc-backref" href="#id31">1.5&nbsp;&nbsp;&nbsp;Miscellaneous Questions</a><a class="headerlink" href="#miscellaneous-questions" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="i-m-using-git-to-install-offlineimap-and-found-these-branches-called-master-maint-next-pu-and-gh-pages-what-are-they">
+<h3><a class="toc-backref" href="#id32">1.5.1&nbsp;&nbsp;&nbsp;I&#8217;m using git to install OfflineIMAP and found these branches called &#8220;master&#8221;, &#8220;maint&#8221;, &#8220;next&#8221;, &#8220;pu&#8221; and &#8220;gh-pages&#8221;. What are they?</a><a class="headerlink" href="#i-m-using-git-to-install-offlineimap-and-found-these-branches-called-master-maint-next-pu-and-gh-pages-what-are-they" title="Permalink to this headline">¶</a></h3>
+<p>To be brief:</p>
+<ul class="simple">
+<li><strong>gh-pages</strong>: branch used to maintain the home page at github.</li>
+<li><strong>master</strong>: classical mainline branch.</li>
+<li><strong>next</strong>: this is the branch for recent merged patches. Used for testing OfflineIMAP.</li>
+<li><strong>pu</strong> (&#8220;proposed updates&#8221;): patches not ready for inclusion. This should <strong>never</strong> be checkouted!</li>
+<li><strong>maint</strong>: our long-living maintenance branch. We maintain this branch
+(security and bugfixes) for users who don&#8217;t want or can&#8217;t upgrade to the
+latest release.</li>
+</ul>
+<p>For more information about the branching model and workflow, see the HACKING page.</p>
+</div>
+<div class="section" id="why-are-your-maildir-message-filenames-so-long">
+<h3><a class="toc-backref" href="#id33">1.5.2&nbsp;&nbsp;&nbsp;Why are your Maildir message filenames so long?</a><a class="headerlink" href="#why-are-your-maildir-message-filenames-so-long" title="Permalink to this headline">¶</a></h3>
+<p>OfflineIMAP has two relevant principles: 1) never modifying your messages in
+any way and 2) ensuring 100% reliable synchronizations. In order to do a
+reliable sync, OfflineIMAP must have a way to uniquely identify each e-mail.
+Three pieces of information are required to do this: your account name, the
+folder name, and the message UID. The account name can be calculated from the
+path in which your messages are. The folder name can usually be as well, BUT
+some mail clients move messages between folders by simply moving the file,
+leaving the name intact.</p>
+<p>So, OfflineIMAP must store both a message UID and a folder ID. The
+folder ID is necessary so OfflineIMAP can detect a message being moved
+to a different folder. OfflineIMAP stores the UID (U= number) and an
+md5sum of the foldername (FMD5= number) to facilitate this.</p>
+</div>
+<div class="section" id="what-can-i-do-to-ensure-offlineimap-is-still-running-and-hasnt-crashed">
+<h3><a class="toc-backref" href="#id34">1.5.3&nbsp;&nbsp;&nbsp;What can I do to ensure OfflineIMAP is still running and hasn’t crashed?</a><a class="headerlink" href="#what-can-i-do-to-ensure-offlineimap-is-still-running-and-hasnt-crashed" title="Permalink to this headline">¶</a></h3>
+<p>This shell script will restart OfflineIMAP if it has crashed. Sorry, its
+written in Korn, so you’ll need ksh, pdksh, or mksh to run it:</p>
+<div class="highlight-python"><div class="highlight"><pre>#!/bin/ksh
+# remove any old instances of this shell script or offlineimap
+for pid in $(pgrep offlineimap)
+do
+  if  $pid -ne $$
+  then
+    kill $pid
+  fi
+done
+
+# wait for compiz (or whatever) to start and setup wifi
+sleep 20
+# If offlineimap exits, restart it
+while true
+do
+  ( exec /usr/bin/offlineimap -u Noninteractive.Quiet )
+  sleep 60 # prevents extended failure condition
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="contributing">
+<h2><a class="toc-backref" href="#id35">1.6&nbsp;&nbsp;&nbsp;Contributing</a><a class="headerlink" href="#contributing" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="how-to-test-offlineimap">
+<h3><a class="toc-backref" href="#id36">1.6.1&nbsp;&nbsp;&nbsp;How to test OfflineIMAP?</a><a class="headerlink" href="#how-to-test-offlineimap" title="Permalink to this headline">¶</a></h3>
+<p>We don&#8217;t have a testing tool, for now. As a IMAP client, we need an available
+IMAP server for that purpose. But it doesn&#8217;t mean you can do anything.</p>
+<p>Recent patches are merged in the next branch before beeing in the mainline. Once
+you have your own copy of the official repository, track this next branch:</p>
+<div class="highlight-python"><div class="highlight"><pre>git checkout -t origin/next
+</pre></div>
+</div>
+<p>Update this branch in a regular basis with:</p>
+<div class="highlight-python"><div class="highlight"><pre>git checkout next
+git pull
+</pre></div>
+</div>
+<p>Notice you&#8217;re not supposed to install OfflineIMAP each time. You may simply
+run it like this:</p>
+<div class="highlight-python"><div class="highlight"><pre>./offlineimap.py
+</pre></div>
+</div>
+<p>The choice is up to you. :-)</p>
+</div>
+<div class="section" id="how-to-submit-a-patch">
+<h3><a class="toc-backref" href="#id37">1.6.2&nbsp;&nbsp;&nbsp;How to submit a patch?</a><a class="headerlink" href="#how-to-submit-a-patch" title="Permalink to this headline">¶</a></h3>
+<p>If you want to send regular patches, you should first subscribe to the <a class="reference external" href="http://lists.alioth.debian.org/mailman/listinfo/offlineimap-project">mailing
+list</a>. This is not a pre-requisite, though.</p>
+<p>Next, you&#8217;ll find documentation in the docs/ directory, especially the HACKING
+page.</p>
+<p>You&#8217;ll need to get a clone from the official <a class="reference external" href="https://github.com/nicolas33/offlineimap">OfflineIMAP</a> repository and
+configure Git. Then, read the SubmittingPatches.rst page in your local
+repository or at
+<a class="reference external" href="https://github.com/nicolas33/offlineimap/blob/master/SubmittingPatches.rst#readme">https://github.com/nicolas33/offlineimap/blob/master/SubmittingPatches.rst#readme</a>
+.</p>
+<p>To send a patch, we recommend using &#8216;git send-email&#8217;.</p>
+</div>
+<div class="section" id="where-from-should-my-patches-be-based-on">
+<h3><a class="toc-backref" href="#id38">1.6.3&nbsp;&nbsp;&nbsp;Where from should my patches be based on?</a><a class="headerlink" href="#where-from-should-my-patches-be-based-on" title="Permalink to this headline">¶</a></h3>
+<p>Depends. If you&#8217;re not sure, it should start off of the master
+branch. master is the branch where new patches should be based on by
+default.</p>
+<p>Obvious materials for next release (e.g. new features) start off of
+current next.  Also, next is the natural branch to write patches on top
+of commits not already in master.</p>
+<p>A fix for a very old bug or security issue may start off of maint. This isn&#8217;t
+needed since such fix are backported by the maintainer, though.</p>
+<p>Finally, a work on very active or current development can start from a topic
+next. This clearly means you <strong>need</strong> this topic as a base for what is intended.</p>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">1&nbsp;&nbsp;&nbsp;OfflineIMAP FAQ (Frequently Asked Questions)</a><ul>
+<li><a class="reference internal" href="#id1">1.1&nbsp;&nbsp;&nbsp;OfflineIMAP</a><ul>
+<li><a class="reference internal" href="#where-do-i-get-offlineimap">1.1.1&nbsp;&nbsp;&nbsp;Where do I get OfflineIMAP?</a></li>
+<li><a class="reference internal" href="#how-fast-is-it">1.1.2&nbsp;&nbsp;&nbsp;How fast is it?</a></li>
+<li><a class="reference internal" href="#what-platforms-does-offlineimap-support">1.1.3&nbsp;&nbsp;&nbsp;What platforms does OfflineIMAP support?</a></li>
+<li><a class="reference internal" href="#does-offlineimap-supports-xdg-base-directory-specification">1.1.4&nbsp;&nbsp;&nbsp;Does OfflineIMAP supports XDG Base Directory specification?</a></li>
+<li><a class="reference internal" href="#does-offlineimap-support-mbox-mh-or-anything-else-other-than-maildir">1.1.5&nbsp;&nbsp;&nbsp;Does OfflineIMAP support mbox, mh, or anything else other than Maildir?</a></li>
+<li><a class="reference internal" href="#what-is-the-uid-validity-problem-for-folder">1.1.6&nbsp;&nbsp;&nbsp;What is the UID validity problem for folder?</a></li>
+<li><a class="reference internal" href="#how-do-i-automatically-delete-a-folder">1.1.7&nbsp;&nbsp;&nbsp;How do I automatically delete a folder?</a></li>
+<li><a class="reference internal" href="#may-i-delete-local-folders">1.1.8&nbsp;&nbsp;&nbsp;May I delete local folders?</a></li>
+<li><a class="reference internal" href="#can-i-run-multiple-instances">1.1.9&nbsp;&nbsp;&nbsp;Can I run multiple instances?</a></li>
+<li><a class="reference internal" href="#can-i-copy-messages-between-folders">1.1.10&nbsp;&nbsp;&nbsp;Can I copy messages between folders?</a></li>
+<li><a class="reference internal" href="#does-offlineimap-support-pop">1.1.11&nbsp;&nbsp;&nbsp;Does OfflineIMAP support POP?</a></li>
+<li><a class="reference internal" href="#how-is-offlineimap-conformance">1.1.12&nbsp;&nbsp;&nbsp;How is OfflineIMAP conformance?</a></li>
+<li><a class="reference internal" href="#can-i-force-offlineimap-to-sync-a-folder-right-now">1.1.13&nbsp;&nbsp;&nbsp;Can I force OfflineIMAP to sync a folder right now?</a></li>
+<li><a class="reference internal" href="#i-get-a-mailbox-already-exists-error">1.1.14&nbsp;&nbsp;&nbsp;I get a &#8220;Mailbox already exists&#8221; error</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#configuration-questions">1.2&nbsp;&nbsp;&nbsp;Configuration Questions</a><ul>
+<li><a class="reference internal" href="#can-i-synchronize-multiple-accounts-with-offlineimap">1.2.1&nbsp;&nbsp;&nbsp;Can I synchronize multiple accounts with OfflineIMAP?</a></li>
+<li><a class="reference internal" href="#how-do-i-specify-the-names-of-folders">1.2.2&nbsp;&nbsp;&nbsp;How do I specify the names of folders?</a></li>
+<li><a class="reference internal" href="#how-do-i-prevent-certain-folders-from-being-synced">1.2.3&nbsp;&nbsp;&nbsp;How do I prevent certain folders from being synced?</a></li>
+<li><a class="reference internal" href="#what-is-the-mailbox-name-recorder-mbnames-for">1.2.4&nbsp;&nbsp;&nbsp;What is the mailbox name recorder (mbnames) for?</a></li>
+<li><a class="reference internal" href="#does-offlineimap-verify-ssl-certificates">1.2.5&nbsp;&nbsp;&nbsp;Does OfflineIMAP verify SSL certificates?</a></li>
+<li><a class="reference internal" href="#how-do-i-generate-an-sslcacertfile-file">1.2.6&nbsp;&nbsp;&nbsp;How do I generate an <cite>sslcacertfile</cite> file?</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#imap-server-notes">1.3&nbsp;&nbsp;&nbsp;IMAP Server Notes</a></li>
+<li><a class="reference internal" href="#client-notes">1.4&nbsp;&nbsp;&nbsp;Client Notes</a><ul>
+<li><a class="reference internal" href="#what-clients-does-offlineimap-work-with">1.4.1&nbsp;&nbsp;&nbsp;What clients does OfflineIMAP work with?</a></li>
+<li><a class="reference internal" href="#evolution">1.4.2&nbsp;&nbsp;&nbsp;Evolution</a></li>
+<li><a class="reference internal" href="#kmail">1.4.3&nbsp;&nbsp;&nbsp;KMail</a></li>
+<li><a class="reference internal" href="#mutt">1.4.4&nbsp;&nbsp;&nbsp;Mutt</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#miscellaneous-questions">1.5&nbsp;&nbsp;&nbsp;Miscellaneous Questions</a><ul>
+<li><a class="reference internal" href="#i-m-using-git-to-install-offlineimap-and-found-these-branches-called-master-maint-next-pu-and-gh-pages-what-are-they">1.5.1&nbsp;&nbsp;&nbsp;I&#8217;m using git to install OfflineIMAP and found these branches called &#8220;master&#8221;, &#8220;maint&#8221;, &#8220;next&#8221;, &#8220;pu&#8221; and &#8220;gh-pages&#8221;. What are they?</a></li>
+<li><a class="reference internal" href="#why-are-your-maildir-message-filenames-so-long">1.5.2&nbsp;&nbsp;&nbsp;Why are your Maildir message filenames so long?</a></li>
+<li><a class="reference internal" href="#what-can-i-do-to-ensure-offlineimap-is-still-running-and-hasnt-crashed">1.5.3&nbsp;&nbsp;&nbsp;What can I do to ensure OfflineIMAP is still running and hasn’t crashed?</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#contributing">1.6&nbsp;&nbsp;&nbsp;Contributing</a><ul>
+<li><a class="reference internal" href="#how-to-test-offlineimap">1.6.1&nbsp;&nbsp;&nbsp;How to test OfflineIMAP?</a></li>
+<li><a class="reference internal" href="#how-to-submit-a-patch">1.6.2&nbsp;&nbsp;&nbsp;How to submit a patch?</a></li>
+<li><a class="reference internal" href="#where-from-should-my-patches-be-based-on">1.6.3&nbsp;&nbsp;&nbsp;Where from should my patches be based on?</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="offlineimap.html"
+                        title="previous chapter">The offlineimap &#8216;binary&#8217; command line options</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="HACKING.html"
+                        title="next chapter">Hacking OfflineIMAP</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/FAQ.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="HACKING.html" title="Hacking OfflineIMAP"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="offlineimap.html" title="The offlineimap ‘binary’ command line options"
+             >previous</a> |</li>
+        <li><a href="index.html">OfflineImap 6.5.6.1 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2002-2010, John Goerzen.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.
+    </div>
+  </body>
+</html>

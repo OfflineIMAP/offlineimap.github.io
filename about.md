@@ -4,11 +4,11 @@ title: About
 permalink: /about/
 ---
 
-This is the OfflineIMAP community's website. It is made *open*, *static* and *easy*.
+This is the OfflineIMAP community's website. It is made **open**, **static** and **easy**.
 
 You can expect maintainers and users to blog here about OfflineIMAP.
 
-The website engine is [Jekyll][jekyll] which relies on *[kramdown syntax][kramdown]*, derivated from the well-known markdown.  The source of this page (`about.md`) is a good sample of the basics of the syntax. See how it's easy to contribute to the site by yourself.
+The website engine is [Jekyll][jekyll] which relies on *[kramdown syntax][kramdown]*, derivated from the well-known *markdown*.  The source of this page (`about.md`) is a good sample of the basics of the syntax. See how it's easy to contribute to the site by yourself.
 
 You are welcome to propose updates or write your own blog post. ,-)
 
@@ -18,16 +18,25 @@ You are welcome to propose updates or write your own blog post. ,-)
 If you already have a copy of the `offlineimap` repository, get into it and run:
 
 {% highlight bash %}
-$ ./clone-website.sh
+$ ./get-website.sh
+$ cd website
 {% endhighlight %}
 
-Otherwise, it's possible to clone the this website directly:
+Otherwise, it's possible to clone the website directly:
 
 {% highlight bash %}
-$ git clone https://github.com/OfflineIMAP/website.git
+$ git clone https://github.com/OfflineIMAP/offlineimap.github.io.git
 {% endhighlight %}
 
 Make your changes and sumbit them to the maintainers, as for usual patches.
+
+### Create a blog post
+
+*TODO*
+
+### Create a documentation page
+
+*TODO*
 
 
 ## About Jekyll
@@ -48,7 +57,6 @@ You can get inspiration from other's customized themes.
 * <https://help.github.com/articles/repository-metadata-on-github-pages/>
 * <https://gist.github.com/jedschneider/2890453>
 * <https://help.github.com/articles/using-jekyll-with-pages/#configuring-jekyll>
-* <http://ben.balter.com/2014/03/13/pages-anchor-links/>
 
 
 [jekyll]:      http://jekyllrb.com

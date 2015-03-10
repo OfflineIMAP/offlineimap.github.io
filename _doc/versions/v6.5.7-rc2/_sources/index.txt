@@ -8,7 +8,6 @@ Welcome to OfflineIMAP's documentation
 **Configuration**
   * :doc:`user manual/Configuration <MANUAL>`
   * :doc:`Folder filtering & name transformation guide <nametrans>`
-  * :doc:`maxage <advanced_config>`
   * :doc:`command line options <offlineimap>`
 
 **Developer documentation**
@@ -16,7 +15,7 @@ Welcome to OfflineIMAP's documentation
   * :doc:`API documentation <API>` for internal details on the
     :mod:`offlineimap` module
 
-**API**
+**OfflineIMAP APIs**
 
 .. toctree::
    API

@@ -3,7 +3,9 @@
 *~
 
 # User drafts (no collaboration on them).
-/_mydrafts
+/_mydrafts/
+# Whatever else private.
+/_private/
 # Jeykyll
-/_site
-/.sass-cache
+/_site/
+/.sass-cache/

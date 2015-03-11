@@ -231,5 +231,14 @@ pre {
         path {
             fill: $grey-color;
         }
+        // Unused: seems not to work in footer.html
+        object {
+            width: 100%;
+            height: 100%;
+        }
+    }
+    > img {
+        width: 16px;
+        height: 16px;
     }
 }

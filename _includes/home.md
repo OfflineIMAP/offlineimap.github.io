@@ -6,9 +6,12 @@ Github.
 
 -->
 
+![OfflineIMAP](assets/logo/offlineimap-scalable.svg)
+
+
 # Introduction
 
-OfflineIMAP is a GPLv2 software to dispose your e-mail mailbox(es) as a local Maildir.
+OfflineIMAP is a *GPLv2 software* to dispose your mailbox*(es)* as a local Maildir*(s)*.
 
 For example, this allows reading the mails while offline without the need for your mail reader (MUA) to support disconnected operations.
 

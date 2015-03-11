@@ -6,7 +6,7 @@ permalink: /about/
 
 This is the OfflineIMAP community's website. It is made **open**, **static** and **easy**.
 
-You can expect maintainers and users to blog here about OfflineIMAP.
+You can expect maintainers and users to blog here about **OfflineIMAP**.
 
 The website engine is [Jekyll][jekyll] which relies on *[kramdown syntax][kramdown]*, derivated from the well-known *markdown*.  The source of this page (`about.md`) is a good sample of the basics of the syntax. See how it's easy to contribute to the site by yourself.
 
@@ -61,6 +61,19 @@ You can get inspiration from other's customized themes.
 * <https://help.github.com/articles/repository-metadata-on-github-pages/>
 * <https://gist.github.com/jedschneider/2890453>
 * <https://help.github.com/articles/using-jekyll-with-pages/#configuring-jekyll>
+
+
+## Thanks
+
+### Special thanks to
+
+* **Sebastian Spaetz**, for holding and offering the domain name to our community.
+
+### Projects
+
+* [Tango project](http://tango.freedesktop.org), for putting its icons library to the public domain.
+* [Openclipart](https://openclipart.org), for referencing great cliparts.
+* [Jekyll][jekyll], the site engine.
 
 
 [jekyll]:      http://jekyllrb.com

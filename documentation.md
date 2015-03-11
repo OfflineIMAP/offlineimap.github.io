@@ -35,6 +35,10 @@ Available sphinx documentation:
   {% endfor %}
 </ul>
 
+## Maintainers documentation
+
+*TODO*
+
 <!-- DEBUG
 
 {% for doc in site.doc %}
@@ -42,6 +46,16 @@ Available sphinx documentation:
 {% endfor %}
 
 -->
+
+
+<!--
+Don't change the fixed id: there is a reference to here from the about page.
+-->
+
+{: #updating-website}
+## Updating the website
+
+* [Quick start]({{ site.base }}/doc/website-quick-start.html)
 
 <!--
 vim: ts=2 expandtab

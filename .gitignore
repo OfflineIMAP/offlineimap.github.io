@@ -9,3 +9,5 @@
 # Jeykyll
 /_site/
 /.sass-cache/
+# Renderer
+/render.sh

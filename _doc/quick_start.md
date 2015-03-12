@@ -12,9 +12,9 @@ Your distribution should have included a offlineimap.conf.minimal file for start
 
 That provides you with the bare minimum of setting up OfflineIMAP.  You can simply copy this file into your home directory and name it `.offlineimaprc`.  A command such as
 
-~~~ bash
+{% highlight bash %}
 $ cp offlineimap.conf.minimal ~/.offlineimaprc
-~~~
+{% endhighlight %}
 
 will do it.  Or, if you prefer, you can just copy this text to `~/.offlineimaprc`:
 

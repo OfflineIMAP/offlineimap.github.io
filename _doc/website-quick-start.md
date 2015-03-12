@@ -11,13 +11,21 @@ The minimal required tool sets for the recommended way are **Git**, a **text edi
 
 #### Via the script in 'offlineimap.git' *(recommended)*
 
-~~~ bash
-$ ./get-website.sh
-$ cd ./website
-~~~
+If you don't have the offlineimap Git sources:
 
-This will clone the repository of the sources and do a bit of extra
-configuration.
+{% highlight bash %}
+$ wget 'https://raw.githubusercontent.com/OfflineIMAP/offlineimap/next/scripts/get-repository.sh'-O get-repository.sh
+{% endhighlight %}
+
+{% highlight bash %}
+$ ./get-repository.sh website
+$ cd ./website
+{% endhighlight %}
+
+This will clone the repository of the sources and do a bit of extra configuration.
+
+{: .note}
+**Note:** If you downloaded the sources via **wget**, you have to configure the `username` variable in the renderer file `render.sh`.
 
 #### Editing online
 
@@ -26,9 +34,9 @@ Login to Github, browse the sources online in your fork, pick up a file, edit an
 
 #### Directly from the public repository
 
-~~~ bash
+{% highlight bash %}
 $ git clone https://github.com/OfflineIMAP/offlineimap.github.io.git
-~~~
+{% endhighlight %}
 
 #### What to do next
 
@@ -37,27 +45,27 @@ Make your changes, check [how it looks](#rendering-my-changes), and sumbit them 
 
 ### Create a blog post
 
-~~~ bash
+{% highlight bash %}
 $ cd \_posts
 $ ls
 $ cp YYYY-MM-DD-whatever.md YYY-MM-DD-my-post.md
 <edit>
 $ git add .
 $ git commit
-~~~
+{% endhighlight %}
 
 Then, [render it](#rendering-my-changes), check, push to your Github fork and make a pull request.
 
 ### Create a documentation page
 
-~~~ bash
+{% highlight bash %}
 $ cd \_doc
 $ ls
 $ cp any.md new-doc.md
 <edit>
 $ git add .
 $ git commit
-~~~
+{% endhighlight %}
 
 Contrary to the blog posts, pages in `_doc` are not indexed automaticaly.  Edit `documentation.html` and add a new entry to your documentation page.
 
@@ -75,17 +83,17 @@ There are two ways for rendering your changes before submitting them:
 
 Using Github, via your public fork of the `offlineimap.git` project.
 
-~~~ bash
+{% highlight bash %}
 $ ./render.sh
-~~~
+{% endhighlight %}
 
 #### Locally
 
 For rendering it locally, you must have [jekyll installed](#about-jekyll).
 
-~~~ bash
+{% highlight bash %}
 $ ./run_server.sh
-~~~
+{% endhighlight %}
 
 
 ## About Jekyll

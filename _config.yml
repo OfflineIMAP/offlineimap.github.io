@@ -30,6 +30,7 @@ kramdown:
 excerpt_separator: <!--more-->
 
 github_username: OfflineIMAP
+twitter_username: OfflineImap
 
 collections:
   doc:

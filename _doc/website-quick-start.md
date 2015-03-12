@@ -3,6 +3,11 @@ layout: page
 title: Quick start to contribute to this website
 ---
 
+{: .note}
+**Note:**
+The minimal required tool sets for the recommended way are **Git**, a **text editor**, a **Github account** *(free)*.
+Using Git is not even required for quick fixes.
+
 ### Get a local copy of the sources
 
 #### Via the script in 'offlineimap.git' *(recommended)*
@@ -14,6 +19,11 @@ $ cd ./website
 
 This will clone the repository of the sources and do a bit of extra
 configuration.
+
+#### Editing online
+
+Login to Github, browse the sources online in your fork, pick up a file, edit and commit.
+
 
 #### Directly from the public repository
 

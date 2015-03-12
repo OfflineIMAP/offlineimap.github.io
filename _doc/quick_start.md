@@ -4,7 +4,19 @@ title: Quick Start
 ---
 {% assign links = site.data.links %}
 
-The distribution includes offlineimap.conf.minimal (Debian users may find this at `/usr/share/doc/offlineimap/examples/offlineimap.conf.minimal`) that provides you with the bare minimum of setting up OfflineIMAP.  You can simply copy this file into your home directory and name it `.offlineimaprc`.  A command such as `cp offlineimap.conf.minimal ~/.offlineimaprc` will do it.  Or, if you prefer, you can just copy this text to `~/.offlineimaprc`:
+Your distribution should have included a offlineimap.conf.minimal file for starting:
+
+* in `/usr/share/doc/offlineimap/examples` for *Debian*
+* in `/usr/share/offlineimap` for *Archlinux*
+* in `/usr/share/doc/offlineimap-X-Y-Z` for *Gentoo*
+
+That provides you with the bare minimum of setting up OfflineIMAP.  You can simply copy this file into your home directory and name it `.offlineimaprc`.  A command such as
+
+~~~ bash
+$ cp offlineimap.conf.minimal ~/.offlineimaprc
+~~~
+
+will do it.  Or, if you prefer, you can just copy this text to `~/.offlineimaprc`:
 
     [general]
     accounts = Test

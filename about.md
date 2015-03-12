@@ -23,7 +23,7 @@ Learn how to contribute to the website in the [documentation](/documentation.htm
 
 * **Sebastian Spaetz**, for holding and offering the domain name to our community.
 
-### Projects
+### Projects used
 
 * [Tango project](http://tango.freedesktop.org), for putting its icons library to the public domain.
 * [Openclipart](https://openclipart.org), for referencing great cliparts.

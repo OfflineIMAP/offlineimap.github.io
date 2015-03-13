@@ -6,7 +6,6 @@ author: Nicolas Sebrecht
 categories: community project
 ---
 {% assign icon = site.data.icon %}
-{% assign color = site.data.color %}
 
 
 Let's take a step back!

@@ -3,15 +3,27 @@ layout: page
 title: News
 ---
 
-<h2>OfflineIMAP</h2>
+<h3>Lastest Releases</h3>
+<div id='releases'></div>
 
-<h3>Development news</h3>
+<h3>Lastest commits</h3>
 <div id='feed-commits'></div>
 
 
-<!-- TODO: https://developer.github.com/v3/repos/contents/#get-archive-link -->
-<!-- TODO: https://api.github.com/repos/offlineimap/offlineimap -->
-<!-- TODO: https://api.github.com/repos/OfflineIMAP/offlineimap/tags -->
+<!-- TODO:
+
+* Get rid of the feed parser by using the github API.
+* Explore API to add interresting stuff:
+  - https://developer.github.com/v3/repos/contents/#get-archive-link
+  - https://api.github.com/repos/offlineimap/offlineimap
+  - https://api.github.com/repos/OfflineIMAP/offlineimap/tags
+
+-->
+
+<script type="text/javascript">
+  $(document).ready(fillNews);
+</script>
+
 <!--
 vim: ts=2 expandtab :
 -->

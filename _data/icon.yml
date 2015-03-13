@@ -2,9 +2,10 @@
 # Icons used from Font Awesome: http://fortawesome.github.io/Font-Awesome/icons/
 #
 # Put
-#   {% assign icons = site.data.icons %}
+#   {% assign icon = site.data.icon %}
 # after the Front Matter.
 #
 
 warning: '<i class="fa fa-warning fancy" style="color:DarkRed">'
 note: '<i class="fa fa-flag fancy" style="color:DarkBlue">'
+end: '</i>' # Might help with formatting.

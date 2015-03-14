@@ -25,6 +25,8 @@ Learn how to contribute to the website in the [documentation](/documentation.htm
 
 ### Projects used
 
+Also, thanks to
+
 * [Tango project](http://tango.freedesktop.org), for putting its icons library to the public domain.
 * [Openclipart](https://openclipart.org), for referencing great cliparts.
 * [Jekyll][jekyll], the site engine.

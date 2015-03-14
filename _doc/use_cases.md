@@ -3,6 +3,8 @@ layout: page
 title: Some real use cases
 ---
 
+* junk
+{:toc}
 
 # Sync from GMail to another IMAP server
 

@@ -2,7 +2,7 @@
 # Icons used from Font Awesome: http://fortawesome.github.io/Font-Awesome/icons/
 #
 # Put
-#   {% assign icon = site.data.icon %}
+#   {% assign icons = site.data.icons %}
 # after the Front Matter.
 #
 

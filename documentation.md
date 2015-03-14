@@ -13,7 +13,7 @@ title: Documentation
 
 - [Features]({{ site.base }}/doc/features.html) *(old)*
 
-## Advanced
+### User advanced
 
 - [Folder filtering and nametrans]({{ site.base }}/doc/nametrans.html)
 - [Some real use cases]({{ site.base }}/doc/use_cases.html)
@@ -25,7 +25,10 @@ title: Documentation
 
 ## Developer documentation
 
-Available sphinx documentation:
+- [Coding guidelines]({{ site.base }}/doc/CodingGuidelines.html)
+- [Git Advanced]({{ site.base }}/doc/GitAdvanced.html)
+
+### OfflineIMAP's APIs
 
 <ul>
   {% for version in site.data.versions %}

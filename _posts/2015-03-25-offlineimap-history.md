@@ -5,7 +5,7 @@ date: 2015-03-12 12:00
 author: Nicolas Sebrecht
 categories: community project
 ---
-{% assign icon = site.data.icon %}
+{% assign icons = site.data.icons %}
 
 
 Let's take a step back!
@@ -169,7 +169,7 @@ Well, **OfflineIMAP was promised by some people to a *precarious future*.** Toda
 
 
 {: .note}
-  {{ icon.note }} Big Thanks!!! {{ icon.end }}
+  {{ icons.note }} Big Thanks!!! {{ icons.end }}
   I'd like to catch the opportunity of this history review to thank everybody involved. Each did his best until now and I'm sure we will always do.
 
 {:style='color:DarkBlue'}

@@ -7,6 +7,10 @@ title: Quick start to contribute to this website
 **Note:**
 The minimal required tool sets for the recommended way are **Git**, a **text editor**, a **Github account** *(free)*. Though, using **Git** is not required for quick fixes.
 
+
+* junk
+{:toc}
+
 ### Get a local copy of the sources
 
 #### Via the script in 'offlineimap.git' *(recommended)*

@@ -6,6 +6,8 @@ title: Configuration examples
 
 Here are some example configurations for various situations.
 
+* junk
+{:toc}
 
 ## Multiple Accounts with Mutt
 

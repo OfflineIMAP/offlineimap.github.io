@@ -2,12 +2,12 @@
 layout: page
 title: Folder filtering and Name translation
 ---
-{% assign icon = site.data.icon %}
+{% assign icons = site.data.icons %}
 
 OfflineIMAP provides advanced and potentially complex possibilities for filtering and translating folder names. If you don't need any of this, you can safely skip this section.
 
 
-{{ icon.warning }} Warning!
+{{ icons.warning }} Warning!
 {: .fa-2x}
 
 {: .warning}
@@ -42,7 +42,7 @@ folderfilter = lambda folder: not re.search('(^Trash$|Del)', folder)
 {% endhighlight %}
 
 {: .note}
-  {{ icon.note }} Note</i>  
+  {{ icons.note }} Note</i>  
   If `folderfilter` is not specified, *ALL* remote folders will be synchronized.
 
 You can span multiple lines by indenting the others.  (Use backslashes
@@ -98,7 +98,7 @@ Using Courier remotely and want to duplicate its mailbox naming locally?  Try th
 nametrans = lambda folder: re.sub('^INBOX\.*', '.', folder)
 {% endhighlight %}
 
-{{ icon.warning }} Be care...
+{{ icons.warning }} Be care...
 
 {: .warning}
 You MUST construct nametrans rules such that it NEVER returns the same value for two folders, UNLESS the second values are filtered out by folderfilter below. That is, two filters on one side may never point to the same folder on the other side. Failure to follow this rule will result in undefined behavior. See also *Sharing a maildir with multiple IMAP servers* in the :ref:`pitfalls` section.

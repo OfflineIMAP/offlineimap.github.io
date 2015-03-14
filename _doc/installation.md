@@ -5,7 +5,7 @@ title: Installation
 {% assign links = site.data.links %}
 
 
-* Junk
+* junk
 {:toc}
 
 ## Prerequisites

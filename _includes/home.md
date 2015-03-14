@@ -24,7 +24,7 @@ Checkout the [OfflineIMAP official website][website].
 
 # Download
 
-Downloads releases as [tarball or zipball](https://github.com/OfflineIMAP/offlineimap/tags).
+Download releases at [tarball or zipball](https://github.com/OfflineIMAP/offlineimap/tags).
 
 
 

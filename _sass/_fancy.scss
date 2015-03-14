@@ -1,5 +1,15 @@
 // vim: ts=4 expandtab :
 
+// Color your text.
+.DarkBlue {
+    color: DarkBlue;
+}
+
+.DarkRed {
+    color: DarkRed;
+}
+
+// Use of borders.
 @mixin fancy {
     margin-left: 10px;
     margin-right: 10px;

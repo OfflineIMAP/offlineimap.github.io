@@ -1,0 +1,11 @@
+#
+# Icons used from Font Awesome: http://fortawesome.github.io/Font-Awesome/icons/
+#
+# Put
+#   {% assign icons = site.data.icons %}
+# after the Front Matter.
+#
+
+DarkRed: '<span style="color:DarkRed">'
+DarkBlue: '<i class="fa fa-flag fancy" style="color:DarkBlue">'
+end: '</span>' # Might help with formatting.

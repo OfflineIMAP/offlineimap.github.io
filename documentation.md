@@ -4,6 +4,9 @@ title: Documentation
 ---
 {% assign links = site.data.links %}
 
+* junk
+{:toc}
+
 ## User documentation
 
 - [Installation]({{ site.base }}/doc/installation.html)
@@ -40,7 +43,8 @@ title: Documentation
 
 ## Maintainer documentation
 
-*TODO*
+- [Make a new release]({{ site.base }}/doc/make-new-release.html)
+
 
 <!-- DEBUG
 

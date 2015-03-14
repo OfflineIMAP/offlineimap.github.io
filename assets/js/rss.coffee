@@ -14,13 +14,14 @@ commitsSuccess =  () ->
     img = $(this).find('img')
 
     username = img.attr('data')
-    console.log 'username:  '+ username
-    $.getJSON('https://api.github.com/users/' + username).done(
-      (json) ->
-          img.attr('src', json.avatar_url)
-    )
-
-    #return ""+ json['avatar_url']
+    if username != ''
+      $.getJSON('https://api.github.com/users/' + username).done(
+        (json) ->
+            img.attr('src', json.avatar_url)
+      )
+    # Author is not known in Github. (not tested)
+    else
+      $(this).find('i').html().replace(/by ,/i, '')
   )
 
 # -- Valid tokens --

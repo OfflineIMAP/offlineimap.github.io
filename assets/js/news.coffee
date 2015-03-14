@@ -51,7 +51,7 @@ class Releases extends NsJSON
       line = '<li>' + line + '</li>'
       content += line
     @formatted = '<ul>' + content + '</ul>'
-    console.log(content)
+    #console.log(content)
 
 # Add new type of feed here.
 #class Whetever extends NsJSON

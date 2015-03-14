@@ -19,11 +19,11 @@ consoleObj = (obj) ->
 # linkHeaders
 #
 linkHeaders = () ->
-  console.log('in linkHeaders()')
+  #console.log('in linkHeaders()')
 
   $("h2, h3, h4, h5, h6").each(
     (i, el) ->
-      console.log('in each() callback()')
+      #console.log('in each() callback()')
       $el = $(el)
       id = $el.attr('id')
       icon = '<i class="fa fa-link"></i>'
@@ -37,7 +37,7 @@ linkHeaders = () ->
 # Functions to call once document ready FOR ALL PAGES.
 #
 $ ->
-  console.log("in main()")
+  #console.log("in main()")
   linkHeaders()
 
 

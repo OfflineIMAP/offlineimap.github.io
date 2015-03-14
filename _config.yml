@@ -8,10 +8,8 @@ title: OfflineIMAP community's website
 email: offlineimap-project@lists.alioth.debian.org
 baseurl: "" # the subpath of your site, e.g. /blog/
 url: "http://offlineimap.github.io"
-description: > # this means to ignore newlines until "baseurl:"
+description: > # this means to ignore newlines until next key
   OfflineIMAP community's website.
-  Generated from the official repository, branch gh-pages.
-  Powered by Jekyll.
 
 #
 # Build settings

@@ -44,3 +44,7 @@ raise YourExceptionClass(argum, ents), None, exc_info()[2]
 {% endhighlight %}
 
 since this is the historically-preferred style in the OfflineIMAP code.
+
+<!--
+vim: expandtab ts=2 :
+-->

@@ -38,7 +38,7 @@ title: Documentation
   {% endfor %}
 </ul>
 
-## Maintainers documentation
+## Maintainer documentation
 
 *TODO*
 

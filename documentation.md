@@ -26,12 +26,14 @@ title: Documentation
 - [Changelog of mainline]({{ site.base }}/doc/Changelog.html) *(active branch, recommended)*
 - [Changelog of stable branch]({{ site.base }}/doc/Changelog.maint.html) *(previous branch, deprecated)*
 
-## Developer documentation
+## Documentation for contributors
+
+### Developer documentation
 
 - [Coding guidelines]({{ site.base }}/doc/CodingGuidelines.html)
 - [Git Advanced]({{ site.base }}/doc/GitAdvanced.html)
 
-### OfflineIMAP's APIs
+#### OfflineIMAP's APIs
 
 <ul>
   {% for version in site.data.versions %}
@@ -41,7 +43,7 @@ title: Documentation
   {% endfor %}
 </ul>
 
-## Maintainer documentation
+### Maintainer documentation
 
 - [Make a new release]({{ site.base }}/doc/make-new-release.html)
 
@@ -55,12 +57,13 @@ title: Documentation
 -->
 
 
+
 <!--
 Don't change the fixed id: there is a reference to here from the about page.
 -->
 
 {: #updating-website}
-## Updating the website
+### Updating the website
 
 * [Quick start]({{ site.base }}/doc/website-quick-start.html)
 

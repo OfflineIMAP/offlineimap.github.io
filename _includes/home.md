@@ -1,4 +1,6 @@
 
+{% assign links = site.data.links %}
+
 <!--
 
 Duplicate the less possible information that should stand in the README at
@@ -6,7 +8,7 @@ Github.
 
 -->
 
-![OfflineIMAP](assets/logo/offlineimap-scalable.svg)
+![OfflineIMAP logo]({{ links.logo.scalable }})
 
 
 # Introduction
@@ -18,17 +20,15 @@ For example, this allows reading the mails while offline without the need for yo
 OfflineIMAP will synchronize both sides via *IMAP*.
 
 
-# Official website
+# Project
 
-Checkout the [OfflineIMAP official website][website].
+Checkout the [OfflineIMAP official project]({{ links.offlineimap }}).
 
 # Download
 
-Download releases at [tarball or zipball](https://github.com/OfflineIMAP/offlineimap/tags).
+Download releases at [tarball or zipball]({{ links.downloads }}).
 
 
-
-[website]: https://github.com/OfflineIMAP/offlineimap
 
 <!--
 vim: spelllang=en ts=2 expandtab:

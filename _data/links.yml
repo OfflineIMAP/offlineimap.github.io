@@ -27,3 +27,6 @@ wiki:
 
 website:
   github: 'https://github.com/OfflineIMAP/offlineimap.github.io.git'
+
+logo:
+  scalable: 'assets/logo/offlineimap-scalable.svg'

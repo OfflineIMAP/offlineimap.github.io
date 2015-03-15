@@ -60,7 +60,7 @@ Don't change the fixed id: there is a reference to here from the about page.
 ### Maintainers
 
 - [Make a new release]({{ site.base }}/doc/make-new-release.html)
-- [Maintain the website]({{ site.base }}/doc/maintain-website.html) *(TODO, 404)*
+- [Maintain the website]({{ site.base }}/doc/maintain-website.html)
 - [Maintain the wiki]({{ site.base }}/doc/maintain-wiki.html)
 
 

@@ -24,3 +24,6 @@ wiki:
     base: 'https://github.com/OfflineIMAP/offlineimap-wiki'
     site: 'https://github.com/OfflineIMAP/offlineimap-wiki.git'
     repo: 'git@github.com:OfflineIMAP/offlineimap-wiki.git'
+
+website:
+  github: 'https://github.com/OfflineIMAP/offlineimap.github.io.git'

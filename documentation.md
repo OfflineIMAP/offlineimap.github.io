@@ -2,7 +2,12 @@
 layout: page
 title: Documentation
 ---
+
 {% assign links = site.data.links %}
+
+<!--
+Don't change the fixed id: there is a reference to here from the about page.
+-->
 
 
 ## Changelogs
@@ -25,11 +30,8 @@ title: Documentation
 - [Folder filtering and nametrans]({{ site.base }}/doc/nametrans.html)
 - [Some real use cases]({{ site.base }}/doc/use_cases.html)
 
+{: #documentation-for-contributors}
 ## Documentation for contributors
-
-<!--
-Don't change the fixed id: there is a reference to here from the about page.
--->
 
 ### Users
 

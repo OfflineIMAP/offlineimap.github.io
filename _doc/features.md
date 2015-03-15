@@ -3,7 +3,7 @@ layout: page
 title: Features
 ---
 
-*Needs deep rewrite...*
+*Needs deep rewrite... or plain removal*
 
 # Description
 

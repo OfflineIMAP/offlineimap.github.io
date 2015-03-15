@@ -32,7 +32,7 @@ If you already have a local copy of the offlineimap repository, run the dedicate
 $ ./scripts/get-repository.sh wiki
 {% endhighlight %}
 
-You'll have a local copy of the sources. From there, make a fork of [the mirror]({{ wiki.copy.site }}) and add a reference to it like this:
+You'll have a local copy of the sources. From there, make a fork of [the mirror]({{ wiki.copy.project }}) and add a reference to it like this:
 
 {% highlight bash %}
 $ cd wiki

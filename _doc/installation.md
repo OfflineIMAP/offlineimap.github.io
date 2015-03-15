@@ -17,7 +17,7 @@ updated: 2015-03-15
 
 ## Prerequisites
 
-In order to use [OfflineIMAP]({{ links.offlineimap }}), you need to have these conditions satisfied:
+In order to use [OfflineIMAP]({{ links.offlineimap.project }}), you need to have these conditions satisfied:
 
 1. Your mail server must support **IMAP**. Mail access via POP is not supported. A special Gmail mailbox type is available to interface with Gmail's IMAP front-end, although Gmail has a very peculiar and non-standard implementation of its IMAP interface.
 
@@ -44,7 +44,7 @@ The easiest way to install OfflineIMAP is via your distribution's package manage
 {: #ball}
 ### Installation from tarball or zipball
 
-Download the latest archive from the [download page]({{ links.downloads }}).
+Download the latest archive from the [download page]({{ links.offlineimap.downloads }}).
 
 Unpack and continue with the [system-wide](#system-wide) or [single-user](#single-user) installation.
 
@@ -52,7 +52,7 @@ Unpack and continue with the [system-wide](#system-wide) or [single-user](#singl
 {: #git}
 ### Installation with git
 
-Get your own copy of the [official git repository]({{ links.repository }}).
+Get your own copy of the [official git repository]({{ links.offlineimap.repository }}).
 
 {% highlight bash %}
 $ git clone {{ links.repository }}

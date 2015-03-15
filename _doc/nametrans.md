@@ -8,6 +8,12 @@ updated: 2015-03-15
 ---
 {% assign icons = site.data.icons %}
 
+* junk
+{:toc}
+
+---
+
+
 OfflineIMAP provides advanced and potentially complex possibilities for filtering and translating folder names. If you don't need any of this, you can safely skip this section.
 
 
@@ -176,6 +182,7 @@ OfflineIMAP will complain if it needs to create a new folder on the remote side 
 So if 'f' was "Sent", the first nametrans yields the translated name "INBOX/Sent" to be used on the other side. As that repository uses the folder separator '.' rather than '/', the ultimate name to be used will be "INBOX.Sent".
 
 > As a final note, the smart will see that both variants of the above nametrans rule would have worked identically in this case.
+
 
 <!--
 vim: ts=2 expandtab spelllang=en :

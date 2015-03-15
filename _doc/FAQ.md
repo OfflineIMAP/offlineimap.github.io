@@ -17,7 +17,7 @@ NOTE TO CONTRIBUTORS: Please add new questions to the correct section.
 Most recent [FAQ]({{ site.base }}/doc/FAQ.html).
 
 
-If you don't get hints here, feel free to ask in our [mailing list]({{ links.mailing_list_address }}) or search in [the archives]({{ links.mailing_list_archives }}).
+If you don't get hints here, feel free to ask in our [mailing list]({{ links.mailing_list.address }}) or search in [the archives]({{ links.mailing_list.archives }}).
 
 
 * junk
@@ -30,7 +30,7 @@ If you don't get hints here, feel free to ask in our [mailing list]({{ links.mai
 
 ### Where do I get OfflineIMAP?
 
-See the information at the [Homepage]({{ links.offlineimap }}).
+See the information at the [project homepage]({{ links.offlineimap.project }}).
 
 
 ### How fast is it?
@@ -101,7 +101,7 @@ OfflineIMAP is incompatible with such servers.  Using OfflineIMAP with them will
 prior to synchronization.
 
 
-This question comes up frequently on the [mailing list archive]({{ site.link.mailing_list_archives }}).  You can find a [detailed discussion of the problem](http://lists.complete.org/offlineimap@complete.org/2003/04/msg00012.html.gz).
+This question comes up frequently on the [mailing list archive]({{ links.mailing_list.archives }}).  You can find a [detailed discussion of the problem](http://lists.complete.org/offlineimap@complete.org/2003/04/msg00012.html.gz).
 
 
 ### How do I automatically delete a folder?
@@ -368,7 +368,7 @@ The choice is up to you. :-)
 
 ### How to submit a patch?
 
-Read [Contributing]({{ links.contributing }}).
+Read the [documentation for contributors](/documentation.html#documentation-for-contributors).
 
 <!--
 vim : ts=2 expandtab :

@@ -6,6 +6,7 @@ updated: 2015-03-15
 ---
 {% assign links = site.data.links %}
 
+
 Your distribution should have included a offlineimap.conf.minimal file for starting:
 
 * in `/usr/share/doc/offlineimap/examples` for *Debian*

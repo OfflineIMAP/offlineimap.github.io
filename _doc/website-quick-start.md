@@ -5,6 +5,9 @@ date: 2015-03-15
 author: Nicolas Sebrecht
 ---
 
+{% assign links = site.data.links %}
+
+
 {: .note}
 **Note:**
 The minimal required tool sets for the recommended way are **Git**, a **text editor**, a **Github account** *(free)*. Though, using **Git** is not required for quick fixes.
@@ -44,7 +47,7 @@ Login to Github, browse the sources online in your fork, pick up a file, edit an
 #### Directly from the public repository
 
 {% highlight bash %}
-$ git clone https://github.com/OfflineIMAP/offlineimap.github.io.git
+$ git clone {{ links.website.repo.http }}
 {% endhighlight %}
 
 #### What to do next
@@ -107,11 +110,11 @@ $ ./run_server.sh
 
 ## About Jekyll
 
-Check out the [Jekyll docs][jekyll] for more info on how to get the most out of Jekyll. Bug and feature requests for Jekyll are at [Jekyll’s GitHub repo][jekyll-gh]. If you have questions, you can ask them on [Jekyll’s dedicated Help repository][jekyll-help].
+Check out the [Jekyll docs]({{ links.others.jekyll.home }}) for more info on how to get the most out of Jekyll. Bug and feature requests for Jekyll are at [Jekyll’s GitHub repo]({{ links.others.jekyll.project }}). If you have questions, you can ask them on [Jekyll’s dedicated Help repository]({{ links.others.jekyll.help }}).
 
 ### The syntax
 
-The source files use `.md` extension for the [kramdown syntax][kramdown] which is derivated from **mardkown**.
+The source files use `.md` extension for the [kramdown syntax]({{ links.others.kramdown.syntax }}) which is derivated from **mardkown**.
 
 
 ### The theme
@@ -124,7 +127,7 @@ You can get inspiration from other's customized themes.
 
 ### Highlighting
 
-Highlight is made by Jekyll with [pygments](http://pygments.org/docs/quickstart).
+Highlight is made by Jekyll with [pygments]({{ links.others.pygments.quickstart }}).
 
 
 ## Other ressources
@@ -135,10 +138,6 @@ Highlight is made by Jekyll with [pygments](http://pygments.org/docs/quickstart)
 * <https://help.github.com/articles/using-jekyll-with-pages/#configuring-jekyll>
 
 
-[jekyll]:      http://jekyllrb.com
-[jekyll-gh]:   https://github.com/jekyll/jekyll
-[jekyll-help]: https://github.com/jekyll/jekyll-help
-[kramdown]:    http://kramdown.gettalong.org/syntax.html
 
 <!--
 vim: ts=2 expandtab :

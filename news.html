@@ -3,6 +3,9 @@ layout: page
 title: News
 ---
 
+{% assign links = site.data.links %}
+
+
 <h3>Lastest Releases</h3>
 <div id='releases'></div>
 
@@ -23,7 +26,7 @@ title: News
 <script type="text/javascript">
   $(document).ready(fillNews);
   $(document).ready(newsRSS("#feed-commits",
-    "https://github.com/OfflineIMAP/offlineimap/commits/next.atom",
+    "{{ links.offlineimap.rss.commits }}",
     '<li><a href="{url}">{title}</a> <i>(by <a href="http://github.com/{author}">{author}</a>, {date}) <img with=22px height=22px style="vertical-align:middle" data="{author}" src=""></img></i></li>',
     commitsSuccess));
 </script>

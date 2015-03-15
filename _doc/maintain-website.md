@@ -9,7 +9,7 @@ date: 2015-03-15
 
 
 
-Maintaining the website is fairly simple. Just merge/push into the master branch of [the repository]({{ website.github }}).
+Maintaining the website is fairly simple. Just merge/push into the master branch of [the repository]({{ website.repo.http }}).
 
 {: .note}
 There might be a few delay for the site to be rendered once the sources are updated (few seconds or one minute).

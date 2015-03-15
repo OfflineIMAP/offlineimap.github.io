@@ -207,7 +207,7 @@ Descriptions that summarise the point in the subject well, and describe the moti
 
 {: .note}
 {{ icons.note }} Where should I send {{ icons.end }}
-  The [mailing list]({{ links.mailing_list_subscribe }}) is the preferred way for sending patches. This allows easier review and comments on the code. This can be really essential for advanced changes or topics that could require discussions. Read more about that in this [detailed version]({{ site.base }}/doc/GitAdvanced-send-long.html)
+  The [mailing list]({{ links.mailing_list.subscribe }}) is the preferred way for sending patches. This allows easier review and comments on the code. This can be really essential for advanced changes or topics that could require discussions. Read more about that in this [detailed version]({{ site.base }}/doc/GitAdvanced-send-long.html)
 
   For more trivial patches, using the Github feature pull request is fine.
 
@@ -230,7 +230,7 @@ Descriptions that summarise the point in the subject well, and describe the moti
 
 * Provide additional information (which is unsuitable for the commit message) between the ``---`` and the diffstat.
 * If your name is not writable in ASCII, make sure that you send off a message in the correct encoding.
-* Send the patch to the [mailing list]({{ links.mailing_list_subscribe }}) if (and only if) the patch is ready for inclusion.
+* Send the patch to the [mailing list]({{ links.mailing_list.subscribe }}) if (and only if) the patch is ready for inclusion.
 * If you use `git-send-email(1)` which is a good idea, please test it first by sending email to yourself.
 * See below for instructions specific to your mailer.
 

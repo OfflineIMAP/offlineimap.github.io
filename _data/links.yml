@@ -6,27 +6,46 @@
 # after the Front Matter to reduce the variable size.
 #
 
-offlineimap: 'https://github.com/OfflineIMAP/offlineimap'
-repository: 'https://github.com/OfflineIMAP/offlineimap.git'
-downloads: 'https://github.com/OfflineIMAP/offlineimap/tags'
 
-contributing: 'https://github.com/OfflineIMAP/offlineimap/blob/next/CONTRIBUTING.rst'
+offlineimap:
+  project: 'https://github.com/OfflineIMAP/offlineimap'
+  repository: 'https://github.com/OfflineIMAP/offlineimap.git'
+  downloads: 'https://github.com/OfflineIMAP/offlineimap/tags'
+  rss:
+    commits: 'https://github.com/OfflineIMAP/offlineimap/commits/next.atom'
+  blobs:
+    contributing: 'https://github.com/OfflineIMAP/offlineimap/blob/next/CONTRIBUTING.rst'
 
-mailing_list_archives: 'http://dir.gmane.org/gmane.mail.imap.offlineimap.general'
-mailing_list_address: mailto:offlineimap-project@lists.alioth.debian.org
-mailing_list_subscribe: 'http://lists.alioth.debian.org/mailman/listinfo/offlineimap-project'
+mailing_list:
+  archives: 'http://dir.gmane.org/gmane.mail.imap.offlineimap.general'
+  address: mailto:offlineimap-project@lists.alioth.debian.org
+  subscribe: 'http://lists.alioth.debian.org/mailman/listinfo/offlineimap-project'
 
 wiki:
-  site: 'https://github.com/OfflineIMAP/offlineimap.wiki'
-  base: 'https://github.com/OfflineIMAP/offlineimap.wiki.git'
-  repo: 'git@github.com:OfflineIMAP/offlineimap-wiki.git'
+  project: 'https://github.com/OfflineIMAP/offlineimap.wiki'
+  repo:
+    http: 'https://github.com/OfflineIMAP/offlineimap.wiki.git'
+    git: 'git@github.com:OfflineIMAP/offlineimap-wiki.git'
   copy:
-    base: 'https://github.com/OfflineIMAP/offlineimap-wiki'
-    site: 'https://github.com/OfflineIMAP/offlineimap-wiki.git'
-    repo: 'git@github.com:OfflineIMAP/offlineimap-wiki.git'
+    project: 'https://github.com/OfflineIMAP/offlineimap-wiki'
+    repo:
+      http: 'https://github.com/OfflineIMAP/offlineimap-wiki.git'
+      git: 'git@github.com:OfflineIMAP/offlineimap-wiki.git'
 
 website:
-  github: 'https://github.com/OfflineIMAP/offlineimap.github.io.git'
+  project: 'https://github.com/OfflineIMAP/offlineimap.github.io'
+  repo:
+    http: 'https://github.com/OfflineIMAP/offlineimap.github.io.git'
 
-logo:
+logos:
   scalable: 'assets/logo/offlineimap-scalable.svg'
+
+others:
+  jekyll:
+    home: 'http://jekyllrb.com'
+    project: 'https://github.com/jekyll/jekyll'
+    help: 'https://github.com/jekyll/jekyll-help'
+  pygments:
+    quickstart: 'http://pygments.org/docs/quickstart'
+  kramdown:
+    syntax: 'http://kramdown.gettalong.org/syntax.html'

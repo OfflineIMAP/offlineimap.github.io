@@ -8,7 +8,7 @@ Github.
 
 -->
 
-![OfflineIMAP logo]({{ links.logo.scalable }})
+![OfflineIMAP logo]({{ links.logos.scalable }})
 
 
 # Introduction
@@ -22,11 +22,11 @@ OfflineIMAP will synchronize both sides via *IMAP*.
 
 # Project
 
-Checkout the [OfflineIMAP official project]({{ links.offlineimap }}).
+Checkout the [OfflineIMAP official project]({{ links.offlineimap.project }}).
 
 # Download
 
-Download releases at [tarball or zipball]({{ links.downloads }}).
+Download releases as [tarball or zipball]({{ links.offlineimap.downloads }}).
 
 
 

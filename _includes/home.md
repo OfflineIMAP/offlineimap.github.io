@@ -1,5 +1,7 @@
 
 {% assign links = site.data.links %}
+{% assign latest = site.data.latest %}
+
 
 <!--
 
@@ -7,6 +9,10 @@ Duplicate the less possible information that should stand in the README at
 Github.
 
 -->
+
+{: .metainfo}
+Latest rc: [{{ latest.rc }}](https://github.com/OfflineIMAP/offlineimap/releases/tag/{{ latest.rc }})
+Latest stable: [{{ latest.stable }}](https://github.com/OfflineIMAP/offlineimap/releases/tag/{{ latest.stable }})
 
 ![OfflineIMAP logo]({{ links.logos.scalable }})
 

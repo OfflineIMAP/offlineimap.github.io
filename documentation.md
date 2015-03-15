@@ -42,6 +42,10 @@ Don't change the fixed id: there is a reference to here from the about page.
 
 * [Quick start]({{ site.base }}/doc/website-quick-start.html)
 
+#### Updating the wiki
+
+* [How to contribute the wiki]({{ site.base }}/doc/contribute-wiki.html)
+
 ### Developers
 
 - [Coding guidelines]({{ site.base }}/doc/CodingGuidelines.html)

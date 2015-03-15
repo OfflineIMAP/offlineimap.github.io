@@ -1,6 +1,10 @@
 ---
 layout: page
 title: Frequently Asked Questions
+date: 2006-12-02
+author: John Goerzen
+contributors: Nicolas Sebrecht, Sebastian Spaeth, Daniel Shahaf, Vladimir Marek, Eygene Ryabinkin
+updated: 2015-03-15
 ---
 {% assign links = site.data.links %}
 

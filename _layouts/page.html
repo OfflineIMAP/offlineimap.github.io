@@ -2,6 +2,16 @@
 layout: default
 ---
 
+<div class='metainfo'>
+  <p>
+  {% if page.author %}{{ page.author }}{% if page.date %}, {% endif %}{% endif %}
+  {% if page.date %}{{ page.date }}{% endif %}
+  {% if page.date or page.author %}<br />{% endif %}
+  {% if page.contributors %}Contributors: {{ page.contributors }}<br />{% endif %}
+  {% if page.updated %}Last update: {{ page.updated }}{% endif %}
+</p>
+</div>
+
 <div class="post">
 
   <header class="post-header">

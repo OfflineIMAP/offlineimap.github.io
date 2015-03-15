@@ -2,6 +2,8 @@
 layout: page
 title: About
 permalink: /about/
+date: 2015-03-15
+author: Nicolas Sebrecht
 ---
 
 This is the *OfflineIMAP community's website*. It is made **open**, **static** and **easy**.

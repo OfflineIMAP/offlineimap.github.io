@@ -1,6 +1,10 @@
 ---
 layout: page
 title: Coding guidelines
+date: 2015-01-11
+author: Eygene Ryabinkin
+contributors: Nicolas Sebrecht
+updated: 2015-03-15
 ---
 
 * junk

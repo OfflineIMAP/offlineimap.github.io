@@ -1,6 +1,8 @@
 ---
 layout: page
 title: Git Advanced
+date: 2015-03-07
+author: Nicolas Sebrecht
 ---
 {% assign links = site.data.links %}
 {% assign icons = site.data.icons %}

@@ -1,6 +1,8 @@
 ---
 layout: page
 title: Configuration examples
+contributors: Nicolas Sebrecht
+updated: 2015-03-15
 ---
 
 

@@ -1,6 +1,8 @@
 ---
 layout: page
 title: Quick Start
+contributors: Nicolas Sebrecht
+updated: 2015-03-15
 ---
 {% assign links = site.data.links %}
 

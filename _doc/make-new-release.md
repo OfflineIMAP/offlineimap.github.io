@@ -1,6 +1,8 @@
 ---
 layout: page
 title: Making a new release
+date: 2015-03-15
+author: Nicolas Sebrecht
 ---
 {% assign icons = site.data.icons %}
 

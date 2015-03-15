@@ -1,6 +1,8 @@
 ---
 layout: page
 title: Quick start to contribute to this website
+date: 2015-03-15
+author: Nicolas Sebrecht
 ---
 
 {: .note}

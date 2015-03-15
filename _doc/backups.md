@@ -2,6 +2,7 @@
 layout: page
 title: Making backups
 author: Nicolas Sebrecht
+date: 2015-03-15
 ---
 {% assign icons = site.data.icons %}
 

@@ -1,6 +1,10 @@
 ---
 layout: page
 title: Folder filtering and Name translation
+date: 2005-06-17
+author: John Goerzen
+contributors: Sebastian Spaeth, Dan Milon, Nicolas Sebrecht
+updated: 2015-03-15
 ---
 {% assign icons = site.data.icons %}
 

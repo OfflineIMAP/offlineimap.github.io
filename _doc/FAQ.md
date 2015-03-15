@@ -14,14 +14,17 @@ NOTE TO CONTRIBUTORS: Please add new questions to the correct section.
 
 -->
 
+Most recent [FAQ]({{ site.base }}/doc/FAQ.html).
+
 
 If you don't get hints here, feel free to ask in our [mailing list]({{ links.mailing_list_address }}) or search in [the archives]({{ links.mailing_list_archives }}).
 
 
-* This text will be scraped and stands here to generate the TOC.
+* junk
 {:toc}
 
-Most recent [FAQ]({{ site.base }}/doc/FAQ.html).
+---
+
 
 ## General
 

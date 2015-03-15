@@ -16,8 +16,6 @@ date: 2015-03-15
 {% include_relative wiki-intro.md wiki=wiki %}
 
 
--------------------
-
 ## Making changes
 
 ### Online

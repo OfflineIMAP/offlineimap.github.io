@@ -30,6 +30,7 @@ In other words, **you'll find here documentation that will apply to a lot of pro
 * junk
 {:toc}
 
+---
 
 ## Git Branching model
 

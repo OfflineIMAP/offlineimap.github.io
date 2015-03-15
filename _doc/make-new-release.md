@@ -29,6 +29,8 @@ If you're in doubt, *request help to a more experienced maintainer*. We are here
 * junk
 {:toc}
 
+---
+
 
 ## With the release script *(highly recommended)*
 

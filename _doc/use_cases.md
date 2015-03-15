@@ -6,6 +6,9 @@ title: Some real use cases
 * junk
 {:toc}
 
+---
+
+
 # Sync from GMail to another IMAP server
 
 This is an example of a setup where "TheOtherImap" requires all folders to be under INBOX:

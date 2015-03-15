@@ -7,11 +7,14 @@ contributors: Nicolas Sebrecht
 updated: 2015-03-15
 ---
 
-* junk
-{:toc}
 
 This document contains assorted guidelines for programmers that want to hack OfflineIMAP.
 
+
+* junk
+{:toc}
+
+---
 
 # Exception handling
 

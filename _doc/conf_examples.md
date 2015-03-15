@@ -11,6 +11,8 @@ Here are some example configurations for various situations.
 * junk
 {:toc}
 
+---
+
 ## Multiple Accounts with Mutt
 
 This example shows you how to set up OfflineIMAP to synchronize multiple

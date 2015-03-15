@@ -7,6 +7,8 @@ title: MUA specific hints
 * junk
 {:toc}
 
+---
+
 
 Some of patches I receive or pick up from the list share common
 patterns of breakage.  Please make sure your MUA is set up

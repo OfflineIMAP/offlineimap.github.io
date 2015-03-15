@@ -13,6 +13,9 @@ The minimal required tool sets for the recommended way are **Git**, a **text edi
 * junk
 {:toc}
 
+---
+
+
 ### Get a local copy of the sources
 
 #### Via the script in 'offlineimap.git' *(recommended)*

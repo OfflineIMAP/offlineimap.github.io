@@ -12,6 +12,9 @@ updated: 2015-03-15
 * junk
 {:toc}
 
+---
+
+
 ## Prerequisites
 
 In order to use [OfflineIMAP]({{ links.offlineimap }}), you need to have these conditions satisfied:

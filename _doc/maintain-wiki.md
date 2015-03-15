@@ -16,8 +16,6 @@ date: 2015-03-15
 {% include_relative wiki-intro.md wiki=wiki %}
 
 
--------------------
-
 ## Maintain
 
 Users are allowed to easily fork the wiki sources. It's expected they can make Github pull requests.

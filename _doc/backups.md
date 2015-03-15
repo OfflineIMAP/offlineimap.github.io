@@ -27,6 +27,7 @@ Syncing your mails with OfflineIMAP and having a local copy is not enough. The r
 * junk
 {:toc}
 
+---
 
 ## Setting up a backend
 

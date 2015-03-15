@@ -7,7 +7,14 @@ title: Documentation
 * junk
 {:toc}
 
-## User documentation
+---
+
+## Changelogs
+
+- [Changelog of mainline]({{ site.base }}/doc/Changelog.html) *(active branch, recommended)*
+- [Changelog of stable branch]({{ site.base }}/doc/Changelog.maint.html) *(previous branch, deprecated)*
+
+## OfflineIMAP
 
 - [Installation]({{ site.base }}/doc/installation.html)
 - [Quick Start]({{ site.base }}/doc/quick_start.html)
@@ -17,24 +24,30 @@ title: Documentation
 
 - [Features]({{ site.base }}/doc/features.html) *(old)*
 
-### User advanced
+### OfflineIMAP advanced
 
 - [Folder filtering and nametrans]({{ site.base }}/doc/nametrans.html)
 - [Some real use cases]({{ site.base }}/doc/use_cases.html)
 
-## Changelogs
-
-- [Changelog of mainline]({{ site.base }}/doc/Changelog.html) *(active branch, recommended)*
-- [Changelog of stable branch]({{ site.base }}/doc/Changelog.maint.html) *(previous branch, deprecated)*
-
 ## Documentation for contributors
 
-### Developer documentation
+<!--
+Don't change the fixed id: there is a reference to here from the about page.
+-->
+
+### Users
+
+{: #updating-website}
+#### Updating the website
+
+* [Quick start]({{ site.base }}/doc/website-quick-start.html)
+
+### Developers
 
 - [Coding guidelines]({{ site.base }}/doc/CodingGuidelines.html)
 - [Git Advanced]({{ site.base }}/doc/GitAdvanced.html)
 
-#### OfflineIMAP's APIs
+#### Available APIs
 
 <ul>
   {% for version in site.data.versions %}
@@ -44,7 +57,7 @@ title: Documentation
   {% endfor %}
 </ul>
 
-### Maintainer documentation
+### Maintainers
 
 - [Make a new release]({{ site.base }}/doc/make-new-release.html)
 - [Maintain the website]({{ site.base }}/doc/maintain-website.html)
@@ -60,15 +73,6 @@ title: Documentation
 -->
 
 
-
-<!--
-Don't change the fixed id: there is a reference to here from the about page.
--->
-
-{: #updating-website}
-### Updating the website
-
-* [Quick start]({{ site.base }}/doc/website-quick-start.html)
 
 <!--
 vim: ts=2 expandtab

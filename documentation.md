@@ -47,6 +47,8 @@ title: Documentation
 ### Maintainer documentation
 
 - [Make a new release]({{ site.base }}/doc/make-new-release.html)
+- [Maintain the website]({{ site.base }}/doc/maintain-website.html)
+- [Maintain the wiki]({{ site.base }}/doc/maintain-wiki.html)
 
 
 <!-- DEBUG

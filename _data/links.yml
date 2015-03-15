@@ -15,3 +15,12 @@ contributing: 'https://github.com/OfflineIMAP/offlineimap/blob/next/CONTRIBUTING
 mailing_list_archives: 'http://dir.gmane.org/gmane.mail.imap.offlineimap.general'
 mailing_list_address: mailto:offlineimap-project@lists.alioth.debian.org
 mailing_list_subscribe: 'http://lists.alioth.debian.org/mailman/listinfo/offlineimap-project'
+
+wiki:
+  site: 'https://github.com/OfflineIMAP/offlineimap.wiki'
+  base: 'https://github.com/OfflineIMAP/offlineimap.wiki.git'
+  repo: 'git@github.com:OfflineIMAP/offlineimap-wiki.git'
+  copy:
+    base: 'https://github.com/OfflineIMAP/offlineimap-wiki'
+    site: 'https://github.com/OfflineIMAP/offlineimap-wiki.git'
+    repo: 'git@github.com:OfflineIMAP/offlineimap-wiki.git'

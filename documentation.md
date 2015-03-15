@@ -4,10 +4,6 @@ title: Documentation
 ---
 {% assign links = site.data.links %}
 
-* junk
-{:toc}
-
----
 
 ## Changelogs
 

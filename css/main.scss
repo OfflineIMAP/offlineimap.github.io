@@ -15,13 +15,15 @@ $base-line-height: 1.5;
 $spacing-unit:     30px;
 
 $text-color:            #111;
-//$background-color:      #fdfdfd;
 $background-color:      #f2f2f2;
 $brand-color:           #2a7ae2;
-//$background-dark-color: #212121;
-//$background-dark-color: #0A0A0A;
 $background-dark-color: #212133;
 $text-light-color:      #fff;
+
+// h1..h3
+$h-dark:     SteelBlue;
+// h4..h6
+$h-light:    #86AFC1;
 
 $grey-color:       #828282;
 $grey-color-light: lighten($grey-color, 40%);

@@ -102,10 +102,10 @@ h1, h2, h3, h4, h5, h6 {
 }
 /* Headings color.  */
 h1, h2, h3 {
-    color: SteelBlue;
+    color: $h-dark;
 }
 h4, h5, h6 {
-    color: #86AFC1;
+    color: $h-light;
 }
 /* Headings font. */
 h1, h3, h5 {

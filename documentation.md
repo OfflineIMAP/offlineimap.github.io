@@ -35,13 +35,10 @@ Don't change the fixed id: there is a reference to here from the about page.
 
 ### Users
 
+* [git bisect](/doc/git-bisect.html), how to find the offending patch
+
 {: #updating-website}
-#### Updating the website
-
-* [Quick start]({{ site.base }}/doc/website-quick-start.html)
-
-#### Updating the wiki
-
+* [Update the website]({{ site.base }}/doc/website-quick-start.html)
 * [How to contribute the wiki]({{ site.base }}/doc/contribute-wiki.html)
 
 ### Developers

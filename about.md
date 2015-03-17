@@ -27,7 +27,7 @@ Learn how to contribute to the website in the [documentation](/documentation.htm
 
 ### Special thanks to
 
-* **Sebastian Spaetz**, for holding and offering the domain name to our community.
+* **Sebastian Spaeth**, for holding and offering the domain name to our community.
 
 ### Projects used
 

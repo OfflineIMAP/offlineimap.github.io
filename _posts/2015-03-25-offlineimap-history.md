@@ -4,6 +4,7 @@ title: An history review
 date: 2015-03-12 12:00
 author: Nicolas Sebrecht
 categories: community project
+updated: 2015-03-17
 ---
 {% assign icons = site.data.icons %}
 
@@ -84,7 +85,7 @@ A few developers did improve their own fork, silently. They used public reposito
 
 Once the initial burst of the pending patches merged, I expected things to calm down. Again, I did not realized how I much I could be wrong.
 
-**I almost collapsed under the patches...** thanks to some active and productive developers. If you're not new to the project, you already know the most productive of them at that time: **Sebastian Spaetz**. I think the project never hit so much activity before which was a good thing.
+**I almost collapsed under the patches...** thanks to some active and productive developers. If you're not new to the project, you already know the most productive of them at that time: **Sebastian Spaeth**. I think the project never hit so much activity before which was a good thing.
 
 We tried hard to improve and implement the features we wanted. Most have been done but some challenges failed, the biggest being setting up a good test suites despite the successive attempts.
 
@@ -147,9 +148,26 @@ Today, I think **it was the best thing we did**.
 In order to allow others to involve themselves, I created the organization at Github, the one we have today, *like suggested by one of the users*. Three developers joined. Everybody involved but only one does regular contributions since then. You know him, I'm talking about **Eygene Ryabinkin**.
 
 
+# OpenSSL licensing issue
+
+In August, 2014 one of our user raised a new problem.
+
+OpenSSL we use through imaplib2, has a license not compatible with the GPL. That sucks because it's a usefull implementation but we had to deal with this.
+
+The best way to fix that was to add a clause to the current GPL license. Of course, this can't be done wihout agreement of all the contributors.
+
+We had around 70-80 contributors and Sebastian has contacted them all. By chance, most of them replied so we could decide to go with the specific clause.
+
+
 # The current situation
 
 We are officially 5 in the core team. In practice, **Eygene did all the work alone for 2 years, if not 3**.
+
+Sebastian won't contribute much anymore since he is now using Thunderbird.
+
+> What a 180° turn, BTW! ;-)
+
+The other maintainers are inactive for a long time.
 
 {: .warning}
 So yes, we are still open to new maintainers.
@@ -161,7 +179,7 @@ I am currently improving the documentation and introducing new docs for the main
 
 So, what about all of this?
 
-Well, **OfflineIMAP was promised by some people to a *precarious future*.** Today, we can proudly explain this was wrong.
+Well, **OfflineIMAP was promised by some people to a *precarious future*.** Today, we can proudly notice this was wrong.
 
 {: .warning}
 **Since it started in 2002, it ran only around 6 months without a maintainer**. **During this period of apparent death, the software was still being improved by single developers.**

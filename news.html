@@ -4,10 +4,15 @@ title: News
 ---
 
 {% assign links = site.data.links %}
+{% assign announces = site.data.announces %}
 
 
 <h3>Lastest Releases</h3>
 <div id='releases'></div>
+<!-- Put the announces we know hidden in the page. -->
+{% for announce in announces %}
+  <div id='{{ announce.version }}' link='{{ announce.link }}' style='display=none'></div>
+{% endfor %}
 
 <h3>Lastest commits</h3>
 <div id='feed-commits'></div>
@@ -23,6 +28,7 @@ title: News
 
 -->
 
+<!-- See assets/js -->
 <script type="text/javascript">
   $(document).ready(fillNews);
   $(document).ready(newsRSS("#feed-commits",

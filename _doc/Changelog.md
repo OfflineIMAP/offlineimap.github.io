@@ -3,12 +3,8 @@ layout: page
 title: Changelog of mainline
 ---
 
-* junk
+* The following excerpt is only usefull when rendered in the website.
 {:toc}
-
----
-
-### OfflineIMAP v6.5.7-rc3 (2015-  -  )
 
 
 

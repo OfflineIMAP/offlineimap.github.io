@@ -1,6 +1,7 @@
 ---
 ---
 
+
 # Allow exporting variables via 'root'.
 root = exports ? this
 
@@ -32,6 +33,14 @@ class NsJSON extends NsFeed
     @data = json
 
 class Releases extends NsJSON
+  changelogPage: '/doc/Changelog.html#'
+
+  getChangelogLink: (version) =>
+    pageLink = $('div[id=\'' + version + '\']').attr('link')
+    if pageLink
+      return @changelogPage + pageLink
+    return undefined
+
   format: =>
     content = ''
     for item in @items
@@ -43,10 +52,13 @@ class Releases extends NsJSON
 
       line += '<a href="' + version_url + '">' + version + '</a> '
 
-      downloads = ''
-      downloads += '(<a href="' + tarball + '">tarball</a>) '
-      downloads += '(<a href="' + zipball + '">zipball</a>)'
-      line += '<i>' + downloads + '</i>'
+      links = ''
+      links += '(<a href="' + tarball + '">tarball</a>) '
+      links += '(<a href="' + zipball + '">zipball</a>) '
+      changelogLink = @getChangelogLink(version)
+      if changelogLink
+        links += '(<a href="' + changelogLink + '">announe</a>) '
+      line += '<i>' + links + '</i>'
 
       line = '<li>' + line + '</li>'
       content += line

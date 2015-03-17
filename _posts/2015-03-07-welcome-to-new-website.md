@@ -6,11 +6,13 @@ author: Nicolas Sebrecht
 categories: website
 ---
 
+{% assign links = site.data.links %}
+
 I've started a new website. Let us know your feedbacks!
 
 <!--more-->
 
-It's is done with the [Github pages](https://github.com/OfflineIMAP/offlineimap.github.io) and is powered by Jeykyll behind the hood.
+It's is done with the Github pages and is powered by Jeykyll behind the hood.
 
 ### Why a new website? ###
 

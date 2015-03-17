@@ -7,7 +7,7 @@ version: 1.0
 title: OfflineIMAP community's website
 email: offlineimap-project@lists.alioth.debian.org
 baseurl: "" # the subpath of your site, e.g. /blog/
-url: "http://offlineimap.github.io"
+url: "http://offlineimap.org"
 description: > # this means to ignore newlines until next key
   OfflineIMAP community's website.
 

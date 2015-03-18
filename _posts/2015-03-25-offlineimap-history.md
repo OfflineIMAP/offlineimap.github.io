@@ -83,9 +83,9 @@ In November, 6 months after John's retired, I proposed to maintain the project. 
 
 A few developers did improve their own fork, silently. They used public repositories but the improvements were sightly dispatched and disconnected.  When I came into the scene, people woke up and started sending their patches.
 
-Once the initial burst of the pending patches merged, I expected things to calm down. Again, I did not realized how I much I could be wrong.
+Once the initial burst of the pending patches merged, I expected things to calm down. Again, I did not realized how much I could be wrong.
 
-**I almost collapsed under the patches...** thanks to some active and productive developers. If you're not new to the project, you already know the most productive of them at that time: **Sebastian Spaeth**. I think the project never hit so much activity before which was a good thing.
+**I almost collapsed under the patches...** thanks to some active and productive developers. If you're not new to the project, you already know the most productive of them at that time: **Sebastian Spaeth**. I think the project never hit so much activity before. Obviously, this was a good thing.
 
 We tried hard to improve and implement the features we wanted. Most have been done but some challenges failed, the biggest being setting up a good test suites despite the successive attempts.
 
@@ -94,8 +94,7 @@ We tried hard to improve and implement the features we wanted. Most have been do
 
 With all those patches coming, I wanted more testers to involve.
 
-{: .note}
-OfflineIMAP never got a decent test suites. At that time there was no one.
+> OfflineIMAP never got a decent test suites. At that time there was no one.
 At the time of this writing, this remains very limited and partial.
 
 Testers volunteered but wanted a test suites. Testing latest improvements on their mails was obviously a no go. Few have set up a mailbox dedicated to the tests but nothing extraordinary.
@@ -104,17 +103,22 @@ Testers volunteered but wanted a test suites. Testing latest improvements on the
 
 {: .warning}
 Retrospectively, this is something I regret. Not that it would have been a good help for the purpose, but it could be helpfull today in other areas. I'm still *NOT* convinced that making high level tests are a good thing. But instead of rejecting the patches, I think I should have redirect the efforts.
-Tests suites are better at tracking the low-level regressions. It might not be true for every projects but it is for OfflineIMAP which problems are IMAP servers and network craziness. Also, test suites are sightly slowing down the refactoring process due to the incident breakage occuring in the tests suites. Like it or not, it's a real deal for projects actively improved by few developers doing a lot of refactoring.
+ 
+Tests suites are better at tracking the low-level regressions. It might not be true for every projects but it is for OfflineIMAP which main problems are IMAP servers and network craziness.
+ 
+Also, tests suites are sightly slowing down the refactoring process due to the incident breakage occuring in the tests suites. Like it or not, it's a real deal for projects improved by few active developers doing a lot of refactoring.
+ 
 Anyway, redirecting the efforts into another direction would have been very beneficial for the long-term. I missed that opportunity.
 
 {: .note}
-We still have few issues like that today but the strongest got fixes.
+Note: we still have few issues like that today but the strongest got fixes.
 
-**The idea I promoted was to use a IMAP Proxy of a IMAP server like Dovecot**. With such tool, it's possible to achieve wonderfull things like
+**The idea I promoted was to use a IMAP Proxy in front of a IMAP server like Dovecot**. With such tool, it's possible to achieve wonderfull things like
 
 - fake network latencies,
 - fake network disconnections,
 - fake limited bandwitdh,
+- reproduce any IMAP glitch,
 - pause the process at any time, inspect and resume,
 - etc...
 
@@ -131,8 +135,8 @@ The lone problem was that there was no such tool out there that could do the tri
 
 In the end of 2011, Sebastian began maintaining OfflineIMAP. I had to move home and at that time, things calmed down.
 
-{: .note}
-Up to the point that a regular developer asked if we did not left. :-)
+
+> Up to the point that a regular developer asked if we did not left. :-)
 We didn't. It was hard to find free time and I guess we were more or less tired from the *sprint* we started 2 years ago.
 
 The good news is that I could more and more leave the project without impacting it. **This is how opening the maintenance started.**
@@ -142,8 +146,7 @@ The good news is that I could more and more leave the project without impacting 
 
 I the Mid of 2012, I did a new call for maintainers to join and initiated the transition to get the project more open. After very interesting discussions with the members of the mailing list, the consensus was clearly in favor of a team of official maintainers.
 
-{: .note}
-Today, I think **it was the best thing we did**.
+> Today, I think **it was the best thing we ever did for the project**.
 
 In order to allow others to involve themselves, I created the organization at Github, the one we have today, *like suggested by one of the users*. Three developers joined. Everybody involved but only one does regular contributions since then. You know him, I'm talking about **Eygene Ryabinkin**.
 
@@ -172,8 +175,7 @@ The other maintainers are inactive for a long time.
 {: .warning}
 So yes, we are still open to new maintainers.
 
-{: .note}
-I am currently improving the documentation and introducing new docs for the maintainers. This is **NOT something hard to do** with good documentation. I hope this will help a bit.
+> I am currently (at the time of this writing) improving the documentation and introducing new docs for the maintainers. This is **NOT something hard to do** with good documentation. I hope this will help a lot.
 
 # Conclusion
 

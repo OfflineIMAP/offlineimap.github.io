@@ -20,10 +20,15 @@ Don't change the fixed id: there is a reference to here from the about page.
 - [Installation]({{ site.base }}/doc/installation.html)
 - [Quick Start]({{ site.base }}/doc/quick_start.html)
 - [Configuration Examples]({{ site.base }}/doc/conf_examples.html)
-- [How to make backups properly]({{ site.base }}/doc/backups.html)
+
 - [Frequently Ask Questions]({{ site.base }}/doc/FAQ.html)
 
 - [Features]({{ site.base }}/doc/features.html) *(old)*
+
+### Make backups of a mailbox
+
+- [How to make backups properly]({{ site.base }}/doc/backups.html)
+- [Restore a backup]({{ site.base }}/doc/backups-restore.html)
 
 ### OfflineIMAP advanced
 

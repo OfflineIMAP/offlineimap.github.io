@@ -285,6 +285,14 @@ You might also want to set:
 The OfflineIMAP manual has a more detailed example for doing this for multiple accounts.
 
 
+
+## Advanced questions
+
+### How to migrate of IMAP server?
+
+The procedure is quite the same as [making a backup]({{ site.base }}/doc/backups.html) and [restore it]({{ site.base }}/doc/backups-restore.html).
+
+
 ## Miscellaneous Questions
 
 ### I'm using git to install OfflineIMAP and found these branches called "master", "maint", "next", "pu" and "gh-pages". What are they?

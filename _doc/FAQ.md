@@ -295,11 +295,10 @@ The procedure is quite the same as [making a backup]({{ site.base }}/doc/backups
 
 ## Miscellaneous Questions
 
-### I'm using git to install OfflineIMAP and found these branches called "master", "maint", "next", "pu" and "gh-pages". What are they?
+### I'm using git to install OfflineIMAP and found these branches called "master", "maint", "next" and "pu". What are they?
 
 To be brief:
 
-* **gh-pages**: branch used to maintain the home page at github.
 * **master**: classical mainline branch.
 * **next**: this is the branch for recent merged patches. Used for testing OfflineIMAP.
 * **pu** ("proposed updates"): patches not ready for inclusion. This should **never** be checkouted!

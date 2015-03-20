@@ -34,7 +34,14 @@ If you're in doubt, *request help to a more experienced maintainer*. We are here
 
 ## With the release script *(highly recommended)*
 
-*TODO*
+The `release.sh` will do all the boring job for you. Il will prompt you to edit the version in the code, write the Changelog from the git history, prepare the announce, etc.
+
+{% highlight bash %}
+$ ./contrib/release.sh
+{% endhighlight %}
+
+Once done, [publish everything](#push-the-changes).
+
 
 ## Doing the job manually
 
@@ -72,23 +79,6 @@ $ git merge next
 {% endhighlight %}
 
 
-### Push the changes
-
-{% highlight bash %}
-$ git push OfflineIMAP master:master
-$ git push OfflineIMAP next:next
-$ git push OfflineIMAP <tag>:<tag>
-{% endhighlight %}
-
-{: .warning}
-{{ icons.warning }} **DO NOT use fancy shortened command** {{ icons.end }}
-Shortened commands like `git push`, `git push --all` or `git push --tags` tend to push way too much things by default. **Keep control of what make public!**
-
-{: .note}
-{{ icons.note }} Hint: {{ icons.end }}
-If despite the BIG warning you've push too much, delete the offender branches/tags with
-`git push OfflineIMAP :<offender>`
-
 ### Update the APIs on the website
 
 {: .note}
@@ -105,18 +95,53 @@ $ cd docs
 $ make websitedoc
 $ cd ../website
 $ git checkout -b next master
-$ git add _doc/versions
+$ git add \_doc/versions
 $ git commit -a -s -m'import offlineimap API <vX.Y.Z[-rcN]>'
 $ git checkout master
 $ git merge next
+{% endhighlight %}
+
+
+## Push the changes
+
+{: .note}
+{{ icons.note }} Make your checks! {{ icons.end }}
+Before publishing anything, ensure things are correct:
+* The `Changelog.md` is fine
+* the `tag` of the release is set correctly
+* the `next` history looks good
+* the `master` branch is updated
+
+
+{% highlight bash %}
+$ git push OfflineIMAP master:master
+$ git push OfflineIMAP next:next
+$ git push OfflineIMAP <tag>:<tag>
+{% endhighlight %}
+
+Finally, push the changes of the updated website.
+
+{% highlight bash %}
+$ cd website
 $ git push website master:master
 {% endhighlight %}
 
 
+{: .warning}
+{{ icons.warning }} **DO NOT use fancy shortened command** {{ icons.end }}
+Shortened commands like `git push`, `git push --all` or `git push --tags` tend to push way too much things by default. **Keep control of what make public!**
+
+{: .note}
+{{ icons.note }} Hint: {{ icons.end }}
+If despite the BIG warning you've push too much, delete the offender branches/tags with
+`git push OfflineIMAP :<offender>`
 
 
+## Send the announce
 
+Finally, send the announce to the mailing list. If you used the `release.sh` script, one was prepared for you in `.git/offlineimap-release/announce.txt`.
 
+> You're done!
 
 <!--
 vim: expandtab ts=2 :

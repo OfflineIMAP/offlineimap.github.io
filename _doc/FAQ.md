@@ -114,7 +114,7 @@ OfflineIMAP does a two-way synchronization.  That is, if you make a change to th
 
 ### Can I run multiple instances?
 
-OfflineIMAP is not designed to have several instances (for instance, a cron job and an interactive invocation) run over the same mailbox simultaneously.  It will perform a check on startup and abort if another OfflineIMAP is already running.  If you need to schedule synchronizations, you'll probably find autorefresh settings more convenient than cron.  Alternatively, you can set a separate metadata directory for each instance.  In the future, we will lock each account individually rather than having one global lock.
+OfflineIMAP is not designed to have several instances (for instance, a cron job and an interactive invocation) run over the same mailbox simultaneously.  It will perform a check on startup and abort if another OfflineIMAP is already running.  If you need to schedule synchronizations, you'll probably find autorefresh settings more convenient than cron.  Alternatively, you can set a separate metadata directory for each instance.  The lock stands for each account individually.
 
 ### Can I copy messages between folders?
 

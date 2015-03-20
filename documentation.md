@@ -52,6 +52,7 @@ Don't change the fixed id: there is a reference to here from the about page.
 
 ### Developers
 
+<!-- TODO: become a developers for OfflineIMAP -->
 - [Coding guidelines]({{ site.base }}/doc/CodingGuidelines.html)
 - [Git Advanced]({{ site.base }}/doc/GitAdvanced.html)
 
@@ -67,6 +68,7 @@ Don't change the fixed id: there is a reference to here from the about page.
 
 ### Maintainers
 
+- [Become a maintainer]({{ site.base }}/doc/become-a-maintainer.html)
 - [Make a new release]({{ site.base }}/doc/make-new-release.html)
 - [Maintain the website]({{ site.base }}/doc/maintain-website.html)
 - [Maintain the wiki]({{ site.base }}/doc/maintain-wiki.html)

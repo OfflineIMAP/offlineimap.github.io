@@ -10,6 +10,10 @@ Don't change the fixed id: there is a reference to here from the about page.
 -->
 
 
+## Learning
+
+- [Be effective]({{ site.base }}/doc/be-effective.html), a 2 minutes guide for hours of time saved (the starting point for everybody new to OfflineIMAP).
+
 ## Changelogs
 
 - [Changelog of mainline]({{ site.base }}/doc/Changelog.html) *(active branch, recommended)*

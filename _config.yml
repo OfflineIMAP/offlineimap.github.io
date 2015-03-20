@@ -2,7 +2,7 @@
 # Site settings
 #
 
-version: 0.9
+version: 1.0
 
 title: OfflineIMAP community's website
 email: offlineimap-project@lists.alioth.debian.org

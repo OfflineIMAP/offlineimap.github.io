@@ -32,6 +32,23 @@ If you're in doubt, *request help to a more experienced maintainer*. We are here
 ---
 
 
+## The releases conventions
+
+There are 3 kind of releases we do:
+
+- **stable**: `vX.Y.Z`
+  - `X`: Major release number, currently 6 which didn't change since May, 2008 (it's good like that).
+  - `Y`: Big release number, used for big code changes, API changing, backard compatibily issues.
+  - `Z`: Minor release number, any other changes.
+- **release candidate**: `vX.Y.Z-rcN`
+  - Before releasing a stable version, we publish candidates to avoid intoducing too many bugs.
+  - Make as many candidates as you think it worth.
+- **maintenance**: vX.Y.Z.K
+  - Should be avoided; it's only usefull for backporting big bug fixes and strong security issues.
+  - Should be based on the previous stable branch (current stable `Y` - 1).
+  - They are released only in the `maint` branch.
+
+
 ## With the release script *(highly recommended)*
 
 The `release.sh` will do all the boring job for you. Il will prompt you to edit the version in the code, write the Changelog from the git history, prepare the announce, etc.

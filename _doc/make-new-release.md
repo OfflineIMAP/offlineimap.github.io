@@ -43,7 +43,7 @@ There are 3 kind of releases we do:
 - **release candidate**: `vX.Y.Z-rcN`
   - Before releasing a stable version, we publish candidates to avoid intoducing too many bugs.
   - Make as many candidates as you think it worth.
-- **maintenance**: vX.Y.Z.K
+- **maintenance**: `vX.Y.Z.K`
   - Should be avoided; it's only usefull for backporting big bug fixes and strong security issues.
   - Should be based on the previous stable branch (current stable `Y` - 1).
   - They are released only in the `maint` branch.
@@ -64,11 +64,11 @@ Once done, [publish everything](#push-the-changes).
 
 ### Prepare the Changelog
 
-First, edit `Changelog.md` to reflect the release. Add a new entry on top of it and **don't change anything else**.
+First, edit `Changelog.md` to reflect the release. Add a new entry on top of the previous release and **don't change anything else**.
 
 {: .note}
 {{ icons.note }} Hint: {{ icons.end }}
-The shortlog is a good start. Use `git shortlog $(./offlineimap.py --version)..`.
+The Git history is a good start. Use `git shortlog $(./offlineimap.py --version)..` or `git log $(./offlineimap.py --version)..`.
 
 ### Update the version
 
@@ -124,7 +124,7 @@ $ git merge next
 {: .note}
 {{ icons.note }} Make your checks! {{ icons.end }}
 Before publishing anything, ensure things are correct:
-* The `Changelog.md` is fine
+* the `Changelog.md` is fine
 * the `tag` of the release is set correctly
 * the `next` history looks good
 * the `master` branch is updated

@@ -5,6 +5,7 @@ date: 2015-03-15
 author: Nicolas Sebrecht
 ---
 {% assign icons = site.data.icons %}
+{% assign links = site.data.links %}
 
 
 {: .DarkBlue}
@@ -159,6 +160,13 @@ If despite the BIG warning you've push too much, delete the offender branches/ta
 Finally, send the announce to the mailing list. If you used the `release.sh` script, one was prepared for you in `.git/offlineimap-release/announce.txt`.
 
 > You're done!
+
+
+## Update the issue tracker
+
+While not urgent, it's good to keep the [issue tracker]({{ links.offlineimap.project }}/issues) up-to-date. Defer this task if you wish.
+
+Also, update the [milestones]({{ links.offlineimap.project }}/milestones).
 
 <!--
 vim: expandtab ts=2 :

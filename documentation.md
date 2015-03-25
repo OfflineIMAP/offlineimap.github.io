@@ -76,6 +76,7 @@ The source files of the contributions are locally available in `./contrib` or [o
 ### Developers
 
 <!-- TODO: become a developers for OfflineIMAP -->
+- [Developer's Certificate of Origin]({{ site.base }}/doc/dco.html) *(important)*
 - [Coding guidelines]({{ site.base }}/doc/CodingGuidelines.html)
 - [Git Advanced]({{ site.base }}/doc/GitAdvanced.html)
 

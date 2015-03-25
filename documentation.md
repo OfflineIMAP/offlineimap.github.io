@@ -4,6 +4,8 @@ title: Documentation
 ---
 
 {% assign links = site.data.links %}
+{% assign contribs = site.data.contribs %}
+
 
 <!--
 Don't change the fixed id: there is a reference to here from the about page.
@@ -38,6 +40,14 @@ Don't change the fixed id: there is a reference to here from the about page.
 
 - [Folder filtering and nametrans]({{ site.base }}/doc/nametrans.html)
 - [Some real use cases]({{ site.base }}/doc/use_cases.html)
+
+### User contributions
+
+The files of the contributors are locally available in `./contrib` or [online, here]({{ links.offlineimap.project }}/tree/next/contrib).
+
+{% for contrib in contribs %}
+- [{{ contrib.linkname }}]({{ site.base }}/doc/contrib/{{ contrib.filename }}.html)
+{% endfor %}
 
 {: #documentation-for-contributors}
 ## Documentation for contributors

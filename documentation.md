@@ -7,21 +7,27 @@ title: Documentation
 {% assign contribs = site.data.contribs %}
 
 
+Table of content
+
+* junk
+{:toc}
+
+---
+
 <!--
 Don't change the fixed id: there is a reference to here from the about page.
 -->
 
 
-## Learning
+## Learning with us
 
 - [Be effective]({{ site.base }}/doc/be-effective.html), a 2 minutes guide for hours of time saved (the starting point for everybody new to OfflineIMAP).
 
-## Changelogs
 
-- [Changelog of mainline]({{ site.base }}/doc/Changelog.html) *(active branch, recommended)*
-- [Changelog of stable branch]({{ site.base }}/doc/Changelog.maint.html) *(previous branch, deprecated)*
 
 ## OfflineIMAP
+
+### Starting
 
 - [Installation]({{ site.base }}/doc/installation.html)
 - [Quick Start]({{ site.base }}/doc/quick_start.html)
@@ -31,23 +37,29 @@ Don't change the fixed id: there is a reference to here from the about page.
 
 - [Features]({{ site.base }}/doc/features.html) *(old)*
 
+
 ### Make backups of a mailbox
 
 - [How to make backups properly]({{ site.base }}/doc/backups.html)
 - [Restore a backup]({{ site.base }}/doc/backups-restore.html)
+
 
 ### OfflineIMAP advanced
 
 - [Folder filtering and nametrans]({{ site.base }}/doc/nametrans.html)
 - [Some real use cases]({{ site.base }}/doc/use_cases.html)
 
+
 ### User contributions
 
-The files of the contributors are locally available in `./contrib` or [online, here]({{ links.offlineimap.project }}/tree/next/contrib).
+The source files of the contributors are locally available in `./contrib` or [online, here]({{ links.offlineimap.project }}/tree/next/contrib).
 
 {% for contrib in contribs %}
 - [{{ contrib.linkname }}]({{ site.base }}/doc/contrib/{{ contrib.filename }}.html)
 {% endfor %}
+
+
+
 
 {: #documentation-for-contributors}
 ## Documentation for contributors
@@ -59,6 +71,7 @@ The files of the contributors are locally available in `./contrib` or [online, h
 {: #updating-website}
 * [Update the website]({{ site.base }}/doc/website-quick-start.html)
 * [How to contribute the wiki]({{ site.base }}/doc/contribute-wiki.html)
+
 
 ### Developers
 
@@ -83,6 +96,11 @@ The files of the contributors are locally available in `./contrib` or [online, h
 - [Maintain the website]({{ site.base }}/doc/maintain-website.html)
 - [Maintain the wiki]({{ site.base }}/doc/maintain-wiki.html)
 
+
+## Changelogs
+
+- [Changelog of mainline]({{ site.base }}/doc/Changelog.html) *(active branch, recommended)*
+- [Changelog of stable branch]({{ site.base }}/doc/Changelog.maint.html) *(previous branch, deprecated)*
 
 <!-- DEBUG
 

@@ -103,14 +103,6 @@ The source files of the contributions are locally available in `./contrib` or [o
 - [Changelog of mainline]({{ site.base }}/doc/Changelog.html) *(active branch, recommended)*
 - [Changelog of stable branch]({{ site.base }}/doc/Changelog.maint.html) *(previous branch, deprecated)*
 
-<!-- DEBUG
-
-{% for doc in site.doc %}
-{{ doc.title }}: {{ doc.url }}
-{% endfor %}
-
--->
-
 
 
 <!--

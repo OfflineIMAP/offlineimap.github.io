@@ -8,7 +8,6 @@ root = exports ? this
 # Feed commits. See https://github.com/sdepold/jquery-rss
 #
 # Set user avatar.
-# Todo: cache img.
 commitsSuccess =  () ->
   $("#feed-commits > ul").find('li').each( () ->
     img = $(this).find('img')
@@ -17,11 +16,13 @@ commitsSuccess =  () ->
     if username != ''
       $.getJSON('https://api.github.com/users/' + username).done(
         (json) ->
-            img.attr('src', json.avatar_url)
+          img.attr('src', json.avatar_url)
       )
     # Author is not known in Github. (not tested)
     else
-      $(this).find('i').html().replace(/by ,/i, '')
+      console.log($(this).find('i').text())
+      $(this).find('i').html(
+        $(this).find('i').text().replace(/by , /gi, ''))
   )
 
 # -- Valid tokens --

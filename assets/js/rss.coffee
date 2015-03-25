@@ -13,16 +13,15 @@ commitsSuccess =  () ->
     img = $(this).find('img')
 
     username = img.attr('data')
-    if username != ''
+    if username == ''
+      # Author is not known in Github.
+      $(this).find('i').html(
+        $(this).find('i').text().replace(/by , /gi, ''))
+    else
       $.getJSON('https://api.github.com/users/' + username).done(
         (json) ->
           img.attr('src', json.avatar_url)
       )
-    # Author is not known in Github. (not tested)
-    else
-      console.log($(this).find('i').text())
-      $(this).find('i').html(
-        $(this).find('i').text().replace(/by , /gi, ''))
   )
 
 # -- Valid tokens --

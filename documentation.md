@@ -52,7 +52,7 @@ Don't change the fixed id: there is a reference to here from the about page.
 
 ### User contributions
 
-The source files of the contributors are locally available in `./contrib` or [online, here]({{ links.offlineimap.project }}/tree/next/contrib).
+The source files of the contributions are locally available in `./contrib` or [online, here]({{ links.offlineimap.project }}/tree/next/contrib).
 
 {% for contrib in contribs %}
 - [{{ contrib.linkname }}]({{ site.base }}/doc/contrib/{{ contrib.filename }}.html)

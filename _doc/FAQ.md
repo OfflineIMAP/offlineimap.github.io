@@ -4,14 +4,15 @@ title: Frequently Asked Questions
 date: 2006-12-02
 author: John Goerzen
 contributors: Nicolas Sebrecht, Sebastian Spaeth, Daniel Shahaf, Vladimir Marek, Eygene Ryabinkin
-updated: 2015-03-15
+updated: 2015-03-26
 ---
+
 {% assign links = site.data.links %}
+{% assign icons = site.data.icons %}
+
 
 <!--
-
 NOTE TO CONTRIBUTORS: Please add new questions to the correct section.
-
 -->
 
 Most recent [FAQ]({{ site.base }}/doc/FAQ.html).
@@ -78,27 +79,40 @@ mboxes.
 
 Or you could install whatever IMAP server you like on the local machine, and point your mail readers to that IMAP server on localhost.
 
+
+
 ### What is the UID validity problem for folder?
 
 IMAP servers use a folders UIDVALIDITY value in combination with a unique ID (UID) to refer to a specific message.  This is guaranteed to be unique to a particular message forever.  No other message in the same folder will ever get the same UID as long as UIDVALIDITY remains unchanged.  UIDs are an integral part of OfflineIMAP's synchronization scheme; they are used to match up messages on your computer to messages on the server.
 
 Sometimes, the UIDs on the server might get reset.  Usually this will happen if you delete and then recreate a folder.  When you create a folder, the server will often start the UID back from 1.  But OfflineIMAP might still have the UIDs from the previous folder by the same name stored. OfflineIMAP will detect this condition because of the changed UIDVALIDITY value and skip the folder.  This is GOOD, because it prevents data loss.
 
-In the IMAP <-> Maildir case, you can fix it by removing your local folder and cache data.  For instance, if your folders are under `~/Folders` and the folder with the problem is INBOX, you'd type this::
+In the *IMAP/Maildir* case, you can fix it by removing your local folder and cache data.  For instance, if your folders are in the metadata path `~/Mail` and the folder with the problem is `INBOX`, you'd type this:
 
 {% highlight bash %}
-$ rm -r ~/Folders/INBOX
-$ rm -r ~/.offlineimap/Account-AccountName/LocalStatus/INBOX
-$ rm -r ~/.offlineimap/Repository-RemoteRepositoryName/FolderValidity/INBOX
+$ mkdir ~/archives
+$ mv ~/Mail/INBOX ~/archives
+$ mv ~/.offlineimap/Account-AccountName/LocalStatus/INBOX ~/archives/LocalStatus-INBOX
+$ mv ~/.offlineimap/Repository-RemoteRepositoryName/FolderValidity/INBOX ~/archives/FolderValidity-INBOX
 {% endhighlight %}
 
-Of course, replace AccountName and RemoteRepositoryName with the names as specified in `~/.offlineimaprc`.
+{:.note}
+If you're using the SQLite backend, change the above `LocalStatus` to `LocalStatus-sqlite`.
 
-Next time you run OfflineIMAP, it will re-download the folder with the new UIDs.  Note that the procedure specified above will lose any local changes made to the folder.
+{:.warning}
+{{ icons.warning }} Warning {{ icons.end }}
+ 
+Do move the directory from the metadata path (`~/Mail` in this sample). **There should be NO MORE `INBOX` directory in it.**
+ 
+The reason is that moving it like this means like *"I've never synced this folder before, download it on next sync"*. Only deleting the **content** (the mails) means *"I've locally removed the mails, remove them on the server on next sync"*.
+
+Of course, replace `AccountName` and `RemoteRepositoryName` with the names as specified in `~/.offlineimaprc`.
+
+Next time you run OfflineIMAP, it will re-download the folder with the new UIDs.
 
 Some IMAP servers are broken and do not support UIDs properly.  If you continue to get this error for all your folders even after performing the above procedure, it is likely that your IMAP server falls into this category.
-OfflineIMAP is incompatible with such servers.  Using OfflineIMAP with them will not destroy any mail, but at the same time, it will not actually synchronize it either. OfflineIMAP will detect this condition and abort
-prior to synchronization.
+
+OfflineIMAP is incompatible with such servers.  It will not destroy any mail, but at the same time, it won't actually synchronize it either. OfflineIMAP will detect this condition and abort prior to synchronization.
 
 
 This question comes up frequently on the [mailing list archive]({{ links.mailing_list.archives }}).  You can find a [detailed discussion of the problem](http://lists.complete.org/offlineimap@complete.org/2003/04/msg00012.html.gz).

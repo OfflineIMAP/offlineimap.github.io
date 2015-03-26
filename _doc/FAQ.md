@@ -98,6 +98,8 @@ $ mv ~/.offlineimap/Repository-RemoteRepositoryName/FolderValidity/INBOX ~/archi
 
 {:.note}
 If you're using the SQLite backend, change the above `LocalStatus` to `LocalStatus-sqlite`.
+ 
+Of course, replace `AccountName` and `RemoteRepositoryName` with the names as specified in `~/.offlineimaprc`.
 
 {:.warning}
 {{ icons.warning }} Warning {{ icons.end }}
@@ -105,8 +107,6 @@ If you're using the SQLite backend, change the above `LocalStatus` to `LocalStat
 Do move the directory from the metadata path (`~/Mail` in this sample). **There should be NO MORE `INBOX` directory in it.**
  
 The reason is that moving it like this means like *"I've never synced this folder before, download it on next sync"*. Only deleting the **content** (the mails) means *"I've locally removed the mails, remove them on the server on next sync"*.
-
-Of course, replace `AccountName` and `RemoteRepositoryName` with the names as specified in `~/.offlineimaprc`.
 
 Next time you run OfflineIMAP, it will re-download the folder with the new UIDs.
 

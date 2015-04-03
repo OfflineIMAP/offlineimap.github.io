@@ -16,6 +16,16 @@ Contrary to popular belief, becoming a maintainer is not something hard, for Off
 
 ---
 
+## The short story
+
+Express your desire to one of the current official maintainers. This is all you have to do.
+
+We don't require years of contributions. Of course, we will pay attention a bit to your past interest to the project and your skills. But nothing is mandatory and it's fine to still be learning while being an official maintainer. Nobody is all-knowing, even with years of experience. So, if one current maintainer agrees, he will grant you the write access to the official repository.
+
+Be aware that there is no more leader maintainer, neither is a leader in the team. Once you become a team member and did some maintenance for the project, you're free to take all the strong decisions.
+
+Since we are a team, we always try to discuss with others before taking any strong decision, including the users. This prevents from breaking things inside the whole community and the proximity we have with our users. Even most discreet of them will raise one day with good hints, review, feedback or opinion. This is how we are running in OfflineIMAP. And yes, we are really proud about the solid relationship we have with the users.
+
 
 ## What you should know about
 

@@ -18,7 +18,7 @@ The more I read the codebase the mode it's obvious it requires a deep refactorin
 This will happen as soon as the next stable v6.5.7 will be out.
 
 {:.warning}
-I won't merge anymore features during the coming cycle. I you intend to implement one, it's not the good time to start it now.
+I won't merge anymore features during the coming cycle. If you intend to implement one, it's not the good time to start it now.
 
 As far as I can tell today, here are some of the planned tasks:
 
@@ -28,7 +28,6 @@ As far as I can tell today, here are some of the planned tasks:
 * revamp inheritance of objects;
 * revamp the factorization accross objects;
 * better namespacing;
-* better inheritance policy;
 * don't blindly inherit from library objects;
 * usual patterns more strictly applied;
 * seriously improve our debugging/hacking sessions.

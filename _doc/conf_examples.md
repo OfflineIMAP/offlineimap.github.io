@@ -2,7 +2,7 @@
 layout: page
 title: Configuration examples
 contributors: Nicolas Sebrecht
-updated: 2015-03-15
+updated: 2015-04-07
 ---
 
 

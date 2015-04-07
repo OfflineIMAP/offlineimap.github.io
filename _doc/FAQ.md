@@ -4,7 +4,7 @@ title: Frequently Asked Questions
 date: 2006-12-02
 author: John Goerzen
 contributors: Nicolas Sebrecht, Sebastian Spaeth, Daniel Shahaf, Vladimir Marek, Eygene Ryabinkin
-updated: 2015-03-26
+updated: 2015-04-07
 ---
 
 {% assign links = site.data.links %}

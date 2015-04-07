@@ -38,12 +38,11 @@ See the information at the [project homepage]({{ links.offlineimap.project }}).
 
 OfflineIMAP has a multithreaded sync, so it should have very nice performance.
 
-A good way to experiment is by setting maxsyncaccounts to 3 and maxconnections to 3 in each account clause.  This lets OfflineIMAP open up multiple connections simultaneously. That will let it process multiple folders and messages at once. In most cases, this will increase performance of the sync.
+A good way to experiment is by setting `maxsyncaccounts = 3` and `maxconnections = 3` in each account clause.  This lets OfflineIMAP open up multiple connections simultaneously. That will let it process multiple folders and messages at once. In most cases, this will increase performance of the sync.
 
 Don’t set the number too high. If you do that, things might actually slow down as your link gets saturated. Also, too many connections can cause mail servers to have excessive load. Administrators might take unkindly to this, and the server might bog down. There are many variables in the optimal setting; experimentation may help.
 
-See the Performance section in the MANUAL for some tips.
-<!-- TODO: check what's there and factorize -->
+See the `Synchronization Performance` section in the `offlineimap(1)` man page for some tips.
 
 
 ### What platforms does OfflineIMAP support?
@@ -52,7 +51,7 @@ It should run on most platforms supported by Python, with one exception: we do n
 
 The following has been reported by OfflineIMAP users. We do not test OfflineIMAP on Windows, so we can’t directly address their accuracy.
 
-The basic answer is that it’s possible and doesn’t require hacking OfflineIMAP source code. However, it’s not necessarily trivial. The information below is based in instructions submitted by Chris Walker:
+The basic answer is that it’s possible and doesn’t require hacking OfflineIMAP source code. However, it’s not necessarily trivial. The information below is based in instructions submitted by *Chris Walker*:
 
 > First, you must run OfflineIMAP in the Cygwin environment. The Windows
 > filesystem is not powerful enough to accomodate Maildir by itself.
@@ -74,11 +73,9 @@ Yes. We are trying to use `$XDG_CONFIG_HOME/offlineimap/config` as the primary c
 
 Not directly. Maildir was the easiest to implement. We are not planning to write an mbox-backend, though if someone sent me well-written mbox support and pledged to support it, it would be committed it to the tree.
 
-However, OfflineIMAP can directly sync accounts on two different IMAP servers together. So you could install an IMAP server on your local machine that supports mbox, sync to it, and then instruct your mail readers to use the
-mboxes.
+However, OfflineIMAP can directly sync accounts on two different IMAP servers together. So you could install an IMAP server on your local machine that supports mbox, sync to it, and then instruct your mail readers to use the mboxes.
 
 Or you could install whatever IMAP server you like on the local machine, and point your mail readers to that IMAP server on localhost.
-
 
 
 ### What is the UID validity problem for folder?
@@ -122,13 +119,16 @@ This question comes up frequently on the [mailing list archive]({{ links.mailing
 
 OfflineIMAP does not currently provide this feature. You will have to delete folders manually. See next entry too.
 
+
 ### May I delete local folders?
 
 OfflineIMAP does a two-way synchronization.  That is, if you make a change to the mail on the server, it will be propagated to your local copy, and vise-versa.  Some people might think that it would be wise to just delete all their local mail folders periodically.  If you do this with OfflineIMAP, remember to also remove your local status cache (`~/.offlineimap` by default).  Otherwise, OfflineIMAP will take this as an intentional deletion of many messages and will interpret your action as requesting them to be deleted from the server as well.  (If you don't understand this, don't worry; you probably won't encounter this situation.)
 
+
 ### Can I run multiple instances?
 
 OfflineIMAP is not designed to have several instances (for instance, a cron job and an interactive invocation) run over the same mailbox simultaneously.  It will perform a check on startup and abort if another OfflineIMAP is already running.  If you need to schedule synchronizations, you'll probably find autorefresh settings more convenient than cron.  Alternatively, you can set a separate metadata directory for each instance.  The lock stands for each account individually.
+
 
 ### Can I copy messages between folders?
 
@@ -136,16 +136,19 @@ Normally, when you copy a message between folders or add a new message to a fold
 
 But if you try to sync between two IMAP servers, where both are unable to provide you with UID of the new message, then this will lead to infinite loop.  OfflineIMAP will upload the message to one server and delete on second. On next run it will upload the message to second server and delete on first, etc.
 
+
 ### Does OfflineIMAP support POP?
 
 No.
 
+
 ### How is OfflineIMAP conformance?
 
-* Internet Message Access Protocol version 4rev1 (IMAP 4rev1) as specified in `2060`:RFC: and `3501`:RFC:
-* CRAM-MD5 as specified in `2195`:RFC:
+* Internet Message Access Protocol version 4rev1 (IMAP 4rev1) as specified in [RFC 3501](https://www.ietf.org/rfc/rfc3501.txt).
+* CRAM-MD5 as specified in [RFC 2195](https://www.ietf.org/rfc/rfc2195.txt).
 * Maildir as specified in the Maildir manpage and the qmail website.
 * Standard Python 2.7 as implemented on POSIX-compliant systems.
+
 
 ### Can I force OfflineIMAP to sync a folder right now?
 
@@ -161,7 +164,7 @@ accounts as follows::
 
 Simply press the appropriate digit (`3` for `personal`, etc.) to resync that account immediately.  This will be ignored if a resync is already in progress for that account.
 
-2) While in sleep mode, you can also send a SIGUSR1. See the :ref:`UNIX signals` section in the MANUAL for details.
+2) While in sleep mode, you can also send a `SIGUSR1`. See the `UNIX signals` section in the `offlineimap(1)` man page for details.
 
 
 ### I get a "Mailbox already exists" error
@@ -171,10 +174,13 @@ Simply press the appropriate digit (`3` for `personal`, etc.) to resync that acc
      Folder 'sent'[main-remote] could not be created. Server responded:
      ('NO', ['Mailbox already exists.'])
 
-**A:** IMAP folders are usually case sensitive. But some IMAP servers seem to treat "special" folders as case insensitive (e.g. the initial INBOX. part, or folders such as "Sent" or "Trash"). If you happen to have a folder "sent" on one side of things and a folder called "Sent" on the other side, OfflineIMAP will try to create those folders on both sides. If you server happens to treat those folders as case-insensitive you can then see this warning.
+**A:** IMAP folders are usually case sensitive. But some IMAP servers seem to treat "special" folders as case insensitive (e.g. the initial `INBOX.` part, or folders such as `Sent` or `Trash`). If you happen to have a folder `sent` on one side of things and a folder called `Sent` on the other side, OfflineIMAP will try to create those folders on both sides. If you server happens to treat those folders as case-insensitive you can then see this warning.
 
-You can solve this by excluding the "sent" folder by filtering it from
-the repository settings: `folderfilter= lambda f: f not in ['sent']`
+You can solve this by excluding the `sent` folder by filtering it from the repository settings:
+
+{% highlight ini %}
+folderfilter = lambda f: f not in ['sent']
+{% endhighlight %}
 
 
 ## Configuration Questions
@@ -195,15 +201,15 @@ Also you can configure OfflineImap to only synchronize "subscribed" folders.
 
 ### How do I prevent certain folders from being synced?
 
-Use the folderfilter option. See the MANUAL for details and examples.
+Use the folderfilter option. See the `offlineimap(1)` man page for details and examples.
 
 ### What is the mailbox name recorder (mbnames) for?
 
-Some mail readers, such as mutt, are not capable of automatically determining the names of your mailboxes. OfflineIMAP can help these programs by writing the names of the folders in a format you specify. See the example offlineimap.conf for details.
+Some mail readers, such as mutt, are not capable of automatically determining the names of your mailboxes. OfflineIMAP can help these programs by writing the names of the folders in a format you specify. See `offlineimap.conf` for details.
 
 ### Does OfflineIMAP verify SSL certificates?
 
-You can verify an imapserver's certificate by specifying the CA certificate on a per-repository basis by setting the `sslcacertfile` option in the config file. (See the example offlineimap.conf for details.) If you do not specify any CA certificate, you will be presented with the server's certificate fingerprint and add that to the configuration file, to make sure it remains unchanged.  No verification happens if connecting via STARTTLS.
+You can verify an imapserver's certificate by specifying the CA certificate on a per-repository basis by setting the `sslcacertfile` option in the config file. (See the example `offlineimap.conf` for details.) If you do not specify any CA certificate, you will be presented with the server's certificate fingerprint and add that to the configuration file, to make sure it remains unchanged.  No verification happens if connecting via STARTTLS.
 
 ### How do I generate an `sslcacertfile` file?
 
@@ -231,7 +237,7 @@ Before using the resulting file, ensure that openssl verified the certificate su
     $ openssl s_client -CAfile $sslcacertfile -connect ${hostname}:imaps 2>&1 </dev/null
     {% endhighlight %}
 
-If the server uses STARTTLS, pass the -starttls option and the 'imap' port.
+If the server uses STARTTLS, pass the `-starttls` option and the 'imap' port.
 
 Also, you can test using gnutls:
 
@@ -262,8 +268,7 @@ At this time, I believe that OfflineIMAP with Maildirs is not compatible with KM
 
 However, I have made KMail version 3 work well with OfflineIMAP by installing an IMAP server on my local machine, having OfflineIMAP sync to that, and pointing KMail at the same server.
 
-Another way to see mails downloaded with offlineimap in KMail (KDE4) is to
-create a local folder (e.g. Backup) and then use `ln -s localfolders_in_offlineimaprc ~/.kde/share/apps/kmail/mail/.Backup.directory`.  Maybe you have to rebuild the index of the new folder. Works well with KMail 1.11.4 (KDE4.x), offlineimap 6.1.2 and ArchLinux and `sep = /` in `.offlineimaprc`.
+Another way to see mails downloaded with offlineimap in KMail (KDE4) is to create a local folder (e.g. Backup) and then use `ln -s localfolders_in_offlineimaprc ~/.kde/share/apps/kmail/mail/.Backup.directory`.  Maybe you have to rebuild the index of the new folder. Works well with KMail 1.11.4 (KDE4.x), offlineimap 6.1.2 and ArchLinux and `sep = /` in `.offlineimaprc`.
 
 #### Mutt
 
@@ -275,26 +280,33 @@ anything.
 
 ##### How do I set up mbnames with mutt?
 
-The example offlineimap.conf file has this example. In your offlineimap.conf,
+The example offlineimap.conf file has this example. In your `offlineimap.conf`,
 you’ll list this:
 
-    [mbnames]
-    enabled = yes
-    filename = ~/Mutt/muttrc.mailboxes
-    header = "mailboxes "
-    peritem = "+%(accountname)s/%(foldername)s"
-    sep = " "
-    footer = "\n"
+{% highlight ini %}
+[mbnames]
+enabled = yes
+filename = ~/Mutt/muttrc.mailboxes
+header = "mailboxes "
+peritem = "+%(accountname)s/%(foldername)s"
+sep = " "
+footer = "\n"
+#incremental = no
+{% endhighlight %}
 
 Then in your `.muttrc`:
 
-    source ~/Mutt/muttrc.mailboxes
+{% highlight ini %}
+source ~/Mutt/muttrc.mailboxes
+{% endhighlight %}
 
 
 You might also want to set:
 
-    set mbox_type=Maildir
-    set folder=$HOME/Maildirpath
+{% highlight ini %}
+set mbox_type=Maildir
+set folder=$HOME/Maildirpath
+{% endhighlight %}
 
 The OfflineIMAP manual has a more detailed example for doing this for multiple accounts.
 
@@ -318,7 +330,7 @@ To be brief:
 * **pu** ("proposed updates"): patches not ready for inclusion. This should **never** be checkouted!
 * **maint**: our long-living maintenance branch. We maintain this branch (security and bugfixes) for users who don't want or can't upgrade to the latest release.
 
-For more information about the branching model and workflow, see `Advanced Git`.
+For more information about the branching model and workflow, see [Git Advanced]({{ site.base }}/doc/GitAdvanced.html#git-branching-model).
 
 
 ### Why are your Maildir message filenames so long?
@@ -335,8 +347,7 @@ So, OfflineIMAP must store both a message UID and a folder ID. The folder ID is 
 
 ### What can I do to ensure OfflineIMAP is still running and hasn’t crashed?
 
-This shell script will restart OfflineIMAP if it has crashed. Sorry, its
-written in Korn, so you’ll need ksh, pdksh, or mksh to run it:
+This shell script will restart OfflineIMAP if it has crashed. Sorry, its written in Korn, so you’ll need ksh, pdksh, or mksh to run it:
 
 {% highlight bash %}
 #!/bin/ksh
@@ -363,9 +374,9 @@ do
 
 ### How to test OfflineIMAP?
 
-We don't have a testing tool, for now. As a IMAP client, we need an available IMAP server for that purpose. But it doesn't mean you can do anything.
+We don't have well testing tool, for now. As a IMAP client, we need an available IMAP server for that purpose. But it doesn't mean you can do anything.
 
-Recent patches are merged in the next branch before being in the mainline. Once you have your own copy of the official repository, track this next branch:
+Recent patches are merged in the `next` branch before being in the mainline. Once you have your own copy of the official repository, track this `next` branch:
 
 {% highlight bash %}
 $ git checkout -t origin/next

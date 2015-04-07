@@ -15,8 +15,7 @@ Here are some example configurations for various situations.
 
 ## Multiple Accounts with Mutt
 
-This example shows you how to set up OfflineIMAP to synchronize multiple
-accounts with the mutt mail reader.
+This example shows you how to set up OfflineIMAP to synchronize multiple accounts with the mutt mail reader.
 
 Start by creating a directory to hold your folders by running `mkdir ~/Mail`.
 Then, in your `~/.offlineimaprc`, specify:
@@ -24,9 +23,7 @@ Then, in your `~/.offlineimaprc`, specify:
     accounts = Personal, Work
 
 
-Make sure that you have both an `[Account Personal]` and an `[Account Work]`
-section.  The local repository for each account must have different `localfolder`
-path names.  Also, make sure to enable `[mbnames]`.
+Make sure that you have both an `[Account Personal]` and an `[Account Work]` section. The local repository for each account must have different `localfolder` path names. Also, make sure to enable `[mbnames]`.
 
 In each local repository section, write something like this:
 
@@ -48,12 +45,7 @@ Finally, add these lines to your `~/.muttrc`:
 
 ## UW-IMAPD and References
 
-Some users with a UW-IMAPD server need to use OfflineIMAP's "reference" feature
-to get at their mailboxes, specifying a reference of `~/Mail` or `#mh/`
-depending on the configuration.  The below configuration (originally from
-*docwhat@gerf.org*) shows using a reference of Mail, a `nametrans` that strips the
-leading `Mail/` off incoming folder names, and a `folderfilter` that limits the
-folders synced to just three:
+Some users with a UW-IMAPD server need to use OfflineIMAP's "reference" feature to get at their mailboxes, specifying a reference of `~/Mail` or `#mh/` depending on the configuration.  The below configuration (originally from *docwhat@gerf.org*) shows using a reference of Mail, a `nametrans` that strips the leading `Mail/` off incoming folder names, and a `folderfilter` that limits the folders synced to just three:
 
     [Account Gerf]
     localrepository = GerfLocal
@@ -85,9 +77,7 @@ folders synced to just three:
 
 ## pythonfile Configuration File Option
 
-You can have OfflineIMAP load up a Python file before evaluating the
-configuration file options that are Python expressions.  This example is based
-on one supplied by Tommi Virtanen for this feature.
+You can have OfflineIMAP load up a Python file before evaluating the configuration file options that are Python expressions.  This example is based on one supplied by Tommi Virtanen for this feature.
 
 
 In `~/.offlineimaprc`, he adds these options:
@@ -120,8 +110,7 @@ Then, the `~/.offlineimap.py` file will contain:
         print folders
 
 
-This code snippet illustrates how the `foldersort` option can be customized with a
-Python function from the `pythonfile` to always synchronize certain folders first.
+This code snippet illustrates how the `foldersort` option can be customized with a Python function from the `pythonfile` to always synchronize certain folders first.
 
 <!--
 vim: ts=2 expandtab :

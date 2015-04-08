@@ -43,6 +43,7 @@ The idea is just about having an history available in case of damage. It's then 
   > This is the recommended method, and the one I use.
 
 * **Content trackers**
+
   Content trackers are not as effective as filesystems. They have a bigger disk usage overhead because they will save the files in their own database.
   Though, it's a good alternative if you don't have a free partition and want the best performance while working on your mails. The time of the "snapshot" should be quite equivalent in most cases.
 
@@ -51,9 +52,10 @@ The idea is just about having an history available in case of damage. It's then 
   Not the easiest way but probably the more secure. In fact, it will mean you have 3 copy: one hosted by the provider, one in your local system, last on the remote system.
 
   {: .warning}
-  Be care though to **ALWAYS keep an history**. Syncing first with OfflineIMAP while blindly syncing with rsync, for example, is still **wrong**.
+  Be care though to **ALWAYS keep an history**. Syncing first with OfflineIMAP and then blindly syncing with rsync, for example, is still **wrong**.
 
 * **Archives**
+
   Finally, there's always the possiblity to save the Maildir in archives. It's slow and has the biggest disk usage overhead, but it still works.
 
 

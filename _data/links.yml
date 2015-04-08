@@ -35,6 +35,8 @@ wiki:
 
 website:
   project: 'https://github.com/OfflineIMAP/offlineimap.github.io'
+  download:
+    master_zip: 'https://github.com/OfflineIMAP/offlineimap.github.io/archive/master.zip'
   repo:
     http: 'https://github.com/OfflineIMAP/offlineimap.github.io.git'
 

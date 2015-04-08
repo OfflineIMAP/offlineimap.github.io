@@ -3,14 +3,21 @@ layout: page
 title: Quick start to contribute to this website
 date: 2015-03-15
 author: Nicolas Sebrecht
+updated: 2015-04-08
 ---
-
 {% assign links = site.data.links %}
 
 
-{: .note}
+There are basically 3 steps:
+
+* get a local copy of the sources;
+* make you changes, render and check;
+* once ready, submit to the maintainers.
+
+
+{:.note}
 **Note:**
-The minimal required tool sets for the recommended way are **Git**, a **text editor**, a **Github account** *(free)*. Though, using **Git** is not required for quick fixes.
+The minimal required tool sets for the *recommended way* are **Git**, a **text editor**, a **Github account** *(free)*. However, only a **text editor** is strictly required. ,-)
 
 
 * junk
@@ -21,38 +28,51 @@ The minimal required tool sets for the recommended way are **Git**, a **text edi
 
 ### Get a local copy of the sources
 
-#### Via the script in 'offlineimap.git' *(recommended)*
+#### Cloning via the script in 'offlineimap.git'
 
-If you don't have the offlineimap Git sources:
-
-{% highlight bash %}
-$ wget 'https://raw.githubusercontent.com/OfflineIMAP/offlineimap/next/scripts/get-repository.sh'-O get-repository.sh
-{% endhighlight %}
-
-{% highlight bash %}
-$ ./get-repository.sh website
-$ cd ./website
-{% endhighlight %}
+##### From OfflineIMAP's Git repository *(recommended)*
 
 This will clone the repository of the sources and do a bit of extra configuration.
 
+{% highlight bash %}
+$ ./scripts/get-repository.sh website
+$ cd ./website
+{% endhighlight %}
+
+##### Without OfflineIMAP's Git repository
+
+If you don't have the offlineimap Git sources, you can download the script:
+
+{% highlight bash %}
+$ wget 'https://raw.githubusercontent.com/OfflineIMAP/offlineimap/next/scripts/get-repository.sh'-O get-repository.sh
+$ ./scripts/get-repository.sh website
+{% endhighlight %}
+
 {: .note}
-**Note:** If you downloaded the sources via **wget**, you have to configure the `username` variable in the renderer file `render.sh`.
+**Note:** If you downloaded the script via **wget**, you'll have to configure the `username` variable in the renderer file `./run_server.sh`.
+
+#### Cloning with Git
+
+{% highlight bash %}
+$ git clone {{ links.website.repo.http }}
+{% endhighlight %}
+
+#### From zip source
+
+{% highlight bash %}
+$ wget '{{ links.website.download.master_zip }}' -O offlineimap-website.zip
+$ unzip offlineimap-website.zip
+{% endhighlight %}
+
 
 #### Editing online
 
 Login to Github, browse the sources online in your fork, pick up a file, edit and commit.
 
 
-#### Directly from the public repository
+### What to do next
 
-{% highlight bash %}
-$ git clone {{ links.website.repo.http }}
-{% endhighlight %}
-
-#### What to do next
-
-Make your changes, check [how it looks](#rendering-my-changes), and sumbit them to the maintainers, as for usual patches.
+Make your changes, check [how it looks](#rendering-my-changes), and submit them to the maintainers, as for usual patches.
 
 
 ### Create a blog post
@@ -66,7 +86,7 @@ $ git add .
 $ git commit
 {% endhighlight %}
 
-Then, [render it](#rendering-my-changes), check, push to your Github fork and make a pull request.
+Then, [render it](#rendering-my-changes), check, push to your Github fork and make a pull request. If you don't have a public Git repository, you can send the file of your post to the maintainers.
 
 ### Create a documentation page
 
@@ -84,7 +104,7 @@ Contrary to the blog posts, pages in `_doc` are not indexed automaticaly.  Edit 
 {: .warning}
 Be care that you have to set the **URL** as a target which ends with `.html`. Not the source with the `.md` extension.
 
-Then, [render it](#rendering-my-changes), check, push to your Github fork and make a pull request.
+Then, [render it](#rendering-my-changes), check and [submit](#submit).
 
 
 ### Rendering my changes
@@ -106,6 +126,21 @@ For rendering it locally, you must have [jekyll installed](#about-jekyll).
 {% highlight bash %}
 $ ./run_server.sh
 {% endhighlight %}
+
+
+### Submit to the maintainers
+
+#### With Git
+
+Push your changes to your public fork and request a pull.
+
+#### Without Git
+
+Put the files you changed as a [Gist](https://gist.github.com) and request the maintainers. Gists are usefull but not required, if you don't like it use something else.
+
+Requesting the maintainers the way you'd like:
+* open an [issue]({{ links.website.project }}/issues);
+* send a mail.
 
 
 ## About Jekyll

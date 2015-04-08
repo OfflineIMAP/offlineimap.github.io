@@ -11,6 +11,7 @@ offlineimap:
   project: 'https://github.com/OfflineIMAP/offlineimap'
   repository: 'https://github.com/OfflineIMAP/offlineimap.git'
   downloads: 'https://github.com/OfflineIMAP/offlineimap/tags'
+  issues: 'https://github.com/OfflineIMAP/offlineimap/issues'
   rss:
     commits: 'https://github.com/OfflineIMAP/offlineimap/commits/next.atom'
   blobs:

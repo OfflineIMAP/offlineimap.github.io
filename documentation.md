@@ -33,10 +33,8 @@ Don't change the fixed id: there is a reference to here from the about page.
 - [Quick Start]({{ site.base }}/doc/quick_start.html)
 - [Configuration Examples]({{ site.base }}/doc/conf_examples.html)
 
-- [Frequently Ask Questions]({{ site.base }}/doc/FAQ.html)
 
 - [Features]({{ site.base }}/doc/features.html) *(old)*
-
 
 ### Make backups of a mailbox
 
@@ -60,10 +58,13 @@ The source files of the contributions are locally available in `./contrib` or [o
 {% endfor %}
 
 
+## FAQ
+
+- [Frequently Ask Questions]({{ site.base }}/doc/FAQ.html)
 
 
 {: #documentation-for-contributors}
-## Documentation for contributors
+## Contributors
 
 ### Users
 

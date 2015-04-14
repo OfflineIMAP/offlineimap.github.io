@@ -8,6 +8,7 @@ categories: devel
 
 {% assign icons = site.data.icons %}
 
+*(Change introduced in OfflineIMAP v6.5.7)*
 
 As a maintainer, there are features I'm more confident about than others. This is especially the case when it's about code that has been there for a long time that had few issues for years.
 

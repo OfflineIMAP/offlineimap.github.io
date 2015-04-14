@@ -90,7 +90,7 @@ So, Janna fixed this by setting and getting the date and time correctly for Mail
 Janna found another issue. While testing the fix she discovered that **Gmail uses local timezones** for the internal date. So, we were computing the dates against UTC while the IMAP server computed the internal date against a random timezone. *Sigh!*
 
 {:style='color:DarkRed'}
-It turns out that there is no way to figure out what timezone the remote server is using, and we quicky understood there was almost nothing we could do but very hackish fixes. We were stuck trying to compute the correct lists of messages to consider for a sync...
+It turns out that there is no way to figure out what timezone the remote server is using, and we quickly understood there was almost nothing we could do but very hackish fixes. We were stuck trying to compute the correct lists of messages to consider for a sync...
 
 
 ## Revisiting the whole logic
@@ -120,7 +120,7 @@ Step 3 is necessary because of edge cases: it's possible to have messages A and 
 At this point, Janna found that for IMAP/IMAP configurations, **messages on one server might be in a different order (with respect to UIDs) than the corresponding messages on the other server**. When we upload mails in a defined order, they might be assigned UIDs in a different order.
 
 {:style='color:DarkRed'}
-This makes behaviour of maxage **unpredicable** for IMAP/IMAP and we could do nothing about that while simply relying on what the IMAP protocol provides.
+This makes behaviour of maxage **unpredictable** for IMAP/IMAP and we could do nothing about that while simply relying on what the IMAP protocol provides.
 
 
 ## Partially removing maxage
@@ -159,9 +159,9 @@ Hence, I decided to *partially* remove maxage:
 
 This is where Janna started to design an alternative to maxage for IMAP/IMAP.
 
-Let's welcome `startdate`, a new configuration option. It is desgined for IMAP/IMAP setups only. It is a replacement for maxage but has its own limitations.
+Let's welcome `startdate`, a new configuration option. It is designed for IMAP/IMAP setups only. It is a replacement for maxage but has its own limitations.
 
-For the same reasons we couldn't keep maxage, it was not possible to provide a strict equivalent wihout much more advanced (and intrusive) strategy. `startdate` will work with a **fixed date** and requires the remote server to be empty on the first sync.
+For the same reasons we couldn't keep maxage, it was not possible to provide a strict equivalent without a much more advanced (and intrusive) strategy. `startdate` will work with a **fixed date** and requires the remote server to be empty on the first sync.
 
 This is all we could come with, for now.
 

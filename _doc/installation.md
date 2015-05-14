@@ -21,7 +21,7 @@ In order to use [OfflineIMAP]({{ links.offlineimap.project }}), you need to have
 
 1. Your mail server must support **IMAP**. Mail access via POP is not supported. A special Gmail mailbox type is available to interface with Gmail's IMAP front-end, although Gmail has a very peculiar and non-standard implementation of its IMAP interface.
 
-2. You must have **Python version 2.7 or above** installed.  If you are running on Debian GNU/Linux, this requirement will automatically be taken care of for you.  If you intend to use the SSL interface, your Python must have been built with SSL support.
+2. You must have **Python version 2.7 or above** installed.  If you are running on Debian GNU/Linux, this requirement will automatically be taken care of for you.  If you are running on Windows, you will need to install Cygwin first. If you intend to use the SSL interface, your Python must have been built with SSL support.
 
 3. If you use OfflineIMAP as an IMAP <-> Maildir synchronizer, you will obviously need to have a mail reader that supports the Maildir mailbox format.  Most modern mail readers have this support built-in, so you can choose from a wide variety of mail servers.  This format is also known as the "qmail" format, so any mail reader compatible with it will work with OfflineIMAP.
 
@@ -48,6 +48,15 @@ Download the latest archive from the [download page]({{ links.offlineimap.downlo
 
 Unpack and continue with the [system-wide](#system-wide) or [single-user](#single-user) installation.
 
+
+{: #windows}
+### Installation for Windows
+
+Download and install Cygwin (https://cygwin.com/install.html) with the Python and Devel packages enabled (Devel is necessary to enable the Make commands).
+
+Download the latest archive from the [download page]({{ links.offlineimap.downloads }}).
+
+Unpack and continue with the [system-wide](#system-wide) or [single-user](#single-user) installation.
 
 {: #git}
 ### Installation with git
@@ -109,6 +118,12 @@ If you installed a system-wide installation via `python setup.py install`, there
 {% endhighlight %}
 
 In case, you did the single-user installation, simply delete your offlineimap directory.
+
+In Windows, the directory to delete should be located at:
+
+{% highlight bash %}
+(Cygwin main directory)/lib/python2.7/site-packages/offlineimap
+{% endhighlight %}
 
 ### Delete all files that OfflineIMAP creates during its operation.
 

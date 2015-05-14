@@ -52,7 +52,7 @@ Unpack and continue with the [system-wide](#system-wide) or [single-user](#singl
 {: #windows}
 ### Installation for Windows
 
-Download and install Cygwin (https://cygwin.com/install.html) with the Python and Devel packages enabled (Devel is necessary to enable the Make commands).
+Download and install [Cygwin](https://cygwin.com/install.html) with the Python and Devel packages enabled (Devel is necessary to enable the Make commands).
 
 Download the latest archive from the [download page]({{ links.offlineimap.downloads }}).
 

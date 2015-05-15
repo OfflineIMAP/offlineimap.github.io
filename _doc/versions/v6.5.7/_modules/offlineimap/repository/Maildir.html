@@ -1,0 +1,297 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>offlineimap.repository.Maildir &mdash; OfflineIMAP 6.5.7 documentation</title>
+    
+    <link rel="stylesheet" href="../../../_static/classic.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../',
+        VERSION:     '6.5.7',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    <link rel="top" title="OfflineIMAP 6.5.7 documentation" href="../../../index.html" />
+    <link rel="up" title="offlineimap.repository" href="../repository.html" /> 
+  </head>
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="nav-item nav-item-0"><a href="../../../index.html">OfflineIMAP 6.5.7 documentation</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="../../index.html" >Module code</a> &raquo;</li>
+          <li class="nav-item nav-item-2"><a href="../repository.html" accesskey="U">offlineimap.repository</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for offlineimap.repository.Maildir</h1><div class="highlight"><pre>
+<span class="c"># Maildir repository support</span>
+<span class="c"># Copyright (C) 2002-2015 John Goerzen &amp; contributors</span>
+<span class="c">#</span>
+<span class="c">#    This program is free software; you can redistribute it and/or modify</span>
+<span class="c">#    it under the terms of the GNU General Public License as published by</span>
+<span class="c">#    the Free Software Foundation; either version 2 of the License, or</span>
+<span class="c">#    (at your option) any later version.</span>
+<span class="c">#</span>
+<span class="c">#    This program is distributed in the hope that it will be useful,</span>
+<span class="c">#    but WITHOUT ANY WARRANTY; without even the implied warranty of</span>
+<span class="c">#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the</span>
+<span class="c">#    GNU General Public License for more details.</span>
+<span class="c">#</span>
+<span class="c">#    You should have received a copy of the GNU General Public License</span>
+<span class="c">#    along with this program; if not, write to the Free Software</span>
+<span class="c">#    Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301 USA</span>
+
+<span class="kn">from</span> <span class="nn">offlineimap</span> <span class="kn">import</span> <span class="n">folder</span>
+<span class="kn">from</span> <span class="nn">offlineimap.ui</span> <span class="kn">import</span> <span class="n">getglobalui</span>
+<span class="kn">from</span> <span class="nn">offlineimap.error</span> <span class="kn">import</span> <span class="n">OfflineImapError</span>
+<span class="kn">from</span> <span class="nn">offlineimap.repository.Base</span> <span class="kn">import</span> <span class="n">BaseRepository</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">from</span> <span class="nn">stat</span> <span class="kn">import</span> <span class="o">*</span>
+
+<div class="viewcode-block" id="MaildirRepository"><a class="viewcode-back" href="../../../repository.html#offlineimap.repository.MaildirRepository">[docs]</a><span class="k">class</span> <span class="nc">MaildirRepository</span><span class="p">(</span><span class="n">BaseRepository</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">reposname</span><span class="p">,</span> <span class="n">account</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Initialize a MaildirRepository object.  Takes a path name</span>
+<span class="sd">        to the directory holding all the Maildir directories.&quot;&quot;&quot;</span>
+
+        <span class="n">BaseRepository</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">reposname</span><span class="p">,</span> <span class="n">account</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">root</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">getlocalroot</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">folders</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span> <span class="o">=</span> <span class="n">getglobalui</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s">&quot;MaildirRepository initialized, sep is </span><span class="si">%s</span><span class="s">&quot;</span><span class="o">%</span> <span class="nb">repr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">getsep</span><span class="p">()))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">folder_atimes</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="c"># Create the top-level folder if it doesn&#39;t exist</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isdir</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="p">):</span>
+            <span class="n">os</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="p">,</span> <span class="mi">0</span><span class="n">o700</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_append_folder_atimes</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">foldername</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Store the atimes of a folder&#39;s new|cur in self.folder_atimes&quot;&quot;&quot;</span>
+
+        <span class="n">p</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="p">,</span> <span class="n">foldername</span><span class="p">)</span>
+        <span class="n">new</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="s">&#39;new&#39;</span><span class="p">)</span>
+        <span class="n">cur</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="s">&#39;cur&#39;</span><span class="p">)</span>
+        <span class="n">atimes</span> <span class="o">=</span> <span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">getatime</span><span class="p">(</span><span class="n">new</span><span class="p">),</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">getatime</span><span class="p">(</span><span class="n">cur</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">folder_atimes</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">atimes</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">restore_atime</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Sets folders&#39; atime back to their values after a sync</span>
+
+<span class="sd">        Controlled by the &#39;restoreatime&#39; config parameter.&quot;&quot;&quot;</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">getconfboolean</span><span class="p">(</span><span class="s">&#39;restoreatime&#39;</span><span class="p">,</span> <span class="bp">False</span><span class="p">):</span>
+            <span class="k">return</span> <span class="c"># not configured to restore</span>
+
+        <span class="k">for</span> <span class="p">(</span><span class="n">dirpath</span><span class="p">,</span> <span class="n">new_atime</span><span class="p">,</span> <span class="n">cur_atime</span><span class="p">)</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">folder_atimes</span><span class="p">:</span>
+            <span class="n">new_dir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">dirpath</span><span class="p">,</span> <span class="s">&#39;new&#39;</span><span class="p">)</span>
+            <span class="n">cur_dir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">dirpath</span><span class="p">,</span> <span class="s">&#39;cur&#39;</span><span class="p">)</span>
+            <span class="n">os</span><span class="o">.</span><span class="n">utime</span><span class="p">(</span><span class="n">new_dir</span><span class="p">,</span> <span class="p">(</span><span class="n">new_atime</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">getmtime</span><span class="p">(</span><span class="n">new_dir</span><span class="p">)))</span>
+            <span class="n">os</span><span class="o">.</span><span class="n">utime</span><span class="p">(</span><span class="n">cur_dir</span><span class="p">,</span> <span class="p">(</span><span class="n">cur_atime</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">getmtime</span><span class="p">(</span><span class="n">cur_dir</span><span class="p">)))</span>
+
+    <span class="k">def</span> <span class="nf">getlocalroot</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">xforms</span> <span class="o">=</span> <span class="p">[</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">expanduser</span><span class="p">]</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">getconf_xform</span><span class="p">(</span><span class="s">&#39;localfolders&#39;</span><span class="p">,</span> <span class="n">xforms</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">debug</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">msg</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s">&#39;maildir&#39;</span><span class="p">,</span> <span class="n">msg</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">getsep</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">getconf</span><span class="p">(</span><span class="s">&#39;sep&#39;</span><span class="p">,</span> <span class="s">&#39;.&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">makefolder</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">foldername</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Create new Maildir folder if necessary</span>
+
+<span class="sd">        This will not update the list cached in getfolders(). You will</span>
+<span class="sd">        need to invoke :meth:`forgetfolders` to force new caching when</span>
+<span class="sd">        you are done creating folders yourself.</span>
+
+<span class="sd">        :param foldername: A relative mailbox name. The maildir will be</span>
+<span class="sd">            created in self.root+&#39;/&#39;+foldername. All intermediate folder</span>
+<span class="sd">            levels will be created if they do not exist yet. &#39;cur&#39;,</span>
+<span class="sd">            &#39;tmp&#39;, and &#39;new&#39; subfolders will be created in the maildir.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">makefolder</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">foldername</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">account</span><span class="o">.</span><span class="n">dryrun</span><span class="p">:</span>
+            <span class="k">return</span>
+        <span class="n">full_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="p">,</span> <span class="n">foldername</span><span class="p">))</span>
+
+        <span class="c"># sanity tests</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">getsep</span><span class="p">()</span> <span class="o">==</span> <span class="s">&#39;/&#39;</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">component</span> <span class="ow">in</span> <span class="n">foldername</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">&#39;/&#39;</span><span class="p">):</span>
+                <span class="k">assert</span> <span class="ow">not</span> <span class="n">component</span> <span class="ow">in</span> <span class="p">[</span><span class="s">&#39;new&#39;</span><span class="p">,</span> <span class="s">&#39;cur&#39;</span><span class="p">,</span> <span class="s">&#39;tmp&#39;</span><span class="p">],</span>\
+                    <span class="s">&quot;When using nested folders (/ as a Maildir separator), &quot;</span>\
+                    <span class="s">&quot;folder names may not contain &#39;new&#39;, &#39;cur&#39;, &#39;tmp&#39;.&quot;</span>
+        <span class="k">assert</span> <span class="n">foldername</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s">&#39;../&#39;</span><span class="p">)</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="s">&quot;Folder names may not contain ../&quot;</span>
+        <span class="k">assert</span> <span class="ow">not</span> <span class="n">foldername</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s">&#39;/&#39;</span><span class="p">),</span> <span class="s">&quot;Folder names may not begin with /&quot;</span>
+
+        <span class="c"># If we&#39;re using hierarchical folders, it&#39;s possible that</span>
+        <span class="c"># sub-folders may be created before higher-up ones.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s">&quot;makefolder: calling makedirs &#39;</span><span class="si">%s</span><span class="s">&#39;&quot;</span><span class="o">%</span> <span class="n">full_path</span><span class="p">)</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">full_path</span><span class="p">,</span> <span class="mi">0</span><span class="n">o700</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">OSError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">e</span><span class="o">.</span><span class="n">errno</span> <span class="o">==</span> <span class="mi">17</span> <span class="ow">and</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isdir</span><span class="p">(</span><span class="n">full_path</span><span class="p">):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s">&quot;makefolder: &#39;</span><span class="si">%s</span><span class="s">&#39; already a directory&quot;</span><span class="o">%</span> <span class="n">foldername</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">raise</span>
+        <span class="k">for</span> <span class="n">subdir</span> <span class="ow">in</span> <span class="p">[</span><span class="s">&#39;cur&#39;</span><span class="p">,</span> <span class="s">&#39;new&#39;</span><span class="p">,</span> <span class="s">&#39;tmp&#39;</span><span class="p">]:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">os</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">full_path</span><span class="p">,</span> <span class="n">subdir</span><span class="p">),</span> <span class="mi">0</span><span class="n">o700</span><span class="p">)</span>
+            <span class="k">except</span> <span class="ne">OSError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">e</span><span class="o">.</span><span class="n">errno</span> <span class="o">==</span> <span class="mi">17</span> <span class="ow">and</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isdir</span><span class="p">(</span><span class="n">full_path</span><span class="p">):</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s">&quot;makefolder: &#39;</span><span class="si">%s</span><span class="s">&#39; already has subdir </span><span class="si">%s</span><span class="s">&quot;</span><span class="o">%</span>
+                        <span class="p">(</span><span class="n">foldername</span><span class="p">,</span> <span class="n">subdir</span><span class="p">))</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="k">raise</span>
+
+    <span class="k">def</span> <span class="nf">deletefolder</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">foldername</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s">&quot;NOT YET IMPLEMENTED: DELETE FOLDER </span><span class="si">%s</span><span class="s">&quot;</span><span class="o">%</span> <span class="n">foldername</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">getfolder</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">foldername</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Return a Folder instance of this Maildir</span>
+
+<span class="sd">        If necessary, scan and cache all foldernames to make sure that</span>
+<span class="sd">        we only return existing folders and that 2 calls with the same</span>
+<span class="sd">        name will return the same object.&quot;&quot;&quot;</span>
+
+        <span class="c"># getfolders() will scan and cache the values *if* necessary</span>
+        <span class="n">folders</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">getfolders</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">folders</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">foldername</span> <span class="o">==</span> <span class="n">f</span><span class="o">.</span><span class="n">name</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">f</span>
+        <span class="k">raise</span> <span class="n">OfflineImapError</span><span class="p">(</span><span class="s">&quot;getfolder() asked for a nonexisting &quot;</span>
+                               <span class="s">&quot;folder &#39;</span><span class="si">%s</span><span class="s">&#39;.&quot;</span><span class="o">%</span> <span class="n">foldername</span><span class="p">,</span>
+                               <span class="n">OfflineImapError</span><span class="o">.</span><span class="n">ERROR</span><span class="o">.</span><span class="n">FOLDER</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_getfolders_scandir</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">root</span><span class="p">,</span> <span class="n">extension</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Recursively scan folder &#39;root&#39;; return a list of MailDirFolder</span>
+
+<span class="sd">        :param root: (absolute) path to Maildir root</span>
+<span class="sd">        :param extension: (relative) subfolder to examine within root&quot;&quot;&quot;</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s">&quot;_GETFOLDERS_SCANDIR STARTING. root = </span><span class="si">%s</span><span class="s">, extension = </span><span class="si">%s</span><span class="s">&quot;</span><span class="o">%</span>
+                   <span class="p">(</span><span class="n">root</span><span class="p">,</span> <span class="n">extension</span><span class="p">))</span>
+        <span class="n">retval</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="c"># Configure the full path to this repository -- &quot;toppath&quot;</span>
+        <span class="k">if</span> <span class="n">extension</span><span class="p">:</span>
+            <span class="n">toppath</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">root</span><span class="p">,</span> <span class="n">extension</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">toppath</span> <span class="o">=</span> <span class="n">root</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s">&quot;  toppath = </span><span class="si">%s</span><span class="s">&quot;</span><span class="o">%</span> <span class="n">toppath</span><span class="p">)</span>
+
+        <span class="c"># Iterate over directories in top &amp; top itself.</span>
+        <span class="k">for</span> <span class="n">dirname</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="n">toppath</span><span class="p">)</span> <span class="o">+</span> <span class="p">[</span><span class="s">&#39;&#39;</span><span class="p">]:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s">&quot;  dirname = </span><span class="si">%s</span><span class="s">&quot;</span><span class="o">%</span> <span class="n">dirname</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">dirname</span> <span class="o">==</span> <span class="s">&#39;&#39;</span> <span class="ow">and</span> <span class="n">extension</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s">&#39;  skip this entry (already scanned)&#39;</span><span class="p">)</span>
+                <span class="k">continue</span>
+            <span class="k">if</span> <span class="n">dirname</span> <span class="ow">in</span> <span class="p">[</span><span class="s">&#39;cur&#39;</span><span class="p">,</span> <span class="s">&#39;new&#39;</span><span class="p">,</span> <span class="s">&#39;tmp&#39;</span><span class="p">]:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s">&quot;  skip this entry (Maildir special)&quot;</span><span class="p">)</span>
+                <span class="c"># Bypass special files.</span>
+                <span class="k">continue</span>
+            <span class="n">fullname</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">toppath</span><span class="p">,</span> <span class="n">dirname</span><span class="p">)</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isdir</span><span class="p">(</span><span class="n">fullname</span><span class="p">):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s">&quot;  skip this entry (not a directory)&quot;</span><span class="p">)</span>
+                <span class="c"># Not a directory -- not a folder.</span>
+                <span class="k">continue</span>
+            <span class="c"># extension can be None.</span>
+            <span class="k">if</span> <span class="n">extension</span><span class="p">:</span>
+                <span class="n">foldername</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">extension</span><span class="p">,</span> <span class="n">dirname</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">foldername</span> <span class="o">=</span> <span class="n">dirname</span>
+
+            <span class="k">if</span> <span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isdir</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">fullname</span><span class="p">,</span> <span class="s">&#39;cur&#39;</span><span class="p">))</span> <span class="ow">and</span>
+                <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isdir</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">fullname</span><span class="p">,</span> <span class="s">&#39;new&#39;</span><span class="p">))</span> <span class="ow">and</span>
+                <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isdir</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">fullname</span><span class="p">,</span> <span class="s">&#39;tmp&#39;</span><span class="p">))):</span>
+                <span class="c"># This directory has maildir stuff -- process</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s">&quot;  This is maildir folder &#39;</span><span class="si">%s</span><span class="s">&#39;.&quot;</span><span class="o">%</span> <span class="n">foldername</span><span class="p">)</span>
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">getconfboolean</span><span class="p">(</span><span class="s">&#39;restoreatime&#39;</span><span class="p">,</span> <span class="bp">False</span><span class="p">):</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_append_folder_atimes</span><span class="p">(</span><span class="n">foldername</span><span class="p">)</span>
+                <span class="n">fd</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">getfoldertype</span><span class="p">()(</span><span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="p">,</span> <span class="n">foldername</span><span class="p">,</span>
+                                          <span class="bp">self</span><span class="o">.</span><span class="n">getsep</span><span class="p">(),</span> <span class="bp">self</span><span class="p">)</span>
+                <span class="n">retval</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">fd</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">getsep</span><span class="p">()</span> <span class="o">==</span> <span class="s">&#39;/&#39;</span> <span class="ow">and</span> <span class="n">dirname</span> <span class="o">!=</span> <span class="s">&#39;&#39;</span><span class="p">:</span>
+                <span class="c"># Recursively check sub-directories for folders too.</span>
+                <span class="n">retval</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_getfolders_scandir</span><span class="p">(</span><span class="n">root</span><span class="p">,</span> <span class="n">foldername</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s">&quot;_GETFOLDERS_SCANDIR RETURNING </span><span class="si">%s</span><span class="s">&quot;</span><span class="o">%</span> \
+                   <span class="nb">repr</span><span class="p">([</span><span class="n">x</span><span class="o">.</span><span class="n">getname</span><span class="p">()</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">retval</span><span class="p">]))</span>
+        <span class="k">return</span> <span class="n">retval</span>
+
+    <span class="k">def</span> <span class="nf">getfolders</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">folders</span> <span class="o">==</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">folders</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_getfolders_scandir</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">folders</span>
+
+    <span class="k">def</span> <span class="nf">getfoldertype</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">folder</span><span class="o">.</span><span class="n">Maildir</span><span class="o">.</span><span class="n">MaildirFolder</span>
+
+    <span class="k">def</span> <span class="nf">forgetfolders</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Forgets the cached list of folders, if any.  Useful to run</span>
+<span class="sd">        after a sync run.&quot;&quot;&quot;</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">folders</span> <span class="o">=</span> <span class="bp">None</span></div>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="nav-item nav-item-0"><a href="../../../index.html">OfflineIMAP 6.5.7 documentation</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="../../index.html" >Module code</a> &raquo;</li>
+          <li class="nav-item nav-item-2"><a href="../repository.html" >offlineimap.repository</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &copy; Copyright Copyright 2002-2015 John Goerzen &amp; contributors.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.
+    </div>
+  </body>
+</html>

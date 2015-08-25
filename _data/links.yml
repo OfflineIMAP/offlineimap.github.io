@@ -23,7 +23,7 @@ mailing_list:
   subscribe: 'http://lists.alioth.debian.org/mailman/listinfo/offlineimap-project'
 
 wiki:
-  project: 'https://github.com/OfflineIMAP/offlineimap.wiki'
+  project: 'https://github.com/OfflineIMAP/offlineimap/wiki'
   repo:
     http: 'https://github.com/OfflineIMAP/offlineimap.wiki.git'
     git: 'git@github.com:OfflineIMAP/offlineimap-wiki.git'

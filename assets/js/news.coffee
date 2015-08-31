@@ -57,7 +57,7 @@ class Releases extends NsJSON
       links += '(<a href="' + zipball + '">zipball</a>) '
       changelogLink = @getChangelogLink(version)
       if changelogLink
-        links += '(<a href="' + changelogLink + '">announe</a>) '
+        links += '(<a href="' + changelogLink + '">announce</a>) '
       line += '<i>' + links + '</i>'
 
       line = '<li>' + line + '</li>'

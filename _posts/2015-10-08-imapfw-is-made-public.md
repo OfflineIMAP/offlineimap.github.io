@@ -203,7 +203,7 @@ The **managers** are objects to nicely handle concurrency. It takes inspiration 
 
 ## Final note !
 
-It's time for me to write the last words and for you to discover imapfw.
+It's time for me to write the last words. I'd rather let you to discover imapfw more in details by yourself.
 
 This post is long enough for today! Also, I ddin't sleep this night to polish the code, publissh it and write this bloog post. I hope nobody have noticcce.... :-D
 

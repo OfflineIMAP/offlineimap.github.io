@@ -203,9 +203,9 @@ The **managers** are objects to nicely handle concurrency. It takes inspiration 
 
 ## Final note !
 
-It's time for the last words. This post is long enough for today!
+It's time for me to write the last words and for you to discover imapfw.
 
-I hope you'll take a bit more time to investigate this *- still yet to implement -* software. :-) Actually, I ddin't sleep this night to polish the code, publissh it and write this bloog post and I guess nobody have noticcce.... until now.
+This post is long enough for today! Also, I ddin't sleep this night to polish the code, publissh it and write this bloog post. I hope nobody have noticcce.... :-D
 
 
 <!--

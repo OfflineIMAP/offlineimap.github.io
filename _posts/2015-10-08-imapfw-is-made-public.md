@@ -12,7 +12,7 @@ I'm publishing **imapfw**, a new IMAP tool which I intend to replace OfflineIMAP
 
 <!--more-->
 
-Some months passed since my previous announce to make a deep refactoring of OfflineIMAP. While doing this job, I realized it was something very hard and it would be better to write a new software. That's what I'm currently doing and it's called [imapfw]({{ https://github.com/OfflineIMAP/imapfw }}).
+Some months passed since my previous announce to make a deep refactoring of OfflineIMAP. While doing this job, I realized it was something very hard and it would be better to write a new software. That's what I'm currently doing and it's called [imapfw](https://github.com/OfflineIMAP/imapfw).
 
 {:.note}
 This tool won't do much for now. This is still in very early development stage.
@@ -50,7 +50,7 @@ Also, feel free to give your opinion about anything.
 
 ### Users of OfflineIMAP
 
-Since I intend imapfw to replace OfflineIMAP in the long term, you might want to follow the development and give your feedbacks. My best guess is that you will mostly be interested by the [**rascal**]({{ https://github.com/OfflineIMAP/imapfw/blob/next/imapfw/rascal/default.py }}): how it looks, is it hard, etc.
+Since I intend imapfw to replace OfflineIMAP in the long term, you might want to follow the development and give your feedbacks. My best guess is that you will mostly be interested by the [**rascal**](https://github.com/OfflineIMAP/imapfw/blob/next/imapfw/rascal/default.py): how it looks, is it hard, etc.
 
 ### Developers
 
@@ -71,7 +71,7 @@ The main argument is the `ACTION`. It tells what imapfw must do. I've started th
 
 ### The rascal
 
-Here's an extract of the [rascal]({{ https://github.com/OfflineIMAP/imapfw/blob/next/imapfw/rascal/default.py }}):
+Here's an extract of the [rascal](https://github.com/OfflineIMAP/imapfw/blob/next/imapfw/rascal/default.py):
 
 {% highlight python %}
 

@@ -31,7 +31,7 @@ Here are the main goals I have in mind for imapfw:
 * fully *(aggressively?)* concurrent;
 * fit the needs to both novice and experts;
 * support **a lot** of use cases;
-* safe and with integrated tests;
+* safe and with embedded unit tests;
 * fucking good documentation;
 * IDLE mode? I'm still not sure about this one.
 
@@ -163,14 +163,14 @@ class AccountExample(types.Account):
 
 {% endhighlight %}
 
-* The first thing to notice is that configuration options are simple dictionnaries. Forget the INI style. I aim simple users to not have to write ONE line of Python code.
+* The first thing to notice is that configuration options are dictionnaries. Forget the INI style. I aim simple users to not have to write ONE line of Python code.
 * OfflineIMAP users should feel comfortable reading this file. It follows almost the same semantic and the same logic around **accounts**.
 * Most experienced users will notice the classes. Here is the hierarchy and how
   they are logically linked:
-  * an account is defined (derivates from `types.Account`) with both left and right "repositories".
+  * an account is defined (derivates from `types.Account`) with both `left` and `right` "repositories".
   * a "repository" *(I'm about to fully remove this term)* maps to a configuration dictionary and a driver to actually access it. It derivates from the associated type (`types.Maildir`, `types.Imap`, etc) and the drivers are similar (`drivers.Maildir`, `drivers.Imap`, etc).
 
-On top of this, each **type** acts as a controller for the underlying driver. I expect experimented users to make most of their *crappy* things here. Think about filtering folders, translating, etc. ,-)
+On top of this, each **type** acts as a controller for the underlying driver. I expect experimented users to make most of their *"crappy"* things^W^W tuning here. ,-) Think about filtering folders, nametrans, etc.
 
 How everything is linked is important: it's possible to decide what type uses which driver for what account.
 
@@ -186,9 +186,9 @@ from imapfw.api import actions, engines, types, drivers
 * **types** are the little sisters of the OfflineIMAP's repositories: Maildir, Imap, Gmail, etc, in the sense they hold a driver and some configuration options *(like the credentials)* to access it.
 * **drivers** are the low-level drivers to use for the types (didn't exist in OfflineIMAP).
 
-The imports are what makes the framework so powerfull. They allow the user to **redefine** some methods, or even write their own full new backends.
+The imports are what makes the framework so powerfull. They allow users to **redefine** the default behaviour, or even write their own new full backends.
 
-Because actions, engines, types and drivers are well orthogonal and seperated concepts, extending imapfw should be much easier than it was with OfflineIMAP.
+Because actions, engines, types and drivers are well orthogonal and distinct concepts, extending imapfw should be much easier than it was with OfflineIMAP.
 
 ## A brief introduction about imapfw's internals
 
@@ -205,7 +205,7 @@ The **managers** are objects to nicely handle concurrency. It takes inspiration 
 
 It's time for me to write the last words. I'd rather let you to discover imapfw more in details by yourself.
 
-This post is long enough for today! Also, I ddin't sleep this night to polish the code, publissh it and write this bloog post. I hope nobody have noticcce.... :-D
+This post is long enough for today! Also, I'm getting very tired (I ddin't sleep this night to polish the code, publissh it and write this bloog post). I hope nobody have noticcce.... :-D
 
 
 <!--

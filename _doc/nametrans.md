@@ -4,7 +4,7 @@ title: Folder filtering and Name translation
 date: 2005-06-17
 author: John Goerzen
 contributors: Sebastian Spaeth, Dan Milon, Nicolas Sebrecht
-updated: 2015-03-15
+updated: 2015-10-15
 ---
 {% assign icons = site.data.icons %}
 
@@ -166,16 +166,17 @@ OfflineIMAP will complain if it needs to create a new folder on the remote side 
 
 ### What folder separators do I need to use in nametrans rules?
 
-**Q:** If I sync from an IMAP server with folder separator '/' to a
-  Maildir using the default folder separator '.' which do I need to use
-  in nametrans rules?
-  {% highlight python %}
-  nametrans = lambda f: "INBOX/" + f
-  {% endhighlight %}
-  or:
-  {% highlight python %}
-  nametrans = lambda f: "INBOX." + f
-  {% endhighlight %}
+**Q:** If I sync from an IMAP server with folder separator '/' to a Maildir using the default folder separator '.' which do I need to use in nametrans rules?
+
+{% highlight python %}
+nametrans = lambda f: "INBOX/" + f
+{% endhighlight %}
+
+or:
+
+{% highlight python %}
+nametrans = lambda f: "INBOX." + f
+{% endhighlight %}
 
 **A:** Generally use the folder separator as defined in the repository you write the nametrans rule for. That is, use '/' in the above case. We will pass in the untranslated name of the IMAP folder as parameter (here `f`). The translated name will ultimately have all folder separators be replaced with the destination repositories' folder separator.
 

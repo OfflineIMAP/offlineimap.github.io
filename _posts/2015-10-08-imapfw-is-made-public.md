@@ -2,6 +2,7 @@
 layout: post
 title: imapfw is made public
 date: 2015-10-08
+updated: 2015-10-18
 author: Nicolas Sebrecht
 categories: development
 ---
@@ -60,6 +61,9 @@ I don't expect patches, for now. However, let me know if you'd like to contribut
 
 
 ## How it looks
+
+{:.warning}
+This section is partially obsolete.
 
 A good start is to fork the project and look at the CLI options:
 

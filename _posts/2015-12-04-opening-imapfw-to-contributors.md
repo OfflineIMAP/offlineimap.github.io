@@ -59,7 +59,7 @@ A website, like the one used for OfflineIMAP (from where you're reading this pag
 
 #### Developers
 
-There are things that are more time consuming than hard to realize, actually. Involve yourself would greatly help to get the first stable release out. E.g.:
+There are things that are more time consuming than hard to achieve, actually. Involve yourself would greatly help to get the first stable release out. E.g.:
 
 * Complete the internal APIs.
 * Write drivers, controllers, engines.

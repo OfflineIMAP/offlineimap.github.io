@@ -90,7 +90,7 @@ Hence, I've decided to use Dailymotion only. The latter doesn't requires me to e
 
 #### Monetization
 
-Be aware that I've activated monetization on some videos. **I hate having to watch ads myself** and I intend to limit such practice to **some** of the available contents only. I don't want this to become generalized everywhere.
+Be aware that I've activated monetization on some videos. **I hate having to watch ads myself** and I intend to limit such practice to **some** of the available contents only. I don't want advertising to become rule.
 
 <!--
 vim: ts=2 expandtab spelllang=en :

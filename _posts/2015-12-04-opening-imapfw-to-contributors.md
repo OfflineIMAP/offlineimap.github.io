@@ -1,8 +1,8 @@
 ---
 layout: post
 title: imapfw is now open to contributions
-date: 2015-12-07
-updated: 2015-12-07
+date: 2015-12-04
+updated: 2015-12-04
 author: Nicolas Sebrecht
 categories: imapfw development
 ---
@@ -20,7 +20,7 @@ To know more about imapfw usage and internals, screencasts are available in [thi
 
 ## Current state
 
-Since the publication (2 months ago), the main internals and features have been started or done:
+Since the publication (2 months ago), the main internals and features have either been started or done: imapfw earned 8677 physical lines through 173 commits.
 
 ##### The features
 

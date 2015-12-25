@@ -133,7 +133,7 @@ For instance, in the second config:
 
 {% highlight ini %}
 [general]
-metadata = ~/.offlineimap1
+metadata = ~/.offlineimap2
 {% endhighlight %}
 
 ### Can I copy messages between folders?

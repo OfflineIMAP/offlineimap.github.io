@@ -129,6 +129,12 @@ OfflineIMAP does a two-way synchronization.  That is, if you make a change to th
 
 OfflineIMAP is not designed to have several instances (for instance, a cron job and an interactive invocation) run over the same mailbox simultaneously.  It will perform a check on startup and abort if another OfflineIMAP is already running.  If you need to schedule synchronizations, you'll probably find autorefresh settings more convenient than cron.  Alternatively, you can set a separate metadata directory for each instance.  The lock stands for each account individually.
 
+For instance, in the second config:
+
+{% highlight ini %}
+[general]
+metadata = ~/.offlineimap2
+{% endhighlight %}
 
 ### Can I copy messages between folders?
 

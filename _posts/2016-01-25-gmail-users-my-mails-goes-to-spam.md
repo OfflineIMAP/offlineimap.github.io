@@ -18,7 +18,7 @@ I'm not going to detail the reasons here. I am well aware about what's going on.
 
 Don't get me wrong, war against spam is hard. Still, false positive in spam filtering is wrong, bad and hurting for the users. This might even cause serious damages into your economy.
 
-Google choice appears to setup very strong policy. As a consequence, many respectable mail users trying to reach you at Gmail might be discarded from your eyes.
+Google appears to have very strong policies. As a consequence, many respectable mail users trying to reach you at Gmail might be discarded from your eyes.
 
 It looks like the *big company* decided to rely on automatic rules only. At least, Google makes no efforts to fix their spam filtering issues since it is well known for years. Their policy massively affects millions of users.
 

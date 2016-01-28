@@ -8,20 +8,27 @@ categories: server imap error
 
 {% assign icons = site.data.icons %}
 
-An existing mail refuse to be downloaded despite reported as a mail with an UID.
-Server or OfflineIMAP then say that it does not have that UID and cannot get it.
+A message refuse to be downloaded despite reported as a mail with an UID. Server
+or OfflineIMAP then say that the account does not have that UID, and fetch of
+the message fails.
+
+<!--more-->
+
+* dummy
+{:toc}
 
 ## Background ##
 
-I'm a Mutt user. My private mail is going through mail hosting services, I mean
-my mail is served by remote servers. One of them (one of two) is a remain from
-my studies at the university KTH in Stockholm Sweden. They kindly let you keep
-the mail address and also they are not tight-fisted on storage space.
+My private mail accounts are served by remote servers. One of them (one of two)
+is a remain from my studies at the university KTH in Stockholm Sweden. They
+kindly let you keep the mail address and also they are not tight-fisted on
+storage space.
 
-Starting out with Mutt, I was using it's built-in functionality to connect to
-the server and read my mail. Being curious on other mail user agents, (to make
-fast mail body searches), I started to understand that a maildir is a good thing
-to have, because a number of agents work with maildirs out of the box.
+I'm a Mutt user. Starting out with Mutt, I was using it's built-in functionality
+to connect to the server and read my mail. Being curious on other mail user
+agents, (to make fast mail body searches), I started to understand that a
+maildir is a good thing to have, because a number of agents work with maildirs
+out of the box.
 
 Through the documentation of Notmuch, OfflineIMAP was suggested as something
 descent for pulling down and synchronizing your mail in and out of a maildir. So
@@ -96,8 +103,8 @@ was with the same kind of server.
 
 So it seems I was up to the task to somehow debug the mail server myself.
 Because, it seemed to me I'm not going to be able to get the people over there
-to do it. I mean even if they know how to, I guess they have to say they cannot
-because my credentials are needed.
+to do it. Even if they know how to, I guess they have to say they cannot because
+my credentials are needed.
 
 ### Well described in the net ###
 

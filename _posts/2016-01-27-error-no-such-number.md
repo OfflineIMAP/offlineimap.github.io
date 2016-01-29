@@ -2,7 +2,9 @@
 layout: post
 title: Does not have a message with UID 15541
 date: 2016-01-27
+updated: 2016-01-30
 author: Tomas Nordin
+contributors: (update) Nicolas Sebrecht
 categories: server imap error
 ---
 
@@ -275,3 +277,7 @@ However, next time I am better armed to discuss with the IT department. I will h
 
 ------------------------------------------------------------------------
 Happy OfflineIMAPing!
+
+------------------------------------------------------------------------
+> Update: since this post was published, the issue got further details about
+> [what's going on](https://github.com/OfflineIMAP/offlineimap/issues/62).

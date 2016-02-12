@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Unexpected behaviour on upgrading offlineimap from 6.3.4 to 6.6.1
+title: A tale of FMD5 (or upgrading offlineimap from 6.3.4 to 6.6.1)
 date: 2016-02-12
 author: François Joulaud
 categories: configuration

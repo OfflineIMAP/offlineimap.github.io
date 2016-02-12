@@ -88,6 +88,8 @@ back. With no way for it to detect it was the same mails. It then
 reuploaded all the "new" mail before deleting all the "old" mail which
 is really inefficient.
 
+My problem was exactly the inverse of the one in [this blog post](https://kdecherf.com/blog/2015/09/12/how-not-to-migrate-emails-between-gmail-accounts/).
+
 ## How I avoided to do some reupload.
 
 Once the problem was understood I came up with a workaround which seems to work.

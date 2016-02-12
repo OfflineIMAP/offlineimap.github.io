@@ -4,6 +4,9 @@
 
 version: 1.1
 
+#gems:
+  #- jekyll-paginate
+
 title: OfflineIMAP community's website
 email: offlineimap-project@lists.alioth.debian.org
 baseurl: "" # the subpath of your site, e.g. /blog/
@@ -14,9 +17,9 @@ description: > # this means it ignores newlines until next key
 #
 # Build settings
 #
-highlighter: pygments
+highlighter: rouge
 github: [Repository metadata]
-paginate: 10
+#paginate: 10
 
 markdown: kramdown
 kramdown:

@@ -10,15 +10,13 @@ categories: configuration
 {% assign visible_name_commit = "https://github.com/OfflineIMAP/offlineimap/commit/6b2ec956cfe8e356d3ffd54eee34773deb73279f" %}
 {% assign FAQ152 = "http://docs.offlineimap.org/en/latest/FAQ.html#id32" %}
 
-While upgrading my Debian machine from jessie to stretch, offlineimap
-was upgraded from 6.3.4 to 6.6.1 and it had a unexpected effect in my
-case.
+While upgrading my Debian machine from jessie to stretch, offlineimap was upgraded from 6.3.4 to 6.6.1 and it had a unexpected effect in my case.
 
 <!--more-->
 
 ## Initial configuration and decision to upgrade
 
-I saw the big warning in the Debian NEWS file about the "nametrans" change :
+I saw the big warning in the Debian NEWS file about the "nametrans" change:
 
       Reverse nametrans
         +++++++++++++++++
@@ -34,9 +32,7 @@ I saw the big warning in the Debian NEWS file about the "nametrans" change :
           file:///usr/share/doc/offlineimap/html/nametrans.html#reverse-nametrans
 
 
-But after reading carefully the linked documentation my configuration
-seemed to be Ok. To be clear my configuration includes the following
-snippets.
+But after reading carefully the linked documentation my configuration seemed to be Ok. To be clear my configuration includes the following snippets.
 
 For Local repositories:
 {% highlight python %}
@@ -66,37 +62,23 @@ which use those functions
 
 So far so good.
 
-I upgrade, modify the completely unrelated ssl parameters, and just
-wait for my automatic mail process (I have offlineimap in a crontab)
-to continue business as usual.
+I upgrade, modify the completely unrelated ssl parameters, and just wait for my automatic mail process (I have offlineimap in a crontab) to continue business as usual.
 
-And I wait, and I wait, and after some time I just wonder what the
-hell offlineimap is doing. And I found out that it was completely
-re-uploading all my mails. I have some accounts with more than 5G of
-mails and with the crappy connexion I had, it took forever.
+And I wait, and I wait, and after some time I just wonder what the hell offlineimap is doing. And I found out that it was completely re-uploading all my mails. I have some accounts with more than 5G of mails and with the crappy connexion I had, it took forever.
 
-I stopped offlineimap, deactivated all my crontabs and investigated
-the problem.
+I stopped offlineimap, deactivated all my crontabs and investigated the problem.
 
-I think that the problem comes from the use of nametrans in
-visiblename for Maildir folder (commit [Apply nametrans to all
-Foldertypes]({{visible_name_commit}})) because it leads to change the
-[FMD5 part]({{FAQ152}}) of the filename calculated by offlineimap.
+I think that the problem comes from the use of nametrans in visiblename for Maildir folder (commit [Apply nametrans to all Foldertypes]({{visible_name_commit}})) because it leads to change the [FMD5 part]({{FAQ152}}) of the filename calculated by offlineimap.
 
-Offlineimap thus believed that I removed all my mails and added it
-back. With no way for it to detect it was the same mails. It then
-reuploaded all the "new" mail before deleting all the "old" mail which
-is really inefficient.
+Offlineimap thus believed that I removed all my mails and added it back. With no way for it to detect it was the same mails. It then reuploaded all the "new" mail before deleting all the "old" mail which is really inefficient.
 
 My problem was exactly the inverse of the one in [this blog post](https://kdecherf.com/blog/2015/09/12/how-not-to-migrate-emails-between-gmail-accounts/).
 
-## How I avoided to do some reupload.
+## How I avoided to do some reupload
 
-Once the problem was understood I came up with a workaround which seems to work.
-The principle is to rename all filenames with the new expected name (with the new calculated md5sum) by offlineimap in
-concerned Maildirs.
+Once the problem was understood I came up with a workaround which seems to work.  The principle is to rename all filenames with the new expected name (with the new calculated md5sum) by offlineimap in concerned Maildirs.
 
-With my setup I used this dirty hack in shell :
+With my setup I used this dirty hack in shell:
 
 {% highlight bash %}
     MYPREFIX=localprefix
@@ -110,10 +92,9 @@ With my setup I used this dirty hack in shell :
     done
 {% endhighlight %}
 
-Note that this only works if done after the last use of offlineimap
-6.3.4 and before the first use of offlineimap 6.6.1. If done at other
-moments I think we risk loss of mails and duplicates of mails.
+{:.warning}
+
+Note that this only works if done after the last use of offlineimap 6.3.4 and before the first use of offlineimap 6.6.1. If done at other moments I think we risk loss of mails and duplicates of mails.
 
 
-I opened one [Debian bug](http://bugs.debian.org/812108) on this
-matter and wait for any idea to work up this upgrade cleanly.
+I opened one [Debian bug](http://bugs.debian.org/812108) on this matter and wait for any idea to work up this upgrade cleanly.

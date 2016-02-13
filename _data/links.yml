@@ -8,6 +8,7 @@
 
 
 offlineimap:
+  organization: 'https://github.com/OfflineIMAP'
   project: 'https://github.com/OfflineIMAP/offlineimap'
   repository: 'https://github.com/OfflineIMAP/offlineimap.git'
   downloads: 'https://github.com/OfflineIMAP/offlineimap/tags'

@@ -23,38 +23,43 @@ There are various features that can be written for imapfw. Here are ideas but st
 
 Enable syncing of mails between a local Maildir and a remote server. This includes starting a new 3-way merge engine, implement a Maildir driver, finishing high-level support of IMAP on top of the imaplib3 library and create a new backend for the cache.
 
-{:.warning}
-**Required skills:**
+##### Required skills:
+
+{: .DarkRed}
 * Python
 * Git
 * Read and understand RFCs
 * Not be afraid to write something new ,-p
 
-{:.note}
-**Would be a plus while not strictly required:**
+##### Would be a plus while not strictly required:
+
+{: .DarkBlue}
 * Basic notions of the IMAP protocol
 
 #### Implement a fresh new legacy-compatible OfflineIMAP software with imapfw
 
 With all backends (drivers) implemented, write a fresh new offlineimap command. This requires supporting the OfflineIMAP's configuration file and its local cache (sqlite3).
 
-{:.warning}
-**Required skills:**
+##### Required skills:
+
+{: .DarkRed}
 * Python
 * Git
 * Read and understand RFCs
 * Not be afraid to write something new ,-p
 
-{:.note}
-**Would be a plus while not strictly required:**
+##### Would be a plus while not strictly required:
+
+{: .DarkBlue}
 * Basic notions of the IMAP protocol
 
 #### Create a partial IMAP library
 
 Start a new IMAP library designed to imapfw's high-level objects. It aims at being KISS and low constrained. Full IMAP support is not expected, only a subset of the available commands.
 
-{:.warning}
-**Required skills:**
+##### Required skills:
+
+{: .DarkRed}
 * Python
 * Git
 * Read and understand RFCs

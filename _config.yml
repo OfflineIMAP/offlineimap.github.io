@@ -4,7 +4,8 @@
 
 version: 1.1
 
-#gems:
+gems:
+  - jekyll-coffeescript
   #- jekyll-paginate
 
 title: OfflineIMAP community's website

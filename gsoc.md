@@ -115,6 +115,7 @@ As a mentor, my goal is to **make your GSoC student project successful**. By suc
 * Keeping fun! ,-)
 * Open minded. Well, I guess...
 * Teaching experience.
+* Confidenciality.
 * I'll provide you a response to each question. The response might not always be what you expect but you won't be left at the side.
 
 #### What I'll mostly expect from you

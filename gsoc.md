@@ -3,6 +3,7 @@ layout: page
 title: GSoC
 permalink: /gsoc/
 date: 2016-02-13
+updated: 2016-02-15
 author: Nicolas Sebrecht
 ---
 
@@ -101,7 +102,9 @@ As a mentor, my goal is to **make your GSoC student project successful**. By suc
 * know/learn how to **get your code merged** into the official code because *it's most rewarding to know your work is actually used by others*;
 * know/learn how to find the correct technical ressources you're missing;
 * **earn technical knowledges** or how to request help while embarrased: **nobody knows everything**;
-* you'll **make mistakes**, everybody do, that's not the end.
+* you'll **make mistakes**, everybody do, that's not the end;
+* **become self-sufficient**: you should end the course understanding *how to make a kick-ass start-up in almost any open source project: what communities expect towards to new-comers (open source can be brutal)*;
+* ...and yes, I aim your GSoC project at being tagged *"**success**"*.
 
 #### Why you should trust me
 
@@ -111,10 +114,12 @@ As a mentor, my goal is to **make your GSoC student project successful**. By suc
 * Applying common open source expectations.
 * Keeping fun! ,-)
 * Open minded. Well, I guess...
+* Teaching experience.
+* I'll provide you a response to each question. The response might not always be what you expect but you won't be left at the side.
 
 #### What I'll mostly expect from you
 
-* Mistakes. Did I already say you'll do? :-)
+* Mistakes. Did I already say you'll make mistakes? *:-)*
 * Keep alive :-D
 * **Show** you're still alive
 * Do your home-work

@@ -192,7 +192,7 @@ Well, **OfflineIMAP was promised by some people to a *precarious future*.** Toda
   {{ icons.note }} Big Thanks!!! {{ icons.end }}
   I'd like to catch the opportunity of this history review to thank everybody involved. Each did his best until now and I'm sure we will always do.
 
-{:style='color:DarkBlue'}
+{: .DarkBlue}
 ***Thank you guys!***
 
 <!--

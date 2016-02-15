@@ -6,6 +6,6 @@
 # after the Front Matter.
 #
 
-DarkRed: '<span class="fa fa-flag fancy" style="color:DarkRed">'
-DarkBlue: '<span class="fa fa-flag fancy" style="color:DarkBlue">'
+DarkRed: '<span style="color:DarkRed">'
+DarkBlue: '<span style="color:DarkBlue">'
 end: '</span>' # Might help with formatting.

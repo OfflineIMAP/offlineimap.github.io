@@ -8,6 +8,7 @@ author: Nicolas Sebrecht
 ---
 
 {% assign links = site.data.links %}
+{% assign icons = site.data.icons %}
 
 The [Google Summer of Code](https://developers.google.com/open-source/gsoc/) *(GSoC)* is a program made by Google **for student developpers to get paid to write open source code**.
 
@@ -93,6 +94,11 @@ hard
 
 > Students, this application is not yet accepted and might not be. Check the [official timeline](https://developers.google.com/open-source/gsoc/timeline) to know more.
 
+{:.note}
+{{ icons.note }} Note: {{ icons.end}}
+The following statements are intentionally general. If you're already used to open source, some to most of them might be irrevelant.
+I expect you to discuss about **your own expectations** for this GSoC.
+
 As a mentor, my goal is to **make your GSoC student project successful**. By successful, I mean:
 
 * your project should be **a good experience**: ideally, you'll *end the summer with the desire to be involved in this (or any other) open source project*;
@@ -112,10 +118,10 @@ As a mentor, my goal is to **make your GSoC student project successful**. By suc
 * Started by tracking how things gets done, then sent patches and contributed, finally became a maintainer years ago.
 * Made *big* mistakes myself.
 * Applying common open source expectations.
-* Keeping fun! ,-)
-* Open minded. Well, I guess...
+* Keeping fun!
+* Open minded. Well, I guess... ,-)
 * Teaching experience.
-* Confidenciality.
+* Confidenciality of all our private exchanges.
 * I'll provide you a response to each question. The response might not always be what you expect but you won't be left at the side.
 
 #### What I'll mostly expect from you
@@ -127,7 +133,11 @@ As a mentor, my goal is to **make your GSoC student project successful**. By suc
 * Eat food
 * Ask *very very weird* questions ,-)
 * Sleep
-* Contact me as soon as possible, you won't provide the perfect proposal at the first shot. That's fine.
+
+
+{:.note}
+{{ icons.note }} Tip: {{ icons.end}}
+Interrested? Want to know more? [Contact me](mailto:nicolas.s-dev@laposte.net) as soon as possible.
 
 
 <!--

@@ -4,7 +4,7 @@ title: GSoC
 permalink: /gsoc/
 date: 2016-02-13
 updated: 2016-02-15
-author: Nicolas Sebrecht
+author: Nicolas Sebrecht & Abdó Roig-Maranges
 ---
 
 {% assign links = site.data.links %}
@@ -97,22 +97,22 @@ hard
 {:.note}
 {{ icons.note }} Note: {{ icons.end}}
 The following statements are intentionally general. If you're already used to open source, some to most of them might be irrevelant.
-I expect you to discuss about **your own expectations** for this GSoC.
+We highly encourage you to early expose **your own expectations** for this GSoC.
 
-As a mentor, my goal is to **make your GSoC student project successful**. By successful, I mean:
+As mentors, our goal is to **make your GSoC project successful**. By successful, we mean:
 
 * your project should be **a good experience**: ideally, you'll *end the summer with the desire to be involved in this (or any other) open source project*;
 * know/learn how to **efficiently work** with open source communities;
 * know/learn that code is not everything: **tools and relationships matter**;
 * know/learn how to **talk with code**;
-* know/learn how to **get your code merged** into the official code because *it's most rewarding to know your work is actually used by others*;
-* know/learn how to find the correct technical ressources you're missing;
+* know/learn how to **get your code merged** into the official code because *it's most rewarding to know your work is accepted and actually used by others*;
+* know/learn how to get the correct technical ressources and knowledges;
 * **earn technical knowledges** or how to request help while embarrased: **nobody knows everything**;
 * you'll **make mistakes**, everybody do, that's not the end;
 * **become self-sufficient**: you should end the course understanding *how to make a kick-ass start-up in almost any open source project: what communities expect towards to new-comers (open source can be brutal)*;
-* ...and yes, I aim your GSoC project at being tagged *"**success**"*.
+* ...and yes, we aim your GSoC project at being tagged *"**success**"*.
 
-#### Why you should trust me
+#### Why you should trust Nicolas
 
 * Good experience with various open sources communities, for years.
 * Started by tracking how things gets done, then sent patches and contributed, finally became a maintainer years ago.
@@ -122,11 +122,11 @@ As a mentor, my goal is to **make your GSoC student project successful**. By suc
 * Open minded. Well, I guess... ,-)
 * Teaching experience.
 * Confidenciality of all our private exchanges.
-* I'll provide you a response to each question. The response might not always be what you expect but you won't be left at the side.
+* Intend to reply to each request. The response might not always be what you expect but you won't be left at the side.
 
-#### What I'll mostly expect from you
+#### What we'll mostly expect from you
 
-* Mistakes. Did I already say you'll make mistakes? *:-)*
+* Mistakes. Did we already say you'll make mistakes? *:-)*
 * Keep alive :-D
 * **Show** you're still alive
 * Do your home-work
@@ -137,7 +137,7 @@ As a mentor, my goal is to **make your GSoC student project successful**. By suc
 
 {:.note}
 {{ icons.note }} Tip: {{ icons.end}}
-Interrested? Want to know more? [Contact me](mailto:nicolas.s-dev@laposte.net) as soon as possible.
+Interrested? Want to know more? Contact [Nicolas](mailto:nicolas.s-dev@laposte.net) and [Abdó](mailto:abdo.roig@gmail.com) as soon as possible.
 
 
 <!--

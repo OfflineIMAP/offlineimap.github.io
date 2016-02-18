@@ -6,8 +6,9 @@
 /_mydrafts/
 # Whatever else private.
 /_private/
-# Jeykyll
+# Jekyll
 /_site/
 /.sass-cache/
+/.jekyll-metadata
 # Renderer
 /render.sh

@@ -58,55 +58,78 @@ Don't bother too much about making the kick-ass impression at this stage. **This
 
 Once your porposal(s) submitted, there are lot of things you can do instead of waiting for the next step.
 
-###### Become a real member
+#### Become a real member
 
 Subscribe the mailing list and create a github account.
 
-###### Try OfflineIMAP
+#### Try OfflineIMAP
 
 imapfw intend to replace OfflineIMAP. Give it a try, see what it does. *(Deep knowledge of OfflineIMAP is not required required, though.)*
 
-###### Read about imapfw
+#### Read about imapfw
 
 There is already released ressources about it. Help yourself. If it's not already done, read them. Ask if you're not missing something important unless you're sure of you.
 
-###### Try imapfw
+#### Try imapfw
 
 While still at early development stage, imapfw can already run commands. Get the source and try them.
 
-###### Read the source code
+#### Get you used to the tree
 
-Understanding the full codebase at the first shot is not human. Try to correctly identify the key parts, first. Then, try to understand hunks you feel critical.
+Files are organized. Check the tree.
+
+#### Read some source code
+
+Understanding the full codebase at the first shot is not human. Try to correctly identify the key modules, first. Then, you should read and try to understand some hunks you feel critical.
 
 There are mainly two ways:
+
 * bottom-up: from low-level to high-level
 * top-down: from high-level to low-level
 
-In practice you might mix both. Trying to understand if it's low-level or high-level code will greatly help you.
+In practice you might mix both. Always try to figure if it's low-level or high-level code. This will greatly help.
 
-###### Identify the libraries
+#### Identify the libraries
 
 We use third-party libraries. One is embedded with the codebase.
 
-###### Ensure you have a proper environment
+#### Ensure you have a proper environment
 
 Are you missing a tool? Do they work?
 
-###### Play with imapfw
+#### Look how we work
+
+Read [this full thread](http://thread.gmane.org/gmane.mail.imap.offlineimap.general/7064).
+
+Don't try to understand the patches or details of what we are talking about, that's not the point. You'll learn how we're used to work and how we expect you to work with us.
+
+**Fully read this thread. You'll actually learn *a lot* the quick way**. There, we do or discuss a lot of things like: code logic, code design, code review, concepts orthogonality, release cycle, comments about code comments, history introspection, legacy compatibility, compatibility with other tools, honoring configuration and CLI options, all sort of contributors interactions like defending opinions or technical decisions, blaming, critics, apologies, question about how we track tasks for the project, etc.
+
+*While this might look disordered and confusing from outside this kind of teamwork is very efficient and rewarding.*
+
+#### Play with imapfw
 
 Again, imapfw can already run commands. Try to make use of the rascal by yourself. Play with it. Break things and read the errors to fix your configuration.
 
-###### Report broken expectations
+#### Report broken expectations
 
-Code is moving, documentation might be missing or hard to understand. Report us what you think need improvements (and why if applicable).
+Code is moving, documentation might be missing or hard to understand. Report us what you think need improvements (and why if applicable). **Your new eyes matter.**
 
-###### Try to provide some patches
+#### Read the git history
 
-Don't wait for the GSoC to send some changes. Start little but don't wait! It can be about anything (code, documentation, README, etc). Even typos need to be fixes. If you still didn't send your first patch, you're not ready yet. ,-)
+imapfw is a new tool, history can be read entirely. Do it.
+
+#### Try to provide some patches
+
+Don't wait to send some changes. **Start little but don't wait!** It can be about anything (code, documentation, README, etc). Even typos need to be fixes. If you still didn't send your first patch, you're not ready yet. ,-)
 
 {:.note}
 {{ icons.note }} Tip: {{ icons.end }}
-At any stage, ask us if you're stuck. While we do expect you to fix your own issues as much as possible, it's stupid to spend hours in researches when someone can help.
+Keep us informed about what you're doing, always. We have good reasons to request you to do so at this stage.
+
+{:.note}
+{{ icons.note }} Tip: {{ icons.end }}
+Ask us if you're stuck at any step. While we do expect you to fix your own issues as much as possible, it's stupid to spend hours in researches when someone can help.
 
 
 ## FAQ

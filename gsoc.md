@@ -9,6 +9,7 @@ author: Nicolas Sebrecht & Abdó Roig-Maranges
 
 {% assign links = site.data.links %}
 {% assign icons = site.data.icons %}
+{% assign helpers = "/gsoc/helpers.html" %}
 
 The [Google Summer of Code](https://developers.google.com/open-source/gsoc/) *(GSoC)* is a program made by Google **for student developpers to get paid to write open source code**.
 
@@ -25,7 +26,11 @@ The [Google Summer of Code](https://developers.google.com/open-source/gsoc/) *(G
 
 ## Project ideas 2016
 
-There are various features that can be written for imapfw. Here are ideas but student-initiated proposals are welcome. **Share your ideas and [talk with us]({{ links.mailing_list.subscribe }})!** *We are open-minded people*. ,-)
+There are various features that can be written. Here are some ideas but your own proposals for imapfw are welcome.
+
+{:.note}
+{{ icons.note }} Tip: {{ icons.end }}
+**Share your ideas (if any) and [talk with us]({{ site.base }}{{ helpers }})!** *(sooner is better)*
 
 
 #### Synchronization of mails
@@ -50,6 +55,7 @@ medium
 {: .DarkBlue}
 * Basic notions of the IMAP protocol
 
+
 #### Implement a fresh new legacy-compatible OfflineIMAP software with imapfw
 
 With all backends (drivers) implemented, write a fresh new offlineimap command. This requires supporting the OfflineIMAP's configuration file and its local cache (sqlite3).
@@ -71,6 +77,7 @@ medium
 
 {: .DarkBlue}
 * Basic notions of the IMAP protocol
+
 
 #### Create a partial IMAP library
 
@@ -112,14 +119,15 @@ As mentors, our goal is to **make your GSoC project successful**. By successful,
 * **become self-sufficient**: you should end the course understanding *how to make a kick-ass start-up in almost any open source project: what communities expect towards to new-comers (open source can be brutal)*;
 * ...and yes, we aim your GSoC project at being tagged *"**success**"*.
 
+
 #### Why you should trust Nicolas
 
 * Good experience with various open sources communities, for years.
 * Started by tracking how things gets done, then sent patches and contributed, finally became a maintainer years ago.
-* Made *big* mistakes myself.
+* Made *big* mistakes.
 * Applying common open source expectations.
 * Keeping fun!
-* Open minded. Well, I guess... ,-)
+* Open minded. ,-)
 * Teaching experience.
 * Confidenciality of all our private exchanges.
 * Intend to reply to each request. The response might not always be what you expect but you won't be left at the side.
@@ -136,8 +144,8 @@ As mentors, our goal is to **make your GSoC project successful**. By successful,
 
 
 {:.note}
-{{ icons.note }} Tip: {{ icons.end}}
-Interrested? Want to know more? Contact [Nicolas](mailto:nicolas.s-dev@laposte.net) and [Abdó](mailto:abdo.roig@gmail.com) as soon as possible.
+{{ icons.note }} Interrested? Want to know more? {{ icons.end }}
+[Contact us]({{ site.base }}{{ helpers }}).
 
 
 <!--

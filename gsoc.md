@@ -3,7 +3,7 @@ layout: page
 title: GSoC
 permalink: /gsoc/
 date: 2016-02-13
-updated: 2016-02-15
+updated: 2016-02-18
 author: Nicolas Sebrecht & Abdó Roig-Maranges
 ---
 

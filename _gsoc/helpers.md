@@ -101,7 +101,7 @@ Are you missing a tool? Do they work?
 
 Read [this full thread](http://thread.gmane.org/gmane.mail.imap.offlineimap.general/7064).
 
-Don't try to understand the patches or details of what we are talking about, that's not the point. You'll learn how we're used to work and how we expect you to work with us.
+Don't try to understand the patches or details of what we are talking about, that's not the point. You'll learn how we're used to work and how we expect you to work with us. *Notice there's nothing much special, that's how a lot of open source communities work.*
 
 **Fully read this thread. You'll actually learn *a lot* the quick way**. There, we do or discuss a lot of things like: code logic, code design, code review, concepts orthogonality, release cycle, comments about code comments, history introspection, legacy compatibility, compatibility with other tools, honoring configuration and CLI options, all sort of contributors interactions like defending opinions or technical decisions, blaming, critics, apologies, question about how we track tasks for the project, etc.
 

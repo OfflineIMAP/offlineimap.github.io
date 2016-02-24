@@ -11,13 +11,12 @@ Github.
 -->
 
 {: .metainfo}
-Latest rc: [{{ latest.rc }}](https://github.com/OfflineIMAP/offlineimap/releases/tag/{{ latest.rc }})
-Latest stable: [{{ latest.stable }}](https://github.com/OfflineIMAP/offlineimap/releases/tag/{{ latest.stable }})
+Latest rc: [{{ latest.rc }}](https://github.com/OfflineIMAP/offlineimap/releases/tag/{{ latest.rc }})<br/>Latest stable: [{{ latest.stable }}](https://github.com/OfflineIMAP/offlineimap/releases/tag/{{ latest.stable }})
 
-{:style="float: left; margin-right: 25px"}
+{:style="float: left; margin-right: 20px; width: 30px;"}
 ![OfflineIMAP logo]({{ links.logos.scalable }})
 
-{:.buttons :style="float: left;"}
+{:style="float: left; margin-right: 20px;"}
 <a class="github-button"
 href="https://github.com/OfflineIMAP/offlineimap/fork"
 data-icon="octicon-repo-forked" data-style="mega"
@@ -25,6 +24,7 @@ data-count-href="/OfflineIMAP/offlineimap/network"
 data-count-api="/repos/OfflineIMAP/offlineimap#forks_count"
 data-count-aria-label="# forks on GitHub" aria-label="Fork
 OfflineIMAP/offlineimap on GitHub">Fork</a>
+
 <a class="github-button" href="https://github.com/OfflineIMAP/offlineimap"
 data-icon="octicon-star" data-style="mega"
 data-count-href="/OfflineIMAP/offlineimap/stargazers"
@@ -33,7 +33,6 @@ data-count-aria-label="# stargazers on GitHub" aria-label="Star
 OfflineIMAP/offlineimap on GitHub">Star</a>
 
 <script async defer id="github-bjs" src="https://buttons.github.io/buttons.js"></script>
-
 
 # Introduction
 

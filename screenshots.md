@@ -15,8 +15,15 @@ Add your own screenshots in reversed chronological order, latest on top.
 
 -->
 
-#### Historical screenshot, *John Goerzen*, 2005. ####
 ![](offlineimap-1.png)
+
+#### Historical screenshot, *John Goerzen*, 2005.
+
+<br/>
+
+![](offlineimap-el.png)
+
+#### *Julien Danjou*, 2010 ([from his blog](https://julien.danjou.info/blog/2010/emacs-and-offlineimap))
 
 
 <!--

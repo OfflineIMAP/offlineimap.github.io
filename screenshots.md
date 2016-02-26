@@ -23,7 +23,8 @@ Add your own screenshots in reversed chronological order, latest on top.
 
 ![](offlineimap-el.png)
 
-#### *Julien Danjou*, 2010 ([from his blog](https://julien.danjou.info/blog/2010/emacs-and-offlineimap))
+#### *Julien Danjou*, 2010 ([from his blog](https://julien.danjou.info/blog/2010/emacs-and-offlineimap)).
+Author of [*The Hacker's Guide To Python*](https://julien.danjou.info/books/the-hacker-guide-to-python/).
 
 
 <!--

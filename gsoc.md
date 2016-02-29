@@ -3,13 +3,17 @@ layout: page
 title: GSoC
 permalink: /gsoc/
 date: 2016-02-13
-updated: 2016-02-18
+updated: 2016-02-29
 author: Nicolas Sebrecht & Abdó Roig-Maranges
 ---
 
 {% assign links = site.data.links %}
 {% assign icons = site.data.icons %}
 {% assign helpers = "/gsoc/helpers.html" %}
+
+
+{:.note}
+{{ icons.note }} We are accepted! {{ icons.end }}
 
 The [Google Summer of Code](https://developers.google.com/open-source/gsoc/) *(GSoC)* is a program made by Google **for student developpers to get paid to write open source code**.
 
@@ -98,8 +102,6 @@ hard
 
 
 ## Mentoring approach
-
-> Students, this application is not yet accepted and might not be. Check the [official timeline](https://developers.google.com/open-source/gsoc/timeline) to know more.
 
 {:.note}
 {{ icons.note }} Note: {{ icons.end}}

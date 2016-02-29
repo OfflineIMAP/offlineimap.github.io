@@ -18,6 +18,10 @@ offlineimap:
   blobs:
     contributing: 'https://github.com/OfflineIMAP/offlineimap/blob/next/CONTRIBUTING.rst'
 
+imapfw:
+  website: 'http://imapfw.offlineimap.org'
+  github: 'https://github.com/OfflineIMAP/imapfw'
+
 mailing_list:
   archives: 'http://dir.gmane.org/gmane.mail.imap.offlineimap.general'
   address: mailto:offlineimap-project@lists.alioth.debian.org

@@ -14,6 +14,7 @@ author: Nicolas Sebrecht & Abdó Roig-Maranges
 
 {:.note}
 {{ icons.note }} We are accepted! {{ icons.end }}
+Our umbrella organization is [Gentoo](https://wiki.gentoo.org/wiki/Google_Summer_of_Code/2016/Ideas).
 
 The [Google Summer of Code](https://developers.google.com/open-source/gsoc/) *(GSoC)* is a program made by Google **for student developpers to get paid to write open source code**.
 

@@ -1,6 +1,6 @@
 ---
 layout: post
-title: GSoC 2016, we are accepting students to work in imapfw!
+title: GSoC 2016, we are accepting students to work on imapfw!
 date: 2016-02-29
 author: Nicolas Sebrecht
 categories: imapfw GSoC2016

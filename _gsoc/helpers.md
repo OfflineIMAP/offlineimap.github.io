@@ -3,6 +3,7 @@ layout: page
 title: GSoC student helpers
 author: Nicolas Sebrecht
 date: 2016-02-18
+updated: 2016-03-01
 ---
 
 {% assign links = site.data.links %}

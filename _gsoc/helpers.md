@@ -8,6 +8,9 @@ date: 2016-02-18
 {% assign links = site.data.links %}
 {% assign icons = site.data.icons %}
 
+* junk
+{:toc}
+
 ### Contacts
 
 * [Nicolas](mailto:nicolas.s-dev@laposte.net)

@@ -146,9 +146,10 @@ As mentors, our goal is to **make your GSoC project successful**. By successful,
 * Sleep
 
 
-{:.note}
+## Helpers
+
 {{ icons.note }} Interrested? Want to know more? {{ icons.end }}
-[Contact us]({{ site.base }}{{ helpers }}).
+Read [our helpers]({{ site.base }}{{ helpers }}).
 
 
 <!--

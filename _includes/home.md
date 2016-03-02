@@ -11,7 +11,7 @@ Github.
 -->
 
 {: .metainfo}
-Latest rc: [{{ latest.rc }}](https://github.com/OfflineIMAP/offlineimap/releases/tag/{{ latest.rc }}) \\
+Latest rc: [{{ latest.rc }}](https://github.com/OfflineIMAP/offlineimap/releases/tag/{{ latest.rc }})\\
 Latest stable: [{{ latest.stable }}](https://github.com/OfflineIMAP/offlineimap/releases/tag/{{ latest.stable }})
 
 {:style="float: left; margin-right: 20px; width: 30px;"}

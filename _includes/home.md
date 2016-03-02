@@ -11,7 +11,8 @@ Github.
 -->
 
 {: .metainfo}
-Latest rc: [{{ latest.rc }}](https://github.com/OfflineIMAP/offlineimap/releases/tag/{{ latest.rc }})<br/>Latest stable: [{{ latest.stable }}](https://github.com/OfflineIMAP/offlineimap/releases/tag/{{ latest.stable }})
+Latest rc: [{{ latest.rc }}](https://github.com/OfflineIMAP/offlineimap/releases/tag/{{ latest.rc }}) \\
+Latest stable: [{{ latest.stable }}](https://github.com/OfflineIMAP/offlineimap/releases/tag/{{ latest.stable }})
 
 {:style="float: left; margin-right: 20px; width: 30px;"}
 ![OfflineIMAP logo]({{ links.logos.scalable }})
@@ -38,7 +39,8 @@ OfflineIMAP/offlineimap on GitHub">Star</a>
 
 OfflineIMAP is a *GPLv2 software* to dispose your mailbox*(es)* as a local Maildir*(s)*.
 
-For example, this allows reading the mails while offline without the need for your mail reader (MUA) to support disconnected operations.
+For example, this allows reading the mails while offline without the need for
+your mail reader (MUA) to support disconnected operations.
 
 OfflineIMAP will synchronize both sides via *IMAP*.
 

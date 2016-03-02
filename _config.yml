@@ -25,6 +25,7 @@ github: [Repository metadata]
 markdown: kramdown
 kramdown:
   input: GFM
+  hard_wrap: false
 
 #
 # Posts

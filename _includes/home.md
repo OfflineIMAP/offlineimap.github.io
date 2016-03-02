@@ -35,6 +35,10 @@ OfflineIMAP/offlineimap on GitHub">Star</a>
 
 <script async defer id="github-bjs" src="https://buttons.github.io/buttons.js"></script>
 
+
+{:text-align="right"}
+***Get the emails where you need them***
+
 # Introduction
 
 OfflineIMAP is a *GPLv2 software* to dispose your mailbox*(es)* as a local Maildir*(s)*.

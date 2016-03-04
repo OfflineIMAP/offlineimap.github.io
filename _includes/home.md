@@ -59,11 +59,10 @@ Checkout the [OfflineIMAP official project]({{ links.offlineimap.project }}) on 
 Download releases as [tarball or zipball]({{ links.offlineimap.downloads }}).
 
 <iframe frameborder="0" width="480" height="270"
-src="//www.dailymotion.com/embed/video/x3usii9" allowfullscreen></iframe><br/>
-<a href="http://www.dailymotion.com/video/x3usii9_offlineimap-gource-visualization_tech"
-target="_blank">offlineimap gource visualization</a> <i>by <a
-href="http://www.dailymotion.com/offlineimap-project"
-target="_blank">offlineimap-project</a></i>
+src="//www.dailymotion.com/embed/video/x3usii9" allowfullscreen></iframe>
+
+{:style="color: gray;"}
+*13 years of history in less than 45 seconds.*
 
 
 <!--

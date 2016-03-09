@@ -2,6 +2,7 @@
 layout: post
 title: Why Github pull requests suck so much
 date: 2016-03-08
+updated: 2016-03-09
 author: Nicolas Sebrecht
 categories: Github, pull requests
 ---
@@ -20,30 +21,47 @@ One thing that really irritates me at Github is the pull request feature.
 
 ### Signing the patches
 
-Github offers no way to add your `Signed-off-by` line the patches you merge from
-the webapp.
+Github offers no way to add your `Signed-off-by` line to the patches you merge
+from the webapp. "Signing off" the patches at merge time is relevant information
+and it means something. This is a rather common practice in communities.
 
 {:.warning}
 
-Not being able to signing off the patches is a pity.
+Not being able to signing off the patches on a merge is a pity.
+
+
+### Managing pull requests
+
+When a contributor sends a pull request it is stacked to the list of PR.
+
+Tracking changes in this list is a pain. New pull requests since your previous
+visit aren't highlighted. The list of pull request is lacking lot of features
+like personal *prioritization, bookmarking, etc*.
+
+{:.warning}
+
+Expect to consume a lot of time only for managing your pull requests at Github.
+
+{:.DarkBlue}
+
+@Github: shared labels can't address everything.
 
 
 ### Notifications
 
-The most important task before merging any change is the code review. Skipping
-this process is *very **very*** bad. However, the way Github has PR implemented
-is the best way for skipping it.
+The most important task before merging any change is the peer review. Skipping
+this process is *very **very*** bad. Hence, proper notifications are critical.
+However, the way Github has PR implemented is the best way for skipping it.
 
-When a contributor send a pull request it is stacked to the list of PR.
-Tracking changes in this list is a pain. Email notifications are randomly
-served. Sometimes you'll get notifications, sometimes not.
+Email notifications are randomly served. Sometimes you'll get notifications,
+sometimes not.
 
-Online notifications are a bit better but lack lot of features like easy
-*prioritization, bookmarking, etc*.
+Online notifications are a bit better while the [notifications
+page](https://github.com/notifications) happily mix everything.
 
 The best workaround would be to associate an issue to each PR. Not very glorious
-when you know it doesn't address all the points above and that it can't be done
-automatically with a configuration setting.
+when you know it doesn't address all the points above and that it can't be
+created automatically by enabling a configuration setting.
 
 {:.warning}
 
@@ -101,7 +119,7 @@ I wonder if Github offers other ways to lose your job...
 
 {:.warning}
 
-Big thanks to Github for this one! Loosing work is always a pleasure.
+Big thanks to Github for this one! Losing work is always a pleasure.
 
 
 ### Addressing PR to reviewers
@@ -144,7 +162,7 @@ Github lacks a way to grant reviewers and testers.
 
 What about hooks? I know so many organizations and maintainers out-there would
 love to get the patches from pull requests automatically sent to their mailing
-list. Also, **this would FIX all of the above issues in ONE SHOT!**
+list. **This would FIX almost all of the above issues in ONE SHOT!**
 
 {:.warning}
 
@@ -156,20 +174,20 @@ support it. Thank you.
 @Github: how long are you going to ignore the feedbacks of you users?
 
 
-### Continous Intergration
+### Continous Integration
 
 One thing Github has usefull is integration of third services. For example,
-Travis CI greatly helps testing PR. What I miss is a way to append the commit
-message with the success/failure information.
+Travis CI greatly helps testing PR. What is missing is a way to append the
+**commit message** with the success/failure information.
 
 Also, people tend to rely on the tests blindly. However, having the tests pass
-is not enough and won't replace human review.
+is not enough and won't replace peer review.
 
 
 ### Encouraging good practices
 
-Contributors are willing to send pull requests with Github. I'd even say some
-users don't understand anymore why I'm in favor of sending patches by emails.
+Contributors are willing to send pull requests with Github. *I'd even say some
+users don't understand anymore why I'm in favor of sending patches by emails.*
 The service supports the feature... Why not use it?
 
 {:.warning}
@@ -184,18 +202,29 @@ killer**. **If most users don't get the patches in their INBOX, they just won't
 take the pain to provide reviews.**
 
 Yes, I know. Github displays the commands to fetch the patches on the PR page.
-*Do you really expect all the reviewers to connect, checkout each PR one by one
-and execute those commands?*
+**Do you really expect all the reviewers to connect, checkout each PR one by
+one, execute those commands, checkout the changes locally, return online to the
+pull request page and find all the relevant excepts to add comments?**
 
-As a side effect, some long-term gets discouraged to provide feedbacks and
-slowly leave the project: while the interactions between the members are
-critical, they perversely change quickly. A lot of contributors are not
-comfortable with the provided process for reviews and stop contributing soon.
+As a side effect, some long-term contributors get discouraged to provide
+feedbacks and stop to provide reviews when they don't just leave the project.
+While the **interactions between members are critical, Github's way of handling
+pull requests will perversely turn down all the emulation of the community
+members quickly. Fun is lost. Motivation gets lost.** A lot of contributors (not
+comfortable with the provided process for reviews) will stop contributing soon.
 
-> I'm pretty CERTAIN this is HOW we lost some of our OCCASIONAL but LONG-TERM
-contributors.
+> I am CERTAIN this is HOW we lost MOST of our OCCASIONAL but LONG-TERM
+contributors. Still, NOBODY but the maintainer does code review in our projects.
 
-Thank you Github.
+
+{:.DarkBlue}
+
+@Github: Thank you Github. Their feedbacks were very usefull and greatly
+appreciated. While peer review was the norm is our community, it is completely
+lost today.
+
+> I'm aware of the integration services. No one can revamp the peer review
+process correctly.
 
 
 ### Conlusion
@@ -212,20 +241,24 @@ Not using this feature at all is the best. You know why.
 Finally, removing the support for pull requests is not available. THAT SUCKS
 HARD.
 
-It's easy to understand why. If you make your repository public and people want
-to contribute, they will likely use the integrated PR feature. Hence, you're
-almost forced to use Github if you don't want to discard contributions for your
-project. IOW, publicing your project on Github is far more than just open your
-work to the public: you have to connect to the webapp or use whatever client at
-some point in time. In pratice, rather often than occasionaly. **The more a
-maintainer will use a platform, the more contributors feel the need of using it,
-too.** The result is that this strongly increases the number of users for
-Github. **This is the real reason why we can't disable PR. *You* are used as a
-*marketing promoter*. Not by what you could say, but by what you actually DO.**
+It's easy to understand why Github don't enable this feature. If you make your
+repository public and people want to contribute, they will likely use the
+integrated PR feature. Hence, you're almost forced to use Github if you don't
+want to discard contributions for your project. IOW, publicing your project on
+Github is far more than just open your work to the public: you have to connect
+to the webapp or use whatever client at some point in time. In pratice, rather
+often than occasionaly. **The more a maintainer will use a platform, the more
+contributors feel the need of using it, too.** The result is that this strongly
+increases the number of users for Github. **This is the real reason why we can't
+disable PR. *You* are used as a *marketing promoter*. Not by what you could say,
+but by what you actually DO.**
 
 {:.DarkBlue}
 
 @Github: is there no other way to convince new users to sign up to your website
 than almost **forcing maintainers** to accept PR in their public repositories?
+
+**One day or another, we will move away from github. This will be for good
+reasons.**
 
 Feel free to join the chat and provide your point of you!

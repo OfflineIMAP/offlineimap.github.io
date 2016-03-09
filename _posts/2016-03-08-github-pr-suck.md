@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Why Github pull requests suck so much
+title: Why Github pull requests suck so hard
 date: 2016-03-08
 updated: 2016-03-09
 author: Nicolas Sebrecht

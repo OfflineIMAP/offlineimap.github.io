@@ -4,11 +4,11 @@ layout: default
 
 <div class='metainfo'>
   <p>
-  {% if page.author %}{{ page.author }}{% if page.date %}, {% endif %}{% endif %}
-  {% if page.date %}{{ page.date }}{% endif %}
+  {% if page.author %}{{ page.author }}{% if page.date | date: '%Y-%m-%d' %}, {% endif %}{% endif %}
+  {% if page.date %}{{ page.date | date: '%Y-%m-%d' }}{% endif %}
   {% if page.date or page.author %}<br />{% endif %}
   {% if page.contributors %}Contributors: {{ page.contributors }}<br />{% endif %}
-  {% if page.updated %}Last update: {{ page.updated }}{% endif %}
+  {% if page.updated %}Last update: {{ page.updated | date: '%Y-%m-%d' }}{% endif %}
 </p>
 </div>
 

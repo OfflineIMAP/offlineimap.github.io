@@ -2,6 +2,7 @@
 layout: post
 title: A tale of FMD5 (or upgrading offlineimap from 6.3.4 to 6.6.1)
 date: 2016-02-12
+updated: 2016-03-11
 author: François Joulaud
 categories: configuration
 ---
@@ -13,6 +14,19 @@ categories: configuration
 While upgrading my Debian machine from jessie to stretch, offlineimap was upgraded from 6.3.4 to 6.6.1 and it had a unexpected effect in my case.
 
 <!--more-->
+
+{:.note}
+{{ icons.note }} {{ icons.end }}
+\\
+Since the time of this writing, **OfflineIMAP v6.7.0 learned the CLI option
+`--migrate-fmd5-using-nametrans`.  You should use this feature for your
+updates!**
+\\
+\\
+For versions from 6.3.5 up to 6.7.0, check out if your distribution
+maintainer has backported this feature for you: `offlineimap -h`.
+
+
 
 ## Initial configuration and decision to upgrade
 

@@ -3,7 +3,7 @@ layout: page
 title: GSoC student helpers
 author: Nicolas Sebrecht
 date: 2016-02-18
-updated: 2016-03-01
+updated: 2016-03-11
 ---
 
 {% assign links = site.data.links %}
@@ -31,6 +31,7 @@ We understand some information are private data, so **consider sending a private
   - skills (check the required skills, perfect matching may not be mandatory)
   - education
   - open source experience
+* Why you? *(optional)*
 * What tools do you know/use? *(text editor, source code management system, daily OS, etc)*
 * Github pseudo *(if any)*
 
@@ -38,20 +39,24 @@ We understand some information are private data, so **consider sending a private
 
 {:.note}
 {{ icons.note }} Tip: {{ icons.end }}
-Avoid asking for the obvious, that's annoying. Check out the project and the online documentation first.
+Avoid asking for the obvious, that's annoying.
 
 
 ## Decided to apply?
 
-{:.warning}
-{{ icons.note }} Important: {{ icons.end }}
-At this point, it's best starting a **public thread** in our [mailing list]({{ links.mailing_list.subscribe }})!
+Your next goal is to write a proposal. **You should really focus on this.**
 
-The next step:
+### Your proposal
 
-* Brief introduction about you for the community.
-* Why you? *(optional)*
+* Check out the project and the online documentation first (full reading is not
+  expected).
+* Understand what the project is all about.
 * Send your proposal(s) or expose your ideas if you don't have a draft yet.
+* **As for code: release soon, release often.** You should really work
+  incrementally, by small steps. **Start little but start soon.** The sooner
+  it's out, the sooner you'll get our feedbacks. Also, it's fine to annotate
+  your work with a `WIP` flag ("Work In Progress") to let us know you're
+  currently wokring on this area.
 
 {:.note}
 {{ icons.note }} Tip: {{ icons.end }}
@@ -61,6 +66,10 @@ Don't bother too much about making the kick-ass impression at this stage. **This
 ## What next?
 
 Once your porposal(s) submitted, there are lot of things you can do instead of waiting for the next step.
+
+{:.warning}
+{{ icons.note }} Important: {{ icons.end }}
+At this point, it's best starting **public threads** in our [mailing list]({{ links.mailing_list.subscribe }})!
 
 #### Become a real member
 
@@ -139,3 +148,7 @@ Ask us if you're stuck at any step. While we do expect you to fix your own issue
 ## FAQ
 
 *(To be updated from time to time)*
+
+<!--
+vim: expandtab ts=2 :
+-->

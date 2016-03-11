@@ -49,14 +49,21 @@ your mail reader (MUA) to support disconnected operations.
 
 OfflineIMAP will synchronize both sides via *IMAP*.
 
-
 # Project
 
-Checkout the [OfflineIMAP official project]({{ links.offlineimap.project }}) on Github.
+Checkout the [OfflineIMAP official project]({{ links.offlineimap.project }}) in Github.
+
+> **Side note from a maintainer:**
+While I'm still maintaining OfflineIMAP, I'm mostly focusing on [imapfw]({{
+links.imapfw.website }}) which I intend to come as a replacement in the long term.
+\\
+― Nicolas Sebrecht
 
 # Download
 
 Download releases as [tarball or zipball]({{ links.offlineimap.downloads }}).
+
+# Contributions
 
 <iframe frameborder="0" width="480" height="270"
 src="//www.dailymotion.com/embed/video/x3usii9" allowfullscreen></iframe>

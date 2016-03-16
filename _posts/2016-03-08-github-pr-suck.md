@@ -2,7 +2,7 @@
 layout: post
 title: Why Github pull requests suck so hard
 date: 2016-03-08
-updated: 2016-03-09
+updated: 2016-03-16
 author: Nicolas Sebrecht
 categories: Github, pull requests
 ---
@@ -260,5 +260,12 @@ than almost **forcing maintainers** to accept PR in their public repositories?
 
 **One day or another, we will move away from github. This will be for good
 reasons.**
+
+{:.note}
+
+A meaningful blog post on this topic: [Github doesn't support pull-request
+notifications to mailing
+lists](http://blog.wikichoon.com/2014/04/github-doesnt-support-pull-request.html),
+by Cole Robinson
 
 Feel free to join the chat and provide your point of you!

@@ -3,7 +3,7 @@ layout: page
 title: GSoC student helpers
 author: Nicolas Sebrecht
 date: 2016-02-18
-updated: 2016-03-11
+updated: 2016-03-17
 ---
 
 {% assign links = site.data.links %}
@@ -147,7 +147,24 @@ Ask us if you're stuck at any step. While we do expect you to fix your own issue
 
 ## FAQ
 
-*(To be updated from time to time)*
+#### What's the expected design of the synchronization for the engine?
+
+There are more than one possible implementation design. Which one is the best
+model is not obvious. This requires further thoughts and discussions.
+
+#### How to write a good proposal, then?
+
+First, you might include discussions about that in your proposal. Providing a
+prototype of your model at some point in time would be best. You won't be left
+alone for the purpose. We intend a team-work.
+
+The most important thing to bear in mind is that the syncing goal is a final
+target which could easily come as a stretch goal. This feature can be splitted
+into small deliverables. One obvious is providing a "one-way sync" deliverable.
+
+**Small and intermediate deliverables** allow better **incremental
+contributions**.  This reduces the risks and sightly improves the probability to
+have a fun and successful GSoC. ,-)
 
 <!--
 vim: expandtab ts=2 :

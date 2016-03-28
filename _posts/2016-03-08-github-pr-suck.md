@@ -4,7 +4,7 @@ title: Why Github pull requests suck so hard
 date: 2016-03-08
 updated: 2016-03-16
 author: Nicolas Sebrecht
-categories: Github, pull requests
+categories: github
 ---
 
 {% assign links = site.data.links %}

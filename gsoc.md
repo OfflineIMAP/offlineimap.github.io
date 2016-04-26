@@ -3,18 +3,22 @@ layout: page
 title: GSoC
 permalink: /gsoc/
 date: 2016-02-13
-updated: 2016-03-01
+updated: 2016-04-26
 author: Nicolas Sebrecht & Abdó Roig-Maranges
 ---
 
 {% assign links = site.data.links %}
 {% assign icons = site.data.icons %}
 {% assign helpers = "/gsoc/helpers.html" %}
+{% assign experience = "/gsoc2016/2016/04/23/GSoC2016-with-Gentoo.html" %}
 
+
+Learn about [our experience with Gentoo]({{ site.base }}{{ experience }}).
 
 {:.note}
-{{ icons.note }} We are accepted! {{ icons.end }}
-Our umbrella organization is [Gentoo](https://wiki.gentoo.org/wiki/Google_Summer_of_Code/2016/Ideas).
+While the application time for the GSoC is over, ***we are still welcoming new comers!***
+
+---
 
 The [Google Summer of Code](https://developers.google.com/open-source/gsoc/) *(GSoC)* is a program made by Google **for student developpers to get paid to write open source code**.
 
@@ -22,7 +26,6 @@ The [Google Summer of Code](https://developers.google.com/open-source/gsoc/) *(G
 * junk
 {:toc}
 
----
 
 ## OfflineIMAP organization
 

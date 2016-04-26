@@ -150,9 +150,9 @@ students: [...]. No need to rank them, just the 5 you prefer.
 {:.DarkBlue}
 
 Notice that there are 6 projects considered by the org admin for this poll, one
-of the imapfw project was already excluded while highly ranked. I'm not sure
-this made sense to decide at the bottom of the scale because listing the 5
-**"*preferred*"** projects is obviously not objective...
+of the imapfw project was already excluded while highly ranked. Also, I'm not
+sure this poll made sense to decide at the bottom of the scale because listing
+the 5 **"*preferred*"** projects is obviously not objective...
 
 In the selection criteria, the org admin emphasized more than once that
 "*planing to be involved with gentoo in the future*" was a contributing factor

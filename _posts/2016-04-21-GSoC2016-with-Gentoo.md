@@ -81,8 +81,9 @@ dashboard provided by Google:
 * 4: Very good, we should accept this student.
 * 5: Excellent, we absolutely have to have this student this year.
 
-The deadline for requesting slots to Google was April 11. During this reviewing
-period, we are requested to communicate with the students and the other mentors.
+The deadline for requesting slots to Google was April 11th. During this
+reviewing period, we are requested to communicate with the students and the
+other mentors.
 
 Ranking is not so easy. This is mainly about the proposal but there are other
 criteria to consider like the student interactions, the feedbacks from the other
@@ -127,9 +128,9 @@ applicants before applying. **I'm happy imapfw has good traction!**
 
 ### The slots
 
-On April 13th, slots allocation was announced. Gentoo had 5 slots. At the next
-step, the org admin has to allocate the slots for the accepted projects on the
-official dashboard. The deadline was April 20th.
+On April 13th, slots allocation was announced. **Gentoo had 5 slots**. At the
+next step, the org admin has to allocate the slots for the accepted projects on
+the official dashboard. The deadline was April 20th.
 
 {:.DarkRed}
 
@@ -149,7 +150,9 @@ students: [...]. No need to rank them, just the 5 you prefer.
 {:.DarkBlue}
 
 Notice that there are 6 projects considered by the org admin for this poll, one
-of the imapfw project was already excluded while highly ranked.
+of the imapfw project was already excluded while highly ranked. I'm not sure
+this made sense to decide at the bottom of the scale because listing the 5
+**"*preferred*"** projects is obviously not objective...
 
 In the selection criteria, the org admin emphasized more than once that
 "*planing to be involved with gentoo in the future*" was a contributing factor
@@ -177,8 +180,7 @@ considered in this poll.**
 While I was a bit worried, this was not much an issue for me. It was not clear
 he would take those result as the only relevant criteria to select the projects.
 I was trusting the org admin to put those **late and surprising results** in
-perspective. I'm not sure this made sense to decide at the bottom of the scale
-because listing the 5 **"*preferred*"** projects is obviously not objective...
+perspective.
 And the results we got are quite surprising. Even the org admin said he was
 surprised.
 

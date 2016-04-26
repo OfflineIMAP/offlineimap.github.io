@@ -2,6 +2,7 @@
 layout: post
 title: "Our GSoC 2016 with Gentoo"
 date: 2016-04-23
+updated: 2016-04-26
 author: Nicolas Sebrecht
 categories: GSoC2016
 ---

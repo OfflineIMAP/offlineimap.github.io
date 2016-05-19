@@ -1,8 +1,7 @@
 ---
 layout: post
 title: "sqlite becomes the default"
-date: 2016-04-23
-updated: 2016-04-26
+date: 2016-05-19
 author: Nicolas Sebrecht
 categories: configuration
 ---

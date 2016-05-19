@@ -36,7 +36,7 @@ OfflineIMAP/offlineimap on GitHub">Star</a>
 <script async defer id="github-bjs" src="https://buttons.github.io/buttons.js"></script>
 
 
-> ***Get the emails where you need them***
+> ***"Get the emails where you need them."***
 
 [![Gitter](https://badges.gitter.im/OfflineIMAP/offlineimap.svg)](https://gitter.im/OfflineIMAP/offlineimap?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
 

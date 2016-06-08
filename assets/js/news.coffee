@@ -33,12 +33,10 @@ class NsJSON extends NsFeed
     @data = json
 
 class Releases extends NsJSON
-  changelogPage: '/doc/Changelog.html#'
-
   getChangelogLink: (version) =>
     pageLink = $('div[id=\'' + version + '\']').attr('link')
     if pageLink
-      return @changelogPage + pageLink
+      return '/doc/' + pageLink
     return undefined
 
   format: =>

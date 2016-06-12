@@ -2,6 +2,7 @@
 layout: post
 title: "offlineimap learns Python 3 support"
 date: 2016-06-04
+updated: 2016-06-12
 author: Nicolas Sebrecht
 categories: development
 ---
@@ -44,3 +45,15 @@ Improved encodings support. It is true that Python 3 has much better support for
 Unicode than Python 2. However (you likely already know it), supporting
 encodings other than UTF-7 with offlineimap is hard, very hard. So, I don't
 expect this feature to come while Python 2 is supported.
+
+
+### Known issues
+
+If you have enabled the *unsupported* `decodefoldernames` configuration option
+or if your are using your own tricks to have other encodings than (IMAP) UTF-7
+for your Maildirs, be aware that the FMD5 won't match. This will cause issues
+while syncing.
+
+{:.note}
+
+Users following the expected usage of offlineimap are not concerned.

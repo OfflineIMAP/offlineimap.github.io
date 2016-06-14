@@ -23,7 +23,7 @@ In an ideal world, any Python dependency not in Python core is declared as
 dependency and that's all. Pypi helps handling the dependencies.
 
 In offlineimap, the main dependency is imaplib2. Since the early days, it is
-packaged with offlineimap and I usually hear that users would benefice from
+packaged with offlineimap and I usually hear that users would benefit from
 having imaplib2 packaged outside for mainly two reasons:
 
 1. imaplib2 could be updated wihout updating offlineimap.
@@ -66,7 +66,7 @@ see a new version of imaplib2, we first check that the changes are fine and if
 they are, we update it in our sources. When not sure, we integrate imaplib2 at
 correct times in the release cycle so it can be tested enough and validate the
 update. It already happened that imaplib2 was not updated or downgraded for good
-reasons from our sources. Most users (and even distribution maintainers) don't
+reasons in our sources. Most users (and even distribution maintainers) don't
 know when there are issues in imaplib2. Usually, they just pick a recent enough
 version and use it.
 
@@ -141,4 +141,4 @@ historical heritage and it's hard to get rid of this.
 {:.DarkBlue}
 
 With this new policy, I think we are reaching enough flexibility for those who
-want/need it while still providing the best by default.
+want/need tuning while still providing the best by default.

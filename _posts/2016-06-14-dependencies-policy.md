@@ -1,7 +1,8 @@
 ---
 layout: post
 title: "improving the policy about the imaplib2 library"
-date: 2016-06-05
+date: 2016-06-14
+updated: 2016-06-15
 author: Nicolas Sebrecht
 categories: development
 ---
@@ -57,23 +58,23 @@ their time on other issues and more important packages.
 Hmm, let's get the full picture.
 
 Offlineimap is built as a big wrapper on top of imaplib2. It is definetly very
-tied to imaplib2. We don't diverge from upstream and we closely work with
-upstream.  Offlineimap has always been shipped with imaplib2. Actually, imaplib2
-is a one file library to allow bundling it like we do.
+tied to imaplib2. Offlineimap has always been shipped with imaplib2. Actually,
+imaplib2 is a one file library to allow bundling it like we do. We don't diverge
+from upstream and we closely work with upstream.
 
 imaplib2 is moving slowly. At least, not as fast as offlineimap. Each time we
 see a new version of imaplib2, we first check that the changes are fine and if
 they are, we update it in our sources. When not sure, we integrate imaplib2 at
 correct times in the release cycle so it can be tested enough and validate the
-update. It already happened that imaplib2 was not updated or downgraded for good
-reasons in our sources. Most users (and even distribution maintainers) don't
-know when there are issues in imaplib2. Usually, they just pick a recent enough
-version and use it.
+update. It already happened that imaplib2 was not updated or downgraded in our
+sources. Some releases have been deliberately ignored for good reasons. Most
+users (and even distribution maintainers) don't know when there are issues in
+imaplib2. Usually, they just pick a recent enough version and use it.
 
 Lot of changes in imaplib2 have been reported, initiated or even made by the
 offlineimap contributors. I think we are in a good position to know which is the
-best version of imaplib2 offlineimap should work with. This policy is working
-well.
+best version of imaplib2 that offlineimap should work with. This policy is
+working well.
 
 Removing imaplib2 would break historical assumptions that imaplib2 is bundled in
 offlineimap.  This would not be an issue if all users knew how to handle Python
@@ -119,14 +120,14 @@ is in charge of importing the real imaplib2. The policy is the following:
 
 {:.note}
 
-Currently, the code allows ***any newer release***. I expect we will stick to
-this policy.
+Currently, the code allows ***any newer release*** than the bundled imaplib2
+version. I expect we will stick to this policy.
 
 
 ### Official support
 
-While loading and running a newer version than the bundled imaplib2 is allowed,
-this does **not** mean this release is officialy supported for offlineimap.
+While loading and running a newer version is allowed, this does **not** mean
+this release is officialy supported for offlineimap.
 
 {:.warning}
 
@@ -140,5 +141,5 @@ historical heritage and it's hard to get rid of this.
 
 {:.DarkBlue}
 
-With this new policy, I think we are reaching enough flexibility for those who
-want/need tuning while still providing the best by default.
+With this new policy, I think we are reaching enough flexibility for anyone
+wanting/needing tuning while still providing the best by default.

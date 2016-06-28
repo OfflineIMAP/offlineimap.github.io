@@ -2,6 +2,7 @@
 layout: post
 title: Planning a deep refactoring
 date: 2015-04-04
+updated: 2016-06-28
 author: Nicolas Sebrecht
 categories: development
 ---
@@ -37,6 +38,8 @@ For details, see `TODO.rst` in the source tree.
 {:.note}
 Anyone interested might like to follow the work in progress with git.
 
+{:.DarkBlue}
+Follow up: [imapfw is made public]({% post_url 2015-10-08-imapfw-is-made-public %}).
 
 <!--
 vim: ts=2 expandtab spelllang=en :

@@ -7,10 +7,15 @@ layout: default
   <header class="post-header">
     <h1 class="post-title">{{ page.title }}</h1>
 
-    <p class="post-meta">{% if page.date %}{{ page.date | date: "%b %-d, %Y" }}{% endif %}
+    <p>
+    <div class="post-meta">
+    {% if page.date %}{{ page.date | date: "%b %-d, %Y" }}{% endif %}
     {% if page.updated %}<i>(update: {{ page.updated | date: "%b %-d, %Y" }})</i>{% endif %}
-    {% if page.author %} • {{ page.author }}{% endif %}
     {% if page.meta %} • {{ page.meta }}{% endif %}
+    </div>
+    <div class="post-authors">
+    {% if page.author %} By {{ page.author }}{% endif %}
+    </div>
     </p>
   </header>
 

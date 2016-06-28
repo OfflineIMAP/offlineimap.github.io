@@ -192,8 +192,16 @@
     }
 }
 
+.post-authors {
+    font-size: $big-font-size;
+    text-align: right;
+    color: $grey-color-dark;
+    font-style: italic;
+}
+
 .post-meta {
     font-size: $small-font-size;
+    text-align: right;
     color: $grey-color;
 }
 

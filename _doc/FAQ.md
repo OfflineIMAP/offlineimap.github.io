@@ -4,7 +4,7 @@ title: Frequently Asked Questions
 date: 2006-12-02
 author: John Goerzen
 contributors: Nicolas Sebrecht, Sebastian Spaeth, Daniel Shahaf, Vladimir Marek, Eygene Ryabinkin
-updated: 2015-04-07
+updated: 2016-07-06
 ---
 
 {% assign links = site.data.links %}
@@ -122,7 +122,21 @@ OfflineIMAP does not currently provide this feature. You will have to delete fol
 
 ### May I delete local folders?
 
-OfflineIMAP does a two-way synchronization.  That is, if you make a change to the mail on the server, it will be propagated to your local copy, and vise-versa.  Some people might think that it would be wise to just delete all their local mail folders periodically.  If you do this with OfflineIMAP, remember to also remove your local status cache (`~/.offlineimap` by default).  Otherwise, OfflineIMAP will take this as an intentional deletion of many messages and will interpret your action as requesting them to be deleted from the server as well.  (If you don't understand this, don't worry; you probably won't encounter this situation.)
+OfflineIMAP does a two-way synchronization.  That is, if you make a change to
+the mail on the server, it will be propagated to your local copy, and
+vise-versa.  Some people might think that it would be wise to just delete all
+their local mail folders periodically.  If you do this with OfflineIMAP,
+remember to also remove your local status cache (`~/.offlineimap` by default).
+Otherwise, OfflineIMAP will take this as an intentional deletion of many
+messages and will interpret your action as requesting them to be deleted from
+the server as well.  (If you don't understand this, don't worry; you probably
+won't encounter this situation.)
+
+{:.note}
+Starting with v7.0.0, offlineimap won't delete emails if the directory is
+removed. It will re-download the folder, instead. In order to remove all the
+emails of a folder, it is necessary to remove all the files **inside** the
+maildir.
 
 
 ### Can I run multiple instances?

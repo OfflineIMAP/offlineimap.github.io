@@ -187,20 +187,12 @@ maildir.
 
 ### Can I run multiple instances?
 
-OfflineIMAP is not designed to have several instances (for instance, a cron job
-and an interactive invocation) run over the same mailbox simultaneously.  It
-will perform a check on startup and abort if another OfflineIMAP is already
-running.  If you need to schedule synchronizations, you'll probably find
-autorefresh settings more convenient than cron.  Alternatively, you can set a
-separate metadata directory for each instance.  The lock stands for each account
-individually.
+Yes. Offlineimap prevents any attempt to sync the same account over different
+instances.
 
-For instance, in the second config:
-
-{% highlight ini %}
-[general]
-metadata = ~/.offlineimap2
-{% endhighlight %}
+Actualy, this is the prefered way for syncing more than one account
+concurrently. Learn more [in this blog post]({{ site.baseurl
+}}/configuration/2016/01/29/why-i-m-not-using-maxconnctions.html).
 
 ### Can I copy messages between folders?
 
@@ -298,8 +290,7 @@ Also you can configure OfflineImap to only synchronize "subscribed" folders.
 
 ### How do I prevent certain folders from being synced?
 
-Use the folderfilter option. See the `offlineimap(1)` man page for details and
-examples.
+Use the folderfilter option. See `offlineimap.conf` for details.
 
 ### What is the mailbox name recorder (mbnames) for?
 

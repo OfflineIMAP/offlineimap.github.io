@@ -134,7 +134,7 @@ $ mv ~/.offlineimap/Repository-RemoteRepositoryName/FolderValidity/INBOX ~/archi
 
 {:.note}
 If you're using the plain text backend, change the above `LocalStatus-sqlite` to
-`LocalStatus-`.
+`LocalStatus`.
  
 Of course, replace `AccountName` and `RemoteRepositoryName` with the names as
 specified in `~/.offlineimaprc`.

@@ -187,7 +187,7 @@ you probably won't encounter this situation.)
 
 Starting with v7.0.0, offlineimap won't delete emails if the **directory** is
 removed. Instead, it will re-download the folder. In order to remove all the
-emails of a folder, it is necessary to remove all the **files *inside* **the
+emails of a folder, it is necessary to remove all the **files** ***inside*** the
 maildir.
 
 To prevent from any deletion, it's possible to set the `sync_deletes = no`

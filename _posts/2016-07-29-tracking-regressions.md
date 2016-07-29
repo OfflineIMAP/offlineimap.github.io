@@ -41,7 +41,7 @@ So, what happened?
 It appeared users did not help to test out the late candidates. Years ago, we had
 offlineimap enthusiasts running the latest releases, including the intermediate
 candidates. Some even used to work on the `next` development branch. They were
-doing a fucking good job at either fixing of reporting issues.
+doing a fucking good job at either fixing or reporting issues.
 
 Lately, it looks like we've "lost" most of them. At least, this "team" of
 testers stopped to track on new patches and latest release to try and see. As a

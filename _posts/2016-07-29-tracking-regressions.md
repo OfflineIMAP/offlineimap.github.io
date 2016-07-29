@@ -51,7 +51,7 @@ release cycle policy.
 
 ### Imagine yourself the maintainer
 
-How we work is simple. Code changes as we move forward by applying patches. You
+How you work is simple. Code changes as we move forward by applying patches. You
 *(the maintainer)* feel it's time to stabilize the code. So, you release a
 candidate and let the time go. At the rhythm of feedbacks you fix some issues
 and postpone the stable until all are fixed.
@@ -65,7 +65,7 @@ But this time, you get very FEW to NO feedback at all.
 
 This might mean too things:
 
-1. The users did not found issues. That's good. It means you should release the
+1. The users did not find issues. That's good. It means you should release the
 	 stable.
 
 2. No users are testing your job. You're out of luck. If you release a stable,
@@ -74,8 +74,8 @@ This might mean too things:
 This is what happened for this v7.0.0.
 
 IOW, the implicit contract broke. We make our best to write code and test but we
-*can't* do all of the job. **We just can't try our own code in the wild and see
-if this work for all the possible options and servers out there.**
+*can't* do all the job. **We just can't try our own code in the wild and see if
+this work for all the possible options and servers out there.**
 
 {:.DarkBlue}
 We used to have enthusiasts. For whatever reasons, most are gone. I suspect some
@@ -90,8 +90,8 @@ community. We *do* rely on you.
 
 The implicit contract is that if nobody test the code, a crappy stable will get
 out despite our good will. By installing and using it, you're finally doing the
-job that was not done before, in late.  No one is comfortable when this happen.
-Users tend to not trust us. Maintainers work in a hurry to fix issues.
+job that was not done in late.  No one is comfortable when this happen.  Users
+tend to not trust much anymore. Maintainers work in a hurry to fix issues.
 Reputation decrease.
 
 
@@ -113,7 +113,7 @@ That's teamwork we enjoy.
 {:.DarkBlue}
 You're reading this blog post. You might be subscribed to the RSS feed or you're
 subscribed to the mailing list in order to be aware of what's happening.  I know
-you could be one of them. ,-)
+you can be more a bit more involved. ,-)
 
 {:.note}
 Drop me a note that you're willing to test releases. The more I know about your
@@ -125,8 +125,8 @@ Contrary to wrong belief, it's not very harmful to your precious emails. There
 are ways to prevent from hard issues:
 
 1. We make backups. E.g., I use a script that takes care to snapshot the
-	 (dedicated) filesystem of both my mails and the local cache, prior to any
-	 sync.
+	 (dedicated) filesystem storing both my mails and the local cache, prior to
+	 any sync.
 
 2. When we try a new version, we first try on non-critical accounts.
 
@@ -136,6 +136,6 @@ will never happen. I observe this didn't happen for now. Also, since I'm used to
 test, I've setup a reliable environment like above for all my accounts.
 
 *The side effect is that I'm prepared in case of troubles on my most precious
-accounts, too. Probably more than the common offlineimap user. Not because I'm a
+accounts, too. Probably more than the lambda offlineimap user. Not because I'm a
 developer or a maintainer. Only because all the environment is up and ready in
 case of strong issue.* ,-)

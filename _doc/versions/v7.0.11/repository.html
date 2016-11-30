@@ -1,0 +1,1126 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>offlineimap.repository – Email repositories &mdash; OfflineIMAP 7.0.11 documentation</title>
+    
+    <link rel="stylesheet" href="_static/classic.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '7.0.11',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="OfflineIMAP 7.0.11 documentation" href="index.html" />
+    <link rel="next" title="offlineimap.ui – A flexible logging system" href="ui.html" />
+    <link rel="prev" title="offlineimap&#39;s API documentation" href="API.html" /> 
+  </head>
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="ui.html" title="offlineimap.ui – A flexible logging system"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="API.html" title="offlineimap&#39;s API documentation"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">OfflineIMAP 7.0.11 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="offlineimap-repository-email-repositories">
+<h1><code class="xref py py-mod docutils literal"><span class="pre">offlineimap.repository</span></code> &#8211; Email repositories<a class="headerlink" href="#offlineimap-repository-email-repositories" title="Permalink to this headline">¶</a></h1>
+<p>A derivative of class
+<a class="reference internal" href="#offlineimap.repository.Base.BaseRepository" title="offlineimap.repository.Base.BaseRepository"><code class="xref py py-class docutils literal"><span class="pre">Base.BaseRepository</span></code></a> represents an email
+repository depending on the type of storage, possible options are:</p>
+<blockquote>
+<div><ul class="simple">
+<li><a class="reference internal" href="#offlineimap.repository.IMAPRepository" title="offlineimap.repository.IMAPRepository"><code class="xref py py-class docutils literal"><span class="pre">IMAPRepository</span></code></a>,</li>
+<li><a class="reference internal" href="#offlineimap.repository.MappedIMAPRepository" title="offlineimap.repository.MappedIMAPRepository"><code class="xref py py-class docutils literal"><span class="pre">MappedIMAPRepository</span></code></a></li>
+<li><a class="reference internal" href="#offlineimap.repository.GmailRepository" title="offlineimap.repository.GmailRepository"><code class="xref py py-class docutils literal"><span class="pre">GmailRepository</span></code></a>,</li>
+<li><a class="reference internal" href="#offlineimap.repository.MaildirRepository" title="offlineimap.repository.MaildirRepository"><code class="xref py py-class docutils literal"><span class="pre">MaildirRepository</span></code></a>, or</li>
+<li><a class="reference internal" href="#offlineimap.repository.LocalStatusRepository" title="offlineimap.repository.LocalStatusRepository"><code class="xref py py-class docutils literal"><span class="pre">LocalStatusRepository</span></code></a>.</li>
+</ul>
+</div></blockquote>
+<p>Which class you need depends on your account
+configuration. The helper class <a class="reference internal" href="#offlineimap.repository.Repository" title="offlineimap.repository.Repository"><code class="xref py py-class docutils literal"><span class="pre">offlineimap.repository.Repository</span></code></a> is
+an <em>autoloader</em>, that returns the correct class depending
+on your configuration. So when you want to instanciate a new
+<code class="xref py py-mod docutils literal"><span class="pre">offlineimap.repository</span></code>, you will mostly do it through this class.</p>
+<dl class="class">
+<dt id="offlineimap.repository.Repository">
+<em class="property">class </em><code class="descname">Repository</code><span class="sig-paren">(</span><em>account</em>, <em>reqtype</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/offlineimap/repository.html#Repository"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#offlineimap.repository.Repository" title="Permalink to this definition">¶</a></dt>
+<dd><p>Abstract class that returns the correct Repository type
+instance based on &#8216;account&#8217; and &#8216;reqtype&#8217;, e.g.  a
+class:<cite>ImapRepository</cite> instance.</p>
+<p>Load the correct Repository type and return that. The
+__init__ of the corresponding Repository class will be
+executed instead of this stub</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>account</strong> &#8211; <code class="xref py py-class docutils literal"><span class="pre">Account</span></code></li>
+<li><strong>regtype</strong> &#8211; &#8216;remote&#8217;, &#8216;local&#8217;, or &#8216;status&#8217;</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<div class="section" id="offlineimap-repository-base-baserepository-representation-of-a-mail-repository">
+<h1><a class="reference internal" href="#offlineimap.repository.Base.BaseRepository" title="offlineimap.repository.Base.BaseRepository"><code class="xref py py-mod docutils literal"><span class="pre">offlineimap.repository.Base.BaseRepository</span></code></a> &#8211; Representation of a mail repository<a class="headerlink" href="#offlineimap-repository-base-baserepository-representation-of-a-mail-repository" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="offlineimap.repository.Base.BaseRepository">
+<em class="property">class </em><code class="descname">BaseRepository</code><span class="sig-paren">(</span><em>reposname</em>, <em>account</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/offlineimap/repository/Base.html#BaseRepository"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#offlineimap.repository.Base.BaseRepository" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="attribute">
+<dt id="offlineimap.repository.Base.BaseRepository.accountname">
+<code class="descname">accountname</code><a class="headerlink" href="#offlineimap.repository.Base.BaseRepository.accountname" title="Permalink to this definition">¶</a></dt>
+<dd><p>Account name as string</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="offlineimap.repository.Base.BaseRepository.connect">
+<code class="descname">connect</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/offlineimap/repository/Base.html#BaseRepository.connect"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#offlineimap.repository.Base.BaseRepository.connect" title="Permalink to this definition">¶</a></dt>
+<dd><p>Establish a connection to the remote, if necessary.  This exists
+so that IMAP connections can all be established up front, gathering
+passwords as needed.  It was added in order to support the
+error recovery &#8211; we need to connect first outside of the error
+trap in order to validate the password, and that&#8217;s the point of
+this function.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="offlineimap.repository.Base.BaseRepository.deletefolder">
+<code class="descname">deletefolder</code><span class="sig-paren">(</span><em>foldername</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/offlineimap/repository/Base.html#BaseRepository.deletefolder"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#offlineimap.repository.Base.BaseRepository.deletefolder" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="offlineimap.repository.Base.BaseRepository.dropconnections">
+<code class="descname">dropconnections</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/offlineimap/repository/Base.html#BaseRepository.dropconnections"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#offlineimap.repository.Base.BaseRepository.dropconnections" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="offlineimap.repository.Base.BaseRepository.forgetfolders">
+<code class="descname">forgetfolders</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/offlineimap/repository/Base.html#BaseRepository.forgetfolders"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#offlineimap.repository.Base.BaseRepository.forgetfolders" title="Permalink to this definition">¶</a></dt>
+<dd><p>Forgets the cached list of folders, if any.  Useful to run
+after a sync run.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="offlineimap.repository.Base.BaseRepository.getaccount">
+<code class="descname">getaccount</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/offlineimap/repository/Base.html#BaseRepository.getaccount"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#offlineimap.repository.Base.BaseRepository.getaccount" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="offlineimap.repository.Base.BaseRepository.getconf">
+<code class="descname">getconf</code><span class="sig-paren">(</span><em>option</em>, <em>default=&lt;function CustomConfigDefault&gt;</em><span class="sig-paren">)</span><a class="headerlink" href="#offlineimap.repository.Base.BaseRepository.getconf" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieves string from the configuration.</p>
+<dl class="docutils">
+<dt>Arguments:</dt>
+<dd><ul class="first last simple">
+<li>option: option name whose value is to be retrieved;</li>
+<li>default: default return value if no such option
+exists.</li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="offlineimap.repository.Base.BaseRepository.getconf_xform">
+<code class="descname">getconf_xform</code><span class="sig-paren">(</span><em>option</em>, <em>xforms</em>, <em>default=&lt;function CustomConfigDefault&gt;</em><span class="sig-paren">)</span><a class="headerlink" href="#offlineimap.repository.Base.BaseRepository.getconf_xform" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieves string from the configuration transforming the result.</p>
+<dl class="docutils">
+<dt>Arguments:</dt>
+<dd><ul class="first last simple">
+<li>option: option name whose value is to be retrieved;</li>
+<li>xforms: iterable that returns transform functions
+to be applied to the value of the option,
+both retrieved and default one;</li>
+<li>default: default value for string if no such option
+exists.</li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="offlineimap.repository.Base.BaseRepository.getconfboolean">
+<code class="descname">getconfboolean</code><span class="sig-paren">(</span><em>option</em>, <em>default=&lt;function CustomConfigDefault&gt;</em><span class="sig-paren">)</span><a class="headerlink" href="#offlineimap.repository.Base.BaseRepository.getconfboolean" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieves boolean value from the configuration.</p>
+<dl class="docutils">
+<dt>Arguments:</dt>
+<dd><ul class="first last simple">
+<li>option: option name whose value is to be retrieved;</li>
+<li>default: default return value if no such option
+exists.</li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="offlineimap.repository.Base.BaseRepository.getconffloat">
+<code class="descname">getconffloat</code><span class="sig-paren">(</span><em>option</em>, <em>default=&lt;function CustomConfigDefault&gt;</em><span class="sig-paren">)</span><a class="headerlink" href="#offlineimap.repository.Base.BaseRepository.getconffloat" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieves floating-point value from the configuration.</p>
+<dl class="docutils">
+<dt>Arguments:</dt>
+<dd><ul class="first last simple">
+<li>option: option name whose value is to be retrieved;</li>
+<li>default: default return value if no such option
+exists.</li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="offlineimap.repository.Base.BaseRepository.getconfig">
+<code class="descname">getconfig</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/offlineimap/repository/Base.html#BaseRepository.getconfig"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#offlineimap.repository.Base.BaseRepository.getconfig" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="offlineimap.repository.Base.BaseRepository.getconfint">
+<code class="descname">getconfint</code><span class="sig-paren">(</span><em>option</em>, <em>default=&lt;function CustomConfigDefault&gt;</em><span class="sig-paren">)</span><a class="headerlink" href="#offlineimap.repository.Base.BaseRepository.getconfint" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieves integer value from the configuration.</p>
+<dl class="docutils">
+<dt>Arguments:</dt>
+<dd><ul class="first last simple">
+<li>option: option name whose value is to be retrieved;</li>
+<li>default: default return value if no such option
+exists.</li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="offlineimap.repository.Base.BaseRepository.getconflist">
+<code class="descname">getconflist</code><span class="sig-paren">(</span><em>option</em>, <em>separator_re</em>, <em>default=&lt;function CustomConfigDefault&gt;</em><span class="sig-paren">)</span><a class="headerlink" href="#offlineimap.repository.Base.BaseRepository.getconflist" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieves strings from the configuration and splits it
+into the list of strings.</p>
+<dl class="docutils">
+<dt>Arguments:</dt>
+<dd><ul class="first last simple">
+<li>option: option name whose value is to be retrieved;</li>
+<li>separator_re: regular expression for separator
+to be used for split operation;</li>
+<li>default: default return value if no such option
+exists.</li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="offlineimap.repository.Base.BaseRepository.getfolder">
+<code class="descname">getfolder</code><span class="sig-paren">(</span><em>foldername</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/offlineimap/repository/Base.html#BaseRepository.getfolder"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#offlineimap.repository.Base.BaseRepository.getfolder" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="offlineimap.repository.Base.BaseRepository.getfolders">
+<code class="descname">getfolders</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/offlineimap/repository/Base.html#BaseRepository.getfolders"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#offlineimap.repository.Base.BaseRepository.getfolders" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a list of ALL folders on this server.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="offlineimap.repository.Base.BaseRepository.getkeywordmap">
+<code class="descname">getkeywordmap</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/offlineimap/repository/Base.html#BaseRepository.getkeywordmap"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#offlineimap.repository.Base.BaseRepository.getkeywordmap" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="offlineimap.repository.Base.BaseRepository.getlocaleval">
+<code class="descname">getlocaleval</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/offlineimap/repository/Base.html#BaseRepository.getlocaleval"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#offlineimap.repository.Base.BaseRepository.getlocaleval" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="offlineimap.repository.Base.BaseRepository.getlocalroot">
+<code class="descname">getlocalroot</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/offlineimap/repository/Base.html#BaseRepository.getlocalroot"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#offlineimap.repository.Base.BaseRepository.getlocalroot" title="Permalink to this definition">¶</a></dt>
+<dd><p>Local root folder for storing messages.
+Will not be set for remote repositories.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="offlineimap.repository.Base.BaseRepository.getmapdir">
+<code class="descname">getmapdir</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/offlineimap/repository/Base.html#BaseRepository.getmapdir"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#offlineimap.repository.Base.BaseRepository.getmapdir" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="offlineimap.repository.Base.BaseRepository.getname">
+<code class="descname">getname</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/offlineimap/repository/Base.html#BaseRepository.getname"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#offlineimap.repository.Base.BaseRepository.getname" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="offlineimap.repository.Base.BaseRepository.getsection">
+<code class="descname">getsection</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/offlineimap/repository/Base.html#BaseRepository.getsection"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#offlineimap.repository.Base.BaseRepository.getsection" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="offlineimap.repository.Base.BaseRepository.getsep">
+<code class="descname">getsep</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/offlineimap/repository/Base.html#BaseRepository.getsep"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#offlineimap.repository.Base.BaseRepository.getsep" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="offlineimap.repository.Base.BaseRepository.getuiddir">
+<code class="descname">getuiddir</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/offlineimap/repository/Base.html#BaseRepository.getuiddir"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#offlineimap.repository.Base.BaseRepository.getuiddir" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="offlineimap.repository.Base.BaseRepository.holdordropconnections">
+<code class="descname">holdordropconnections</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/offlineimap/repository/Base.html#BaseRepository.holdordropconnections"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#offlineimap.repository.Base.BaseRepository.holdordropconnections" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="offlineimap.repository.Base.BaseRepository.makefolder">
+<code class="descname">makefolder</code><span class="sig-paren">(</span><em>foldername</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/offlineimap/repository/Base.html#BaseRepository.makefolder"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#offlineimap.repository.Base.BaseRepository.makefolder" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a new folder.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="offlineimap.repository.Base.BaseRepository.readonly">
+<code class="descname">readonly</code><a class="headerlink" href="#offlineimap.repository.Base.BaseRepository.readonly" title="Permalink to this definition">¶</a></dt>
+<dd><p>Is the repository readonly?</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="offlineimap.repository.Base.BaseRepository.restore_atime">
+<code class="descname">restore_atime</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/offlineimap/repository/Base.html#BaseRepository.restore_atime"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#offlineimap.repository.Base.BaseRepository.restore_atime" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sets folders&#8217; atime back to their values after a sync</p>
+<p>Controlled by the &#8216;restoreatime&#8217; config parameter (default
+False), applies only to local Maildir mailboxes and does nothing
+on all other repository types.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="offlineimap.repository.Base.BaseRepository.should_create_folders">
+<code class="descname">should_create_folders</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/offlineimap/repository/Base.html#BaseRepository.should_create_folders"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#offlineimap.repository.Base.BaseRepository.should_create_folders" title="Permalink to this definition">¶</a></dt>
+<dd><p>Is folder creation enabled on this repository?</p>
+<p>It is disabled by either setting the whole repository
+&#8216;readonly&#8217; or by using the &#8216;createfolders&#8217; setting.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="offlineimap.repository.Base.BaseRepository.should_sync_folder">
+<code class="descname">should_sync_folder</code><span class="sig-paren">(</span><em>fname</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/offlineimap/repository/Base.html#BaseRepository.should_sync_folder"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#offlineimap.repository.Base.BaseRepository.should_sync_folder" title="Permalink to this definition">¶</a></dt>
+<dd><p>Should this folder be synced?</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="offlineimap.repository.Base.BaseRepository.startkeepalive">
+<code class="descname">startkeepalive</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/offlineimap/repository/Base.html#BaseRepository.startkeepalive"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#offlineimap.repository.Base.BaseRepository.startkeepalive" title="Permalink to this definition">¶</a></dt>
+<dd><p>The default implementation will do nothing.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="offlineimap.repository.Base.BaseRepository.stopkeepalive">
+<code class="descname">stopkeepalive</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/offlineimap/repository/Base.html#BaseRepository.stopkeepalive"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#offlineimap.repository.Base.BaseRepository.stopkeepalive" title="Permalink to this definition">¶</a></dt>
+<dd><p>Stop keep alive, but don&#8217;t bother waiting
+for the threads to terminate.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="offlineimap.repository.Base.BaseRepository.sync_folder_structure">
+<code class="descname">sync_folder_structure</code><span class="sig-paren">(</span><em>local_repo</em>, <em>status_repo</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/offlineimap/repository/Base.html#BaseRepository.sync_folder_structure"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#offlineimap.repository.Base.BaseRepository.sync_folder_structure" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sync the folders structure.</p>
+<p>It does NOT sync the contents of those folders. nametrans rules
+in both directions will be honored</p>
+<p>Configuring nametrans on BOTH repositories could lead to infinite folder
+creation cycles.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="offlineimap.repository.IMAPRepository">
+<em class="property">class </em><code class="descname">IMAPRepository</code><span class="sig-paren">(</span><em>reposname</em>, <em>account</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/offlineimap/repository/IMAP.html#IMAPRepository"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#offlineimap.repository.IMAPRepository" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="class">
+<dt id="offlineimap.repository.MappedIMAPRepository">
+<em class="property">class </em><code class="descname">MappedIMAPRepository</code><span class="sig-paren">(</span><em>reposname</em>, <em>account</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/offlineimap/repository/IMAP.html#MappedIMAPRepository"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#offlineimap.repository.MappedIMAPRepository" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="class">
+<dt id="offlineimap.repository.GmailRepository">
+<em class="property">class </em><code class="descname">GmailRepository</code><span class="sig-paren">(</span><em>reposname</em>, <em>account</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/offlineimap/repository/Gmail.html#GmailRepository"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#offlineimap.repository.GmailRepository" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gmail IMAP repository.</p>
+<p>This class just has default settings for GMail&#8217;s IMAP service. So
+you can do &#8216;type = Gmail&#8217; instead of &#8216;type = IMAP&#8217; and skip
+specifying the hostname, port etc. See
+<a class="reference external" href="http://mail.google.com/support/bin/answer.py?answer=78799&amp;topic=12814">http://mail.google.com/support/bin/answer.py?answer=78799&amp;topic=12814</a>
+for the values we use.</p>
+<p>Initialize a GmailRepository object.</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="offlineimap.repository.MaildirRepository">
+<em class="property">class </em><code class="descname">MaildirRepository</code><span class="sig-paren">(</span><em>reposname</em>, <em>account</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/offlineimap/repository/Maildir.html#MaildirRepository"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#offlineimap.repository.MaildirRepository" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize a MaildirRepository object.  Takes a path name
+to the directory holding all the Maildir directories.</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="offlineimap.repository.LocalStatusRepository">
+<em class="property">class </em><code class="descname">LocalStatusRepository</code><span class="sig-paren">(</span><em>reposname</em>, <em>account</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/offlineimap/repository/LocalStatus.html#LocalStatusRepository"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#offlineimap.repository.LocalStatusRepository" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="offlineimap-folder-basic-representation-of-a-local-or-remote-mail-folder">
+<h1><code class="xref py py-mod docutils literal"><span class="pre">offlineimap.folder</span></code> &#8211; Basic representation of a local or remote Mail folder<a class="headerlink" href="#offlineimap-folder-basic-representation-of-a-local-or-remote-mail-folder" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="offlineimap.folder.Base.BaseFolder">
+<em class="property">class </em><code class="descname">BaseFolder</code><span class="sig-paren">(</span><em>name</em>, <em>repository</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/offlineimap/folder/Base.html#BaseFolder"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#offlineimap.folder.Base.BaseFolder" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>name</strong> &#8211; Path &amp; name of folder minus root or reference</li>
+<li><strong>repository</strong> &#8211; Repository() in which the folder is.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="attribute">
+<dt id="offlineimap.folder.Base.BaseFolder.accountname">
+<code class="descname">accountname</code><a class="headerlink" href="#offlineimap.folder.Base.BaseFolder.accountname" title="Permalink to this definition">¶</a></dt>
+<dd><p>Account name as string</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="offlineimap.folder.Base.BaseFolder.addmessageflags">
+<code class="descname">addmessageflags</code><span class="sig-paren">(</span><em>uid</em>, <em>flags</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/offlineimap/folder/Base.html#BaseFolder.addmessageflags"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#offlineimap.folder.Base.BaseFolder.addmessageflags" title="Permalink to this definition">¶</a></dt>
+<dd><p>Adds the specified flags to the message&#8217;s flag set.</p>
+<p>If a given flag is already present, it will not be duplicated.</p>
+<p>Note that this function does not check against dryrun settings,
+so you need to ensure that it is never called in a
+dryrun mode.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>flags</strong> &#8211; A set() of flags</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="offlineimap.folder.Base.BaseFolder.addmessageheader">
+<code class="descname">addmessageheader</code><span class="sig-paren">(</span><em>content</em>, <em>linebreak</em>, <em>headername</em>, <em>headervalue</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/offlineimap/folder/Base.html#BaseFolder.addmessageheader"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#offlineimap.folder.Base.BaseFolder.addmessageheader" title="Permalink to this definition">¶</a></dt>
+<dd><p>Adds new header to the provided message.</p>
+<blockquote>
+<div><p>WARNING: This function is a bit tricky, and modifying it in the wrong way,
+may easily lead to data-loss.</p>
+<p>Arguments:
+- content: message content, headers and body as a single string
+- linebreak: string that carries line ending
+- headername: name of the header to add
+- headervalue: value of the header to add</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The following documentation will not get displayed correctly after being
+processed by Sphinx. View the source of this method to read it.</p>
+</div>
+<p>This has to deal with strange corner cases where the header is
+missing or empty.  Here are illustrations for all the cases,
+showing where the header gets inserted and what the end result
+is.  In each illustration, &#8216;+&#8217; means the added contents.  Note
+that these examples assume LF for linebreak, not CRLF, so &#8216;</p>
+</div></blockquote>
+<dl class="docutils">
+<dt>&#8216;</dt>
+<dd>denotes a linebreak and &#8216;</dd>
+<dt>&#8216; corresponds to the transition</dt>
+<dd>between header and body.  However if the linebreak parameter
+is set to &#8216;</dd>
+</dl>
+<p>&#8216; then you would have to substitute &#8216;
+&#8216; for</p>
+<blockquote>
+<div>&#8216;</div></blockquote>
+<p>&#8216; in the below examples.</p>
+<blockquote>
+<div><ul class="simple">
+<li>Case 1: No &#8216;</li>
+</ul>
+</div></blockquote>
+<p>&#8216;, leading &#8216;
+&#8216;</p>
+<blockquote>
+<div><blockquote>
+<div><p>+X-Flying-Pig-Header: i am here</p>
+<p>This is the body</p>
+<p>next line</p>
+</div></blockquote>
+<ul class="simple">
+<li>Case 2: &#8216;</li>
+</ul>
+</div></blockquote>
+<p>&#8216; at position 0</p>
+<blockquote>
+<div><blockquote>
+<div><p>+X-Flying-Pig-Header: i am here</p>
+<p>This is the body</p>
+<p>next line</p>
+</div></blockquote>
+<ul class="simple">
+<li>Case 3: No &#8216;</li>
+</ul>
+</div></blockquote>
+<p>&#8216;, no leading &#8216;
+&#8216;</p>
+<blockquote>
+<div><blockquote>
+<div><p>+X-Flying-Pig-Header: i am here</p>
+<ul class="simple">
+<li></li>
+</ul>
+<p>This is the body</p>
+<p>next line</p>
+</div></blockquote>
+<ul class="simple">
+<li>Case 4: &#8216;</li>
+</ul>
+</div></blockquote>
+<p>&#8216; at non-zero position</p>
+<blockquote>
+<div><p>Subject: Something wrong with OI</p>
+<p>From: <a class="reference external" href="mailto:some&#37;&#52;&#48;person&#46;at">some<span>&#64;</span>person<span>&#46;</span>at</a>
++</p>
+</div></blockquote>
+<p>X-Flying-Pig-Header: i am here</p>
+<blockquote>
+<div><p>This is the body</p>
+<p>next line</p>
+</div></blockquote>
+</dd></dl>
+
+<dl class="method">
+<dt id="offlineimap.folder.Base.BaseFolder.addmessagelabels">
+<code class="descname">addmessagelabels</code><span class="sig-paren">(</span><em>uid</em>, <em>labels</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/offlineimap/folder/Base.html#BaseFolder.addmessagelabels"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#offlineimap.folder.Base.BaseFolder.addmessagelabels" title="Permalink to this definition">¶</a></dt>
+<dd><p>Adds the specified labels to the message&#8217;s labels set.  If a given
+label is already present, it will not be duplicated.</p>
+<p>Note that this function does not check against dryrun settings,
+so you need to ensure that it is never called in a
+dryrun mode.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>labels</strong> &#8211; A set() of labels</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="offlineimap.folder.Base.BaseFolder.addmessagesflags">
+<code class="descname">addmessagesflags</code><span class="sig-paren">(</span><em>uidlist</em>, <em>flags</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/offlineimap/folder/Base.html#BaseFolder.addmessagesflags"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#offlineimap.folder.Base.BaseFolder.addmessagesflags" title="Permalink to this definition">¶</a></dt>
+<dd><p>Note that this function does not check against dryrun settings,
+so you need to ensure that it is never called in a
+dryrun mode.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="offlineimap.folder.Base.BaseFolder.addmessageslabels">
+<code class="descname">addmessageslabels</code><span class="sig-paren">(</span><em>uidlist</em>, <em>labels</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/offlineimap/folder/Base.html#BaseFolder.addmessageslabels"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#offlineimap.folder.Base.BaseFolder.addmessageslabels" title="Permalink to this definition">¶</a></dt>
+<dd><p>Note that this function does not check against dryrun settings,
+so you need to ensure that it is never called in a
+dryrun mode.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="offlineimap.folder.Base.BaseFolder.cachemessagelist">
+<code class="descname">cachemessagelist</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/offlineimap/folder/Base.html#BaseFolder.cachemessagelist"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#offlineimap.folder.Base.BaseFolder.cachemessagelist" title="Permalink to this definition">¶</a></dt>
+<dd><p>Cache the list of messages.</p>
+<p>Reads the message list from disk or network and stores it in memory for
+later use.  This list will not be re-read from disk or memory unless
+this function is called again.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="offlineimap.folder.Base.BaseFolder.change_message_uid">
+<code class="descname">change_message_uid</code><span class="sig-paren">(</span><em>uid</em>, <em>new_uid</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/offlineimap/folder/Base.html#BaseFolder.change_message_uid"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#offlineimap.folder.Base.BaseFolder.change_message_uid" title="Permalink to this definition">¶</a></dt>
+<dd><p>Change the message from existing uid to new_uid.</p>
+<p>If the backend supports it (IMAP does not).</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>new_uid</strong> &#8211; (optional) If given, the old UID will be changed
+to a new UID. This allows backends efficient renaming of
+messages if the UID has changed.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="offlineimap.folder.Base.BaseFolder.check_uidvalidity">
+<code class="descname">check_uidvalidity</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/offlineimap/folder/Base.html#BaseFolder.check_uidvalidity"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#offlineimap.folder.Base.BaseFolder.check_uidvalidity" title="Permalink to this definition">¶</a></dt>
+<dd><p>Tests if the cached UIDVALIDITY match the real current one</p>
+<p>If required it saves the UIDVALIDITY value. In this case the
+function is not threadsafe. So don&#8217;t attempt to call it from
+concurrent threads.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">Boolean indicating the match. Returns True in case it
+implicitely saved the UIDVALIDITY.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="offlineimap.folder.Base.BaseFolder.combine_flags_and_keywords">
+<code class="descname">combine_flags_and_keywords</code><span class="sig-paren">(</span><em>uid</em>, <em>dstfolder</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/offlineimap/folder/Base.html#BaseFolder.combine_flags_and_keywords"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#offlineimap.folder.Base.BaseFolder.combine_flags_and_keywords" title="Permalink to this definition">¶</a></dt>
+<dd><p>Combine the message&#8217;s flags and keywords using the mapping for the
+destination folder.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="offlineimap.folder.Base.BaseFolder.copymessageto">
+<code class="descname">copymessageto</code><span class="sig-paren">(</span><em>uid</em>, <em>dstfolder</em>, <em>statusfolder</em>, <em>register=1</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/offlineimap/folder/Base.html#BaseFolder.copymessageto"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#offlineimap.folder.Base.BaseFolder.copymessageto" title="Permalink to this definition">¶</a></dt>
+<dd><p>Copies a message from self to dst if needed, updating the status</p>
+<p>Note that this function does not check against dryrun settings,
+so you need to ensure that it is never called in a
+dryrun mode.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>uid</strong> &#8211; uid of the message to be copied.</li>
+<li><strong>dstfolder</strong> &#8211; A BaseFolder-derived instance</li>
+<li><strong>statusfolder</strong> &#8211; A LocalStatusFolder instance</li>
+<li><strong>register</strong> &#8211; whether we should register a new thread.&#8221;</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">Nothing on success, or raises an Exception.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="offlineimap.folder.Base.BaseFolder.deletemessage">
+<code class="descname">deletemessage</code><span class="sig-paren">(</span><em>uid</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/offlineimap/folder/Base.html#BaseFolder.deletemessage"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#offlineimap.folder.Base.BaseFolder.deletemessage" title="Permalink to this definition">¶</a></dt>
+<dd><p>Note that this function does not check against dryrun settings,
+so you need to ensure that it is never called in a
+dryrun mode.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="offlineimap.folder.Base.BaseFolder.deletemessageflags">
+<code class="descname">deletemessageflags</code><span class="sig-paren">(</span><em>uid</em>, <em>flags</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/offlineimap/folder/Base.html#BaseFolder.deletemessageflags"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#offlineimap.folder.Base.BaseFolder.deletemessageflags" title="Permalink to this definition">¶</a></dt>
+<dd><p>Removes each flag given from the message&#8217;s flag set.</p>
+<p>Note that this function does not check against dryrun settings,
+so you need to ensure that it is never called in a
+dryrun mode.</p>
+<p>If a given flag is already removed, no action will be taken for that
+flag.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="offlineimap.folder.Base.BaseFolder.deletemessageheaders">
+<code class="descname">deletemessageheaders</code><span class="sig-paren">(</span><em>content</em>, <em>header_list</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/offlineimap/folder/Base.html#BaseFolder.deletemessageheaders"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#offlineimap.folder.Base.BaseFolder.deletemessageheaders" title="Permalink to this definition">¶</a></dt>
+<dd><p>Deletes headers in the given list from the message content.</p>
+<blockquote>
+<div><p>Arguments:
+- content: message itself
+- header_list: list of headers to be deleted or just the header name</p>
+<p>We expect our message to have &#8216;</p>
+</div></blockquote>
+<p>&#8216; as line endings.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="offlineimap.folder.Base.BaseFolder.deletemessagelabels">
+<code class="descname">deletemessagelabels</code><span class="sig-paren">(</span><em>uid</em>, <em>labels</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/offlineimap/folder/Base.html#BaseFolder.deletemessagelabels"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#offlineimap.folder.Base.BaseFolder.deletemessagelabels" title="Permalink to this definition">¶</a></dt>
+<dd><p>Removes each label given from the message&#8217;s label set.</p>
+<p>If a given label is already removed, no action will be taken for that
+label.</p>
+<p>Note that this function does not check against dryrun settings,
+so you need to ensure that it is never called in a
+dryrun mode.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="offlineimap.folder.Base.BaseFolder.deletemessages">
+<code class="descname">deletemessages</code><span class="sig-paren">(</span><em>uidlist</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/offlineimap/folder/Base.html#BaseFolder.deletemessages"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#offlineimap.folder.Base.BaseFolder.deletemessages" title="Permalink to this definition">¶</a></dt>
+<dd><p>Note that this function does not check against dryrun settings,
+so you need to ensure that it is never called in a
+dryrun mode.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="offlineimap.folder.Base.BaseFolder.deletemessagesflags">
+<code class="descname">deletemessagesflags</code><span class="sig-paren">(</span><em>uidlist</em>, <em>flags</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/offlineimap/folder/Base.html#BaseFolder.deletemessagesflags"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#offlineimap.folder.Base.BaseFolder.deletemessagesflags" title="Permalink to this definition">¶</a></dt>
+<dd><p>Note that this function does not check against dryrun settings,
+so you need to ensure that it is never called in a
+dryrun mode.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="offlineimap.folder.Base.BaseFolder.deletemessageslabels">
+<code class="descname">deletemessageslabels</code><span class="sig-paren">(</span><em>uidlist</em>, <em>labels</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/offlineimap/folder/Base.html#BaseFolder.deletemessageslabels"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#offlineimap.folder.Base.BaseFolder.deletemessageslabels" title="Permalink to this definition">¶</a></dt>
+<dd><p>Note that this function does not check against dryrun settings,
+so you need to ensure that it is never called in a
+dryrun mode.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="offlineimap.folder.Base.BaseFolder.dofsync">
+<code class="descname">dofsync</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/offlineimap/folder/Base.html#BaseFolder.dofsync"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#offlineimap.folder.Base.BaseFolder.dofsync" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="offlineimap.folder.Base.BaseFolder.dropmessagelistcache">
+<code class="descname">dropmessagelistcache</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/offlineimap/folder/Base.html#BaseFolder.dropmessagelistcache"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#offlineimap.folder.Base.BaseFolder.dropmessagelistcache" title="Permalink to this definition">¶</a></dt>
+<dd><p>Empty everythings we know about messages.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="offlineimap.folder.Base.BaseFolder.get_min_uid_file">
+<code class="descname">get_min_uid_file</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/offlineimap/folder/Base.html#BaseFolder.get_min_uid_file"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#offlineimap.folder.Base.BaseFolder.get_min_uid_file" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="offlineimap.folder.Base.BaseFolder.get_saveduidvalidity">
+<code class="descname">get_saveduidvalidity</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/offlineimap/folder/Base.html#BaseFolder.get_saveduidvalidity"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#offlineimap.folder.Base.BaseFolder.get_saveduidvalidity" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the previously cached UIDVALIDITY value</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">UIDVALIDITY as (long) number or None, if None had been
+saved yet.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="offlineimap.folder.Base.BaseFolder.get_uidvalidity">
+<code class="descname">get_uidvalidity</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/offlineimap/folder/Base.html#BaseFolder.get_uidvalidity"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#offlineimap.folder.Base.BaseFolder.get_uidvalidity" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieve the current connections UIDVALIDITY value</p>
+<p>This function needs to be implemented by each Backend
+:returns: UIDVALIDITY as a (long) number.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="offlineimap.folder.Base.BaseFolder.getexplainedname">
+<code class="descname">getexplainedname</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/offlineimap/folder/Base.html#BaseFolder.getexplainedname"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#offlineimap.folder.Base.BaseFolder.getexplainedname" title="Permalink to this definition">¶</a></dt>
+<dd><p>Name that shows both real and nametrans-mangled values.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="offlineimap.folder.Base.BaseFolder.getfolderbasename">
+<code class="descname">getfolderbasename</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/offlineimap/folder/Base.html#BaseFolder.getfolderbasename"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#offlineimap.folder.Base.BaseFolder.getfolderbasename" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return base file name of file to store Status/UID info in.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="offlineimap.folder.Base.BaseFolder.getfullname">
+<code class="descname">getfullname</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/offlineimap/folder/Base.html#BaseFolder.getfullname"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#offlineimap.folder.Base.BaseFolder.getfullname" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="offlineimap.folder.Base.BaseFolder.getinstancelimitnamespace">
+<code class="descname">getinstancelimitnamespace</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/offlineimap/folder/Base.html#BaseFolder.getinstancelimitnamespace"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#offlineimap.folder.Base.BaseFolder.getinstancelimitnamespace" title="Permalink to this definition">¶</a></dt>
+<dd><p>For threading folders, returns the instancelimitname for
+InstanceLimitedThreads.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="offlineimap.folder.Base.BaseFolder.getmaxage">
+<code class="descname">getmaxage</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/offlineimap/folder/Base.html#BaseFolder.getmaxage"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#offlineimap.folder.Base.BaseFolder.getmaxage" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return maxage.</p>
+<p>maxage is allowed to be either an integer or a date of the form
+YYYY-mm-dd. This returns a time_struct.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="offlineimap.folder.Base.BaseFolder.getmaxsize">
+<code class="descname">getmaxsize</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/offlineimap/folder/Base.html#BaseFolder.getmaxsize"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#offlineimap.folder.Base.BaseFolder.getmaxsize" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="offlineimap.folder.Base.BaseFolder.getmessage">
+<code class="descname">getmessage</code><span class="sig-paren">(</span><em>uid</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/offlineimap/folder/Base.html#BaseFolder.getmessage"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#offlineimap.folder.Base.BaseFolder.getmessage" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the content of the specified message.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="offlineimap.folder.Base.BaseFolder.getmessagecount">
+<code class="descname">getmessagecount</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/offlineimap/folder/Base.html#BaseFolder.getmessagecount"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#offlineimap.folder.Base.BaseFolder.getmessagecount" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets the number of messages.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="offlineimap.folder.Base.BaseFolder.getmessageflags">
+<code class="descname">getmessageflags</code><span class="sig-paren">(</span><em>uid</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/offlineimap/folder/Base.html#BaseFolder.getmessageflags"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#offlineimap.folder.Base.BaseFolder.getmessageflags" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the flags for the specified message.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="offlineimap.folder.Base.BaseFolder.getmessageheader">
+<code class="descname">getmessageheader</code><span class="sig-paren">(</span><em>content</em>, <em>name</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/offlineimap/folder/Base.html#BaseFolder.getmessageheader"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#offlineimap.folder.Base.BaseFolder.getmessageheader" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the value of the first occurence of the given header.</p>
+<p>Header name is case-insensitive.</p>
+<p>Arguments:
+- contents: message itself
+- name: name of the header to be searched</p>
+<p>Returns: header value or None if no such header was found.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="offlineimap.folder.Base.BaseFolder.getmessageheaderlist">
+<code class="descname">getmessageheaderlist</code><span class="sig-paren">(</span><em>content</em>, <em>name</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/offlineimap/folder/Base.html#BaseFolder.getmessageheaderlist"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#offlineimap.folder.Base.BaseFolder.getmessageheaderlist" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a list of values for the given header.</p>
+<p>Arguments:
+- contents: message itself
+- name: name of the header to be searched</p>
+<p>Returns: list of header values or empty list if no such header was found.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="offlineimap.folder.Base.BaseFolder.getmessagekeywords">
+<code class="descname">getmessagekeywords</code><span class="sig-paren">(</span><em>uid</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/offlineimap/folder/Base.html#BaseFolder.getmessagekeywords"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#offlineimap.folder.Base.BaseFolder.getmessagekeywords" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the keywords for the specified message.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="offlineimap.folder.Base.BaseFolder.getmessagelabels">
+<code class="descname">getmessagelabels</code><span class="sig-paren">(</span><em>uid</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/offlineimap/folder/Base.html#BaseFolder.getmessagelabels"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#offlineimap.folder.Base.BaseFolder.getmessagelabels" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the labels for the specified message.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="offlineimap.folder.Base.BaseFolder.getmessagelist">
+<code class="descname">getmessagelist</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/offlineimap/folder/Base.html#BaseFolder.getmessagelist"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#offlineimap.folder.Base.BaseFolder.getmessagelist" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets the current message list.</p>
+<p>You must call cachemessagelist() before calling this function!</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="offlineimap.folder.Base.BaseFolder.getmessagemtime">
+<code class="descname">getmessagemtime</code><span class="sig-paren">(</span><em>uid</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/offlineimap/folder/Base.html#BaseFolder.getmessagemtime"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#offlineimap.folder.Base.BaseFolder.getmessagemtime" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the message modification time of the specified message.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="offlineimap.folder.Base.BaseFolder.getmessagetime">
+<code class="descname">getmessagetime</code><span class="sig-paren">(</span><em>uid</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/offlineimap/folder/Base.html#BaseFolder.getmessagetime"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#offlineimap.folder.Base.BaseFolder.getmessagetime" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the received time for the specified message.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="offlineimap.folder.Base.BaseFolder.getmessageuidlist">
+<code class="descname">getmessageuidlist</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/offlineimap/folder/Base.html#BaseFolder.getmessageuidlist"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#offlineimap.folder.Base.BaseFolder.getmessageuidlist" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets a list of UIDs.</p>
+<p>You may have to call cachemessagelist() before calling this function!</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="offlineimap.folder.Base.BaseFolder.getname">
+<code class="descname">getname</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/offlineimap/folder/Base.html#BaseFolder.getname"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#offlineimap.folder.Base.BaseFolder.getname" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns name</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="offlineimap.folder.Base.BaseFolder.getrepository">
+<code class="descname">getrepository</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/offlineimap/folder/Base.html#BaseFolder.getrepository"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#offlineimap.folder.Base.BaseFolder.getrepository" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the repository object that this folder is within.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="offlineimap.folder.Base.BaseFolder.getroot">
+<code class="descname">getroot</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/offlineimap/folder/Base.html#BaseFolder.getroot"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#offlineimap.folder.Base.BaseFolder.getroot" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the root of the folder, in a folder-specific fashion.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="offlineimap.folder.Base.BaseFolder.getsep">
+<code class="descname">getsep</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/offlineimap/folder/Base.html#BaseFolder.getsep"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#offlineimap.folder.Base.BaseFolder.getsep" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the separator for this folder type.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="offlineimap.folder.Base.BaseFolder.getstartdate">
+<code class="descname">getstartdate</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/offlineimap/folder/Base.html#BaseFolder.getstartdate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#offlineimap.folder.Base.BaseFolder.getstartdate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieve the value of the configuration option startdate</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="offlineimap.folder.Base.BaseFolder.getvisiblename">
+<code class="descname">getvisiblename</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/offlineimap/folder/Base.html#BaseFolder.getvisiblename"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#offlineimap.folder.Base.BaseFolder.getvisiblename" title="Permalink to this definition">¶</a></dt>
+<dd><p>The nametrans-transposed name of the folder&#8217;s name.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="offlineimap.folder.Base.BaseFolder.ismessagelistempty">
+<code class="descname">ismessagelistempty</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/offlineimap/folder/Base.html#BaseFolder.ismessagelistempty"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#offlineimap.folder.Base.BaseFolder.ismessagelistempty" title="Permalink to this definition">¶</a></dt>
+<dd><p>Is the list of messages empty.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="offlineimap.folder.Base.BaseFolder.msglist_item_initializer">
+<code class="descname">msglist_item_initializer</code><span class="sig-paren">(</span><em>uid</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/offlineimap/folder/Base.html#BaseFolder.msglist_item_initializer"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#offlineimap.folder.Base.BaseFolder.msglist_item_initializer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns value for empty messagelist element with given UID.</p>
+<p>This function must initialize all fields of messagelist item
+and must be called every time when one creates new messagelist
+entry to ensure that all fields that must be present are present.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="offlineimap.folder.Base.BaseFolder.quickchanged">
+<code class="descname">quickchanged</code><span class="sig-paren">(</span><em>statusfolder</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/offlineimap/folder/Base.html#BaseFolder.quickchanged"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#offlineimap.folder.Base.BaseFolder.quickchanged" title="Permalink to this definition">¶</a></dt>
+<dd><p>Runs quick check for folder changes and returns changed
+status: True &#8211; changed, False &#8211; not changed.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>statusfolder</strong> &#8211; keeps track of the last known folder state.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="offlineimap.folder.Base.BaseFolder.retrieve_min_uid">
+<code class="descname">retrieve_min_uid</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/offlineimap/folder/Base.html#BaseFolder.retrieve_min_uid"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#offlineimap.folder.Base.BaseFolder.retrieve_min_uid" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="offlineimap.folder.Base.BaseFolder.save_min_uid">
+<code class="descname">save_min_uid</code><span class="sig-paren">(</span><em>min_uid</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/offlineimap/folder/Base.html#BaseFolder.save_min_uid"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#offlineimap.folder.Base.BaseFolder.save_min_uid" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="offlineimap.folder.Base.BaseFolder.save_uidvalidity">
+<code class="descname">save_uidvalidity</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/offlineimap/folder/Base.html#BaseFolder.save_uidvalidity"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#offlineimap.folder.Base.BaseFolder.save_uidvalidity" title="Permalink to this definition">¶</a></dt>
+<dd><p>Save the UIDVALIDITY value of the folder to the cache</p>
+<p>This function is not threadsafe, so don&#8217;t attempt to call it
+from concurrent threads.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="offlineimap.folder.Base.BaseFolder.savemessage">
+<code class="descname">savemessage</code><span class="sig-paren">(</span><em>uid</em>, <em>content</em>, <em>flags</em>, <em>rtime</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/offlineimap/folder/Base.html#BaseFolder.savemessage"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#offlineimap.folder.Base.BaseFolder.savemessage" title="Permalink to this definition">¶</a></dt>
+<dd><p>Writes a new message, with the specified uid.</p>
+<dl class="docutils">
+<dt>If the uid is &lt; 0: The backend should assign a new uid and</dt>
+<dd><p class="first">return it.  In case it cannot assign a new uid, it returns
+the negative uid passed in WITHOUT saving the message.</p>
+<p>If the backend CAN assign a new uid, but cannot find out what
+this UID is (as is the case with some IMAP servers), it
+returns 0 but DOES save the message.</p>
+<p class="last">IMAP backend should be the only one that can assign a new
+uid.</p>
+</dd>
+<dt>If the uid is &gt; 0, the backend should set the uid to this, if it can.</dt>
+<dd>If it cannot set the uid to that, it will save it anyway.
+It will return the uid assigned in any case.</dd>
+</dl>
+<p>Note that savemessage() does not check against dryrun settings,
+so you need to ensure that savemessage is never called in a
+dryrun mode.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="offlineimap.folder.Base.BaseFolder.savemessageflags">
+<code class="descname">savemessageflags</code><span class="sig-paren">(</span><em>uid</em>, <em>flags</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/offlineimap/folder/Base.html#BaseFolder.savemessageflags"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#offlineimap.folder.Base.BaseFolder.savemessageflags" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sets the specified message&#8217;s flags to the given set.</p>
+<p>Note that this function does not check against dryrun settings,
+so you need to ensure that it is never called in a
+dryrun mode.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="offlineimap.folder.Base.BaseFolder.savemessagelabels">
+<code class="descname">savemessagelabels</code><span class="sig-paren">(</span><em>uid</em>, <em>labels</em>, <em>ignorelabels=set([])</em>, <em>mtime=0</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/offlineimap/folder/Base.html#BaseFolder.savemessagelabels"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#offlineimap.folder.Base.BaseFolder.savemessagelabels" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sets the specified message&#8217;s labels to the given set.</p>
+<p>Note that this function does not check against dryrun settings,
+so you need to ensure that it is never called in a
+dryrun mode.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="offlineimap.folder.Base.BaseFolder.storesmessages">
+<code class="descname">storesmessages</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/offlineimap/folder/Base.html#BaseFolder.storesmessages"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#offlineimap.folder.Base.BaseFolder.storesmessages" title="Permalink to this definition">¶</a></dt>
+<dd><p>Should be true for any backend that actually saves message bodies.
+(Almost all of them).  False for the LocalStatus backend.  Saves
+us from having to slurp up messages just for localstatus purposes.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="offlineimap.folder.Base.BaseFolder.suggeststhreads">
+<code class="descname">suggeststhreads</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/offlineimap/folder/Base.html#BaseFolder.suggeststhreads"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#offlineimap.folder.Base.BaseFolder.suggeststhreads" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns True if this folder suggests using threads for actions.</p>
+<p>Only IMAP returns True. This method must honor any CLI or configuration
+option.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="offlineimap.folder.Base.BaseFolder.sync_this">
+<code class="descname">sync_this</code><a class="headerlink" href="#offlineimap.folder.Base.BaseFolder.sync_this" title="Permalink to this definition">¶</a></dt>
+<dd><p>Should this folder be synced or is it e.g. filtered out?</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="offlineimap.folder.Base.BaseFolder.syncmessagesto">
+<code class="descname">syncmessagesto</code><span class="sig-paren">(</span><em>dstfolder</em>, <em>statusfolder</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/offlineimap/folder/Base.html#BaseFolder.syncmessagesto"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#offlineimap.folder.Base.BaseFolder.syncmessagesto" title="Permalink to this definition">¶</a></dt>
+<dd><p>Syncs messages in this folder to the destination dstfolder.</p>
+<p>This is the high level entry for syncing messages in one direction.
+Syncsteps are:</p>
+<dl class="docutils">
+<dt>Pass1: Copy locally existing messages</dt>
+<dd>Copy messages in self, but not statusfolder to dstfolder if not
+already in dstfolder. dstfolder might assign a new UID (e.g. if
+uploading to IMAP). Update statusfolder.</dd>
+<dt>Pass2: Remove locally deleted messages</dt>
+<dd><p class="first">Get all UIDS in statusfolder but not self. These are messages
+that were deleted in &#8216;self&#8217;. Delete those from dstfolder and
+statusfolder.</p>
+<p class="last">After this pass, the message lists should be identical wrt the
+uids present (except for potential negative uids that couldn&#8217;t
+be placed anywhere).</p>
+</dd>
+<dt>Pass3: Synchronize flag changes</dt>
+<dd>Compare flag mismatches in self with those in statusfolder. If
+msg has a valid UID and exists on dstfolder (has not e.g. been
+deleted there), sync the flag change to both dstfolder and
+statusfolder.</dd>
+<dt>Pass4: Synchronize label changes (Gmail only)</dt>
+<dd>Compares label mismatches in self with those in statusfolder.
+If msg has a valid UID and exists on dstfolder, syncs the labels
+to both dstfolder and statusfolder.</dd>
+</dl>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>dstfolder</strong> &#8211; Folderinstance to sync the msgs to.</li>
+<li><strong>statusfolder</strong> &#8211; LocalStatus instance to sync against.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="offlineimap.folder.Base.BaseFolder.uidexists">
+<code class="descname">uidexists</code><span class="sig-paren">(</span><em>uid</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/offlineimap/folder/Base.html#BaseFolder.uidexists"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#offlineimap.folder.Base.BaseFolder.uidexists" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns True if uid exists.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="offlineimap.folder.Base.BaseFolder.waitforthread">
+<code class="descname">waitforthread</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/offlineimap/folder/Base.html#BaseFolder.waitforthread"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#offlineimap.folder.Base.BaseFolder.waitforthread" title="Permalink to this definition">¶</a></dt>
+<dd><p>Implements method that waits for thread to be usable.
+Should be implemented only for folders that suggest threads.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#"><code class="docutils literal"><span class="pre">offlineimap.repository</span></code> &#8211; Email repositories</a></li>
+<li><a class="reference internal" href="#offlineimap-repository-base-baserepository-representation-of-a-mail-repository"><code class="docutils literal"><span class="pre">offlineimap.repository.Base.BaseRepository</span></code> &#8211; Representation of a mail repository</a></li>
+<li><a class="reference internal" href="#offlineimap-folder-basic-representation-of-a-local-or-remote-mail-folder"><code class="docutils literal"><span class="pre">offlineimap.folder</span></code> &#8211; Basic representation of a local or remote Mail folder</a></li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="API.html"
+                        title="previous chapter"><code class="docutils literal"><span class="pre">offlineimap's</span></code> API documentation</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="ui.html"
+                        title="next chapter"><code class="docutils literal"><span class="pre">offlineimap.ui</span></code> &#8211; A flexible logging system</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/repository.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="ui.html" title="offlineimap.ui – A flexible logging system"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="API.html" title="offlineimap&#39;s API documentation"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">OfflineIMAP 7.0.11 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &copy; Copyright Copyright 2002-2016 John Goerzen &amp; contributors.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.5.
+    </div>
+  </body>
+</html>

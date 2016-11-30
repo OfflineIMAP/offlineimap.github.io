@@ -1,0 +1,125 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>offlineimap.error &mdash; OfflineIMAP 7.0.12 documentation</title>
+    
+    <link rel="stylesheet" href="../../_static/classic.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '7.0.12',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="OfflineIMAP 7.0.12 documentation" href="../../index.html" />
+    <link rel="up" title="Module code" href="../index.html" /> 
+  </head>
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">OfflineIMAP 7.0.12 documentation</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" accesskey="U">Module code</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for offlineimap.error</h1><div class="highlight"><pre>
+<div class="viewcode-block" id="OfflineImapError"><a class="viewcode-back" href="../../API.html#offlineimap.error.OfflineImapError">[docs]</a><span></span><span class="k">class</span> <span class="nc">OfflineImapError</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;An Error during offlineimap synchronization&quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="OfflineImapError.ERROR"><a class="viewcode-back" href="../../API.html#offlineimap.error.OfflineImapError.ERROR">[docs]</a>    <span class="k">class</span> <span class="nc">ERROR</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Severity level of an Exception</span>
+
+<span class="sd">        * **MESSAGE**:  Abort the current message, but continue with folder</span>
+<span class="sd">        * **FOLDER_RETRY**: Error syncing folder, but do retry</span>
+<span class="sd">        * **FOLDER**:   Abort folder sync, but continue with next folder</span>
+<span class="sd">        * **REPO**:     Abort repository sync, continue with next account</span>
+<span class="sd">        * **CRITICAL**: Immediately exit offlineimap</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">MESSAGE</span><span class="p">,</span> <span class="n">FOLDER_RETRY</span><span class="p">,</span> <span class="n">FOLDER</span><span class="p">,</span> <span class="n">REPO</span><span class="p">,</span> <span class="n">CRITICAL</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">15</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">30</span></div>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">reason</span><span class="p">,</span> <span class="n">severity</span><span class="p">,</span> <span class="n">errcode</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        :param reason: Human readable string suitable for logging</span>
+
+<span class="sd">        :param severity: denoting which operations should be</span>
+<span class="sd">               aborted. E.g. a ERROR.MESSAGE can occur on a faulty</span>
+<span class="sd">               message, but a ERROR.REPO occurs when the server is</span>
+<span class="sd">               offline.</span>
+
+<span class="sd">        :param errcode: optional number denoting a predefined error</span>
+<span class="sd">               situation (which let&#39;s us exit with a predefined exit</span>
+<span class="sd">               value). So far, no errcodes have been defined yet.</span>
+
+<span class="sd">        :type severity: OfflineImapError.ERROR value&quot;&quot;&quot;</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">errcode</span>  <span class="o">=</span> <span class="n">errcode</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">severity</span> <span class="o">=</span> <span class="n">severity</span>
+
+        <span class="c1"># &#39;reason&#39; is stored in the Exception().args tuple.</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">OfflineImapError</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="n">reason</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">reason</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span></div>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">OfflineIMAP 7.0.12 documentation</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" >Module code</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &copy; Copyright Copyright 2002-2016 John Goerzen &amp; contributors.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.5.
+    </div>
+  </body>
+</html>

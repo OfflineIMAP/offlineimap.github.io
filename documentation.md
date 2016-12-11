@@ -78,6 +78,11 @@ The source files of the contributions are locally available in `./contrib` or [o
 * [How to contribute the wiki]({{ site.base }}/doc/contribute-wiki.html)
 
 
+### Testers
+
+- [Testing offlineimap]({{ site.base }}/doc/Testing.html)
+
+
 ### Developers
 
 <!-- TODO: become a developers for OfflineIMAP -->

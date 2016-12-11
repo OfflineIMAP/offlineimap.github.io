@@ -3,6 +3,7 @@ layout: page
 title: Making backups
 author: Nicolas Sebrecht
 date: 2015-03-15
+updated: 2016-12-11
 ---
 {% assign icons = site.data.icons %}
 
@@ -29,6 +30,16 @@ Syncing your mails with OfflineIMAP and having a local copy is not enough. The r
 
 ---
 
+## Atomic backups
+
+Offlineimap relies on a local cache. It is expected to keep track of the cache
+alongside the maildir to have good backups.
+
+Depending on the backup backend, it might be required to move the cache to
+another path (e.g.: to store both the cache and the maildir in the same
+filesystem).
+
+
 ## Setting up a backend
 
 There are many ways to set up a backend that will serve at providing a history of backups. Chose your own, but take one at least.
@@ -38,9 +49,9 @@ The idea is just about having an history available in case of damage. It's then 
 * **Filesystem snapshots**
 
   Snapshoting at filesystem level is the best because the Maildir format allows really fast snapshots (< 1s) with very few disk usage overhead.
-  If you don't have a free partition on a hard drive, create a new file to write the filesystem. The downside is that the performance is not the best possible.
+  If you don't have a free partition on a hard drive, create a new file to write the filesystem. In this case the performance is not the best.
 
-  > This is the recommended method, and the one I use.
+  > This is the recommended method.
 
 * **Content trackers**
 

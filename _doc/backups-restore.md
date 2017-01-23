@@ -54,7 +54,7 @@ It's now time to perform a first sync. This will download all the mails of the r
 Then, copy the content (your raw mails) from the backup to the fresh Maildir.
 
 {: .note}
-{{ icons.note }} NOTE {{ icons.end }}
+{{ icons.note }} Note: {{ icons.end }}
 Compare the trees between the backup and the fresh Maildir before restoring the mails. Especially if you are restoring onto another IMAP server.
  
 The trees must match or you'll have to manually restore the content in a per-folder basis.
@@ -63,6 +63,10 @@ The trees must match or you'll have to manually restore the content in a per-fol
 ### On the remote
 
 Finally, sync again. The local mails are synced back to the server.
+
+{: .note}
+{{ icons.note }} Note: {{ icons.end }}
+Don't forget to set `readonly = False` on the remote side.
 
 
 {:style='color:DarkBlue'}

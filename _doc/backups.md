@@ -20,7 +20,7 @@ updated: 2016-12-11
 {: .warning}
 If you're already comfortable with OfflineIMAP, there is one last thing your must really understand.
  
-Syncing your mails with OfflineIMAP and having a local copy is not enough. The reason is that you'll have to start a sync each time you want to update the backups. The trick is that **this operation might erase EVERYTHING is synced.**
+Syncing your mail with OfflineIMAP and having a local copy is not enough. The reason is that you'll have to start a sync each time you want to update the backups. The trick is that **this operation might erase EVERYTHING that has already been synced.**
  
 *For example, if the IMAP server respond that your mailbox is empty, OfflineIMAP will have no clue to know if it's right or wrong. It will propagate the changes to your local copy so that you get an empty Maildir. What you thought was a "backup" has vanished, you're stuck.*
 
@@ -44,7 +44,7 @@ filesystem).
 
 There are many ways to set up a backend that will serve at providing a history of backups. Chose your own, but take one at least.
 
-The idea is just about having an history available in case of damage. It's then you're job to make a little script that will make a new history. We will see how ot integrate it with OfflineIMAP so that it's done on each sync.
+The idea is just about having an history available in case of damage. It's then your job to make a little script that will make a new history. We will see how to integrate it with OfflineIMAP so that it's done on each sync.
 
 * **Filesystem snapshots**
 

@@ -88,7 +88,29 @@ The idea is just about having an history available in case of damage. It's then 
 
 #### ZFS
 
-*TODO*
+  Optional:
+  Generate a *zfs* mountpoint dedicated to your Mails:
+  {% highlight bash %}
+  $ zfs create zroot/usr/home/$USER/Mail 
+  {% endhighligt %}
+
+  To create a snapshot (with a date as the seed) you can run:
+  {% highlight bash %}
+  $ zfs snapshot zroot/usr/home/$USER/Mail@$(date +%Y%m%d%H%M%S)offlineimap
+  {% endhighligt %}
+
+  Of course you need to point your 'localfolders' to a subdirectory of the zfs mountpoint you are generating a snapshot of. 
+
+  Now you can easily wrap your offlineimap command with a failsafe like that:
+  {% highlight bash %}
+  #!/bin/sh
+  zfs snapshot zroot/usr/home/$USER/Mail@$(date +%Y%m%d%H%M%S)offlineimap
+  # append your commandline options as needed to the script
+  offlineimap $\*
+  {% endhighligt %}
+
+*TODO*:
+ Implement as offlineimap hook
 
 ### Content trackers
 

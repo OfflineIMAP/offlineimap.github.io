@@ -121,15 +121,14 @@ from the previous folder by the same name stored. Offlineimap will detect this
 condition because of the changed UIDVALIDITY value and skip the folder.  This is
 GOOD, because it prevents data loss.
 
-In the *IMAP/Maildir* case, you can fix it by removing your local folder and
-cache data.  For instance, if your folders are in the metadata path `~/Mail` and
-the folder with the problem is `INBOX`, you'd type this:
+In the *IMAP/Maildir* case, you can fix it by removing your 
+cache data.  For instance, you'd type this:
 
 {% highlight bash %}
 $ mkdir ~/archives
-$ mv ~/Mail/INBOX ~/archives
-$ mv ~/.offlineimap/Account-AccountName/LocalStatus-sqlite/INBOX ~/archives/LocalStatus-sqlite-INBOX
-$ mv ~/.offlineimap/Repository-RemoteRepositoryName/FolderValidity/INBOX ~/archives/FolderValidity-INBOX
+$ mv ~/.offlineimap/Account-AccountName ~/archives/Account-AccountName
+$ mv ~/.offlineimap/Repository-RemoteRepositoryName ~/archives/Repository-RemoteRepositoryName
+$ mv ~/.offlineimap/Repository-LocalRepositoryName ~/archives/Repository-LocalRepositoryName
 {% endhighlight %}
 
 {:.note}
@@ -138,16 +137,11 @@ If you're using the plain text backend, change the above `LocalStatus-sqlite` to
  
 Of course, replace `AccountName` and `RemoteRepositoryName` with the names as
 specified in `~/.offlineimaprc`.
-
-{:.warning}
-{{ icons.warning }} Do move the directory {{ icons.end }}
-from the metadata path (`~/Mail` in this sample). **There
-should be NO MORE `INBOX` directory in it.**
  
 The reason is that moving it like this means like *"I've never synced this
-folder before, download it on next sync"*.
+folder before, do a full sync the next time"*.
 
-Next time you run offlineimap, it will re-download the folder with the new UIDs.
+Next time you run offlineimap, it will match UIDs of all Local and Remote mails and will downloadthe ones which are not yet existing in the local repository.
 
 Some IMAP servers are broken and do not support UIDs properly.  If you continue
 to get this error for all your folders even after performing the above

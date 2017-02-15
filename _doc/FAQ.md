@@ -121,7 +121,7 @@ from the previous folder by the same name stored. Offlineimap will detect this
 condition because of the changed UIDVALIDITY value and skip the folder.  This is
 GOOD, because it prevents data loss.
 
-In the *IMAP/Maildir* case, you can fix it by removing your 
+In the *IMAP/Maildir* case, you can fix it by removing your
 cache data.  For instance, you'd type this:
 
 {% highlight bash %}
@@ -141,7 +141,8 @@ specified in `~/.offlineimaprc`.
 The reason is that moving it like this means like *"I've never synced this
 folder before, do a full sync the next time"*.
 
-Next time you run offlineimap, it will match UIDs of all Local and Remote mails and will downloadthe ones which are not yet existing in the local repository.
+Next time you run offlineimap, it will match UIDs of all Local and Remote mails
+and will download the ones which are not yet existing in the local repository.
 
 Some IMAP servers are broken and do not support UIDs properly.  If you continue
 to get this error for all your folders even after performing the above

@@ -197,6 +197,12 @@ instances.
 Actually, this is the prefered way for syncing more than one account
 concurrently. Learn more [in this blog post]({{ no_maxconnections }}).
 
+For instance, in the second config:
+
+{% highlight ini %}
+[general]
+metadata = ~/.offlineimap2
+{% endhighlight %}
 
 ### Can I copy messages between folders?
 

@@ -367,6 +367,14 @@ good enough for general clients. Offlineimap needs more features, specifically
 support for UIDs, in order to do its job accurately and completely.
 
 
+#### Exchange and Office365
+
+Microsoft products tend to not be full IMAP compliant and add limitations on top
+of IMAP.
+
+It is required to folderfilter the Calendar mailbox.
+
+
 ### Client Notes
 
 #### What clients does offlineimap work with?

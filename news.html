@@ -14,8 +14,10 @@ title: News
   <div id='{{ announce.version }}' link='{{ announce.link }}' style='display=none'></div>
 {% endfor %}
 
-<h3>Latest commits</h3>
+<!--
+   -<h3>Latest commits</h3>
 <div id='feed-commits'></div>
+-->
 
 <h3>Tweets</h3>
 <div id='twitter-widget'>
@@ -40,9 +42,9 @@ js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';i
   // releases
   $(document).ready(fillNews);
   // feed-commits
-  $(document).ready(newsRSS("#feed-commits",
-    "{{ links.offlineimap.rss.commits }}",
-    '<li><a href="{url}">{title}</a> <i>(by <a href="http://github.com/{author}">{author}</a>, {date}) <img with=22px height=22px style="vertical-align:middle" data="{author}" src=""></img></i></li>',
+  //$(document).ready(newsRSS("#feed-commits",
+    //"{{ links.offlineimap.rss.commits }}",
+    //'<li><a href="{url}">{title}</a> <i>(by <a href="https://github.com/{author}">{author}</a>, {date}) <img with=22px height=22px style="vertical-align:middle" data="{author}" src=""></img></i></li>',
     commitsSuccess));
 </script>
 

@@ -37,8 +37,6 @@ Don't change the fixed id: there is a reference to here from the about page.
 - [Configuration Examples]({{ site.base }}/doc/conf_examples.html)
 
 
-- [Features]({{ site.base }}/doc/features.html) *(old)*
-
 ### Make backups of a mailbox
 
 - [How to make backups properly]({{ site.base }}/doc/backups.html)

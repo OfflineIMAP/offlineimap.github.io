@@ -34,6 +34,7 @@ Don't change the fixed id: there is a reference to here from the about page.
   - [https://wiki.archlinux.org/index.php/OfflineIMAP](https://wiki.archlinux.org/index.php/OfflineIMAP)
 - [Installation]({{ site.base }}/doc/installation.html)
 - [Quick Start]({{ site.base }}/doc/quick_start.html)
+- [offlineimap.conf](https://github.com/OfflineIMAP/offlineimap/blob/master/offlineimap.conf)
 - [Configuration Examples]({{ site.base }}/doc/conf_examples.html)
 
 

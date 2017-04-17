@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>offlineimapui</title><link rel="stylesheet" type="text/css" href="docbook-xsl.css" /><meta name="generator" content="DocBook XSL Stylesheets V1.79.1" /></head><body><div xml:lang="en" class="refentry" lang="en"><a id="idm140439153237200"></a><div class="titlepage"></div><div class="refnamediv"><h2>Name</h2><p>offlineimapui — The User Interfaces</p></div><div class="refsect1"><a id="_description"></a><h2>DESCRIPTION</h2><p>OfflineIMAP comes with different UIs, each aiming its own purpose.</p></div><div class="refsect1"><a id="_ttyui"></a><h2>TTYUI</h2><p>TTYUI interface is for people running in terminals.  It prints out basic
+status messages and is generally friendly to use on a console or xterm.</p></div><div class="refsect1"><a id="_basic"></a><h2>Basic</h2><p>Basic is designed for situations in which OfflineIMAP will be run non-attended
+and the status of its execution will be logged.</p><p>This user interface is not capable of reading a password from the keyboard;
+account passwords must be specified using one of the configuration file
+options. For example, it will not print periodic sleep announcements and tends
+to be a tad less verbose, in general.</p></div><div class="refsect1"><a id="_blinkenlights"></a><h2>Blinkenlights</h2><p>Blinkenlights is an interface designed to be sleek, fun to watch, and
+informative of the overall picture of what OfflineIMAP is doing.</p><p>Blinkenlights contains a row of "LEDs" with command buttons and a log.  The
+log shows more detail about what is happening and is color-coded to match the
+color of the lights.</p><p>Each light in the Blinkenlights interface represents a thread of execution — that is, a particular task that OfflineIMAP is performing right now.  The
+colors indicate what task the particular thread is performing, and are as
+follows:</p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p class="simpara">
+Black
+</p><pre class="literallayout">indicates that this light's thread has terminated; it will light up again
+later when new threads start up.  So, black indicates no activity.</pre></li><li class="listitem"><p class="simpara">
+Red (Meaning 1)
+</p><pre class="literallayout">is the color of the main program's thread, which basically does nothing but
+monitor the others.  It might remind you of HAL 9000 in 2001.</pre></li><li class="listitem"><p class="simpara">
+Gray
+</p><pre class="literallayout">indicates that the thread is establishing a new connection to the IMAP
+server.</pre></li><li class="listitem"><p class="simpara">
+Purple
+</p><pre class="literallayout">is the color of an account synchronization thread that is monitoring the
+progress of the folders in that account (not generating any I/O).</pre></li><li class="listitem"><p class="simpara">
+Cyan
+</p><pre class="literallayout">indicates that the thread is syncing a folder.</pre></li><li class="listitem"><p class="simpara">
+Green
+</p><pre class="literallayout">means that a folder's message list is being loaded.</pre></li><li class="listitem"><p class="simpara">
+Blue
+</p><pre class="literallayout">is the color of a message synchronization controller thread.</pre></li><li class="listitem"><p class="simpara">
+Orange
+</p><pre class="literallayout">indicates that an actual message is being copied.  (We use fuchsia for fake
+messages.)</pre></li><li class="listitem"><p class="simpara">
+Red (meaning 2)
+</p><pre class="literallayout">indicates that a message is being deleted.</pre></li><li class="listitem"><p class="simpara">
+Yellow / bright orange
+</p><pre class="literallayout">indicates that message flags are being added.</pre></li><li class="listitem"><p class="simpara">
+Pink / bright red
+</p><pre class="literallayout">indicates that message flags are being removed.</pre></li><li class="listitem"><p class="simpara">
+Red / Black Flashing
+</p><pre class="literallayout">corresponds to the countdown timer that runs between synchronizations.</pre></li></ul></div><p>The name of this interfaces derives from a bit of computer history.  Eric
+Raymond’s Jargon File defines blinkenlights, in part, as:</p><pre class="literallayout">Front-panel diagnostic lights on a computer, esp. a dinosaur. Now that
+dinosaurs are rare, this term usually refers to status lights on a modem,
+network hub, or the like.</pre><p>This term derives from the last word of the famous blackletter-Gothic sign in
+mangled pseudo-German that once graced about half the computer rooms in the
+English-speaking world. One version ran in its entirety as follows:</p><pre class="literallayout">ACHTUNG!  ALLES LOOKENSPEEPERS!</pre><pre class="literallayout">Das computermachine ist nicht fuer gefingerpoken und mittengrabben.
+Ist easy schnappen der springenwerk, blowenfusen und poppencorken
+mit spitzensparken.  Ist nicht fuer gewerken bei das dumpkopfen.
+Das rubbernecken sichtseeren keepen das cotten-pickenen hans in das
+pockets muss; relaxen und watchen das blinkenlichten.</pre></div><div class="refsect1"><a id="_quiet"></a><h2>Quiet</h2><p>It will output nothing except errors and serious warnings.  Like Basic, this
+user interface is not capable of reading a password from the keyboard; account
+passwords must be specified using one of the configuration file options.</p></div><div class="refsect1"><a id="_syslog"></a><h2>Syslog</h2><p>Syslog is designed for situations where OfflineIMAP is run as a daemon (e.g.,
+as a systemd --user service), but errors should be forwarded to the system log.
+Like Basic, this user interface is not capable of reading a password from the
+keyboard; account passwords must be specified using one of the configuration
+file options.</p></div><div class="refsect1"><a id="_machineui"></a><h2>MachineUI</h2><p>MachineUI generates output in a machine-parsable format.  It is designed
+for other programs that will interface to OfflineIMAP.</p></div><div class="refsect1"><a id="_see_also"></a><h2>See Also</h2><pre class="literallayout">offlineimap(1)</pre></div></div></body></html>

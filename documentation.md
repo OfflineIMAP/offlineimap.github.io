@@ -37,6 +37,11 @@ Don't change the fixed id: there is a reference to here from the about page.
 - [offlineimap.conf](https://github.com/OfflineIMAP/offlineimap/blob/master/offlineimap.conf)
 - [Configuration Examples]({{ site.base }}/doc/conf_examples.html)
 
+### Man pages
+
+- [offlineimap(1)]({{ site.base }}/doc/offlineimap.html)
+- [offlineimapui(7)]({{ site.base }}/doc/offlineimap.html)
+
 
 ### Make backups of a mailbox
 

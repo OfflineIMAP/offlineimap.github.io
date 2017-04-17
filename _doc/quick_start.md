@@ -44,4 +44,9 @@ If you prefer to be compatible with the [XDG Base Directory spec](http://standar
 
 To run OfflineIMAP, you just have to say `offlineimap` ― it will fire up, ask you for a login password if necessary, synchronize your folders, and exit.  See?
 
-You can just throw away the rest of the finely-crafted, perfectly-honed user manual!  Of course, if you want to see how you can make OfflineIMAP FIVE TIMES FASTER FOR JUST $19.95 (err, well, $0), you have to read on our full user documentation and peruse the sample offlineimap.conf (which includes all available options) for further tweaks!
+You can just throw away the rest of the finely-crafted, perfectly-honed user
+manual!  Of course, if you want to see how you can make OfflineIMAP FIVE TIMES
+FASTER FOR JUST $19.95 (err, well, $0), you have to read on our full user
+documentation and peruse the sample
+[offlineimap.conf](https://github.com/OfflineIMAP/offlineimap/blob/master/offlineimap.conf)
+(which includes all available options) for further tweaks!

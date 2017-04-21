@@ -40,7 +40,7 @@ Don't change the fixed id: there is a reference to here from the about page.
 ### Man pages
 
 - [offlineimap(1)]({{ site.base }}/doc/offlineimap.html)
-- [offlineimapui(7)]({{ site.base }}/doc/offlineimap.html)
+- [offlineimapui(7)]({{ site.base }}/doc/offlineimapui.html)
 
 
 ### Make backups of a mailbox

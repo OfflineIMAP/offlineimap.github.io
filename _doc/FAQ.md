@@ -4,7 +4,7 @@ title: Frequently Asked Questions
 date: 2006-12-02
 author: John Goerzen
 contributors: Nicolas Sebrecht, Sebastian Spaeth, Daniel Shahaf, Vladimir Marek, Eygene Ryabinkin
-updated: 2017-02-15
+updated: 2017-04-23
 ---
 
 {% assign links = site.data.links %}
@@ -342,17 +342,25 @@ The path `/etc/ssl/certs` is not standardized; your system may store SSL
 certificates elsewhere.  (On some systems it may be in
 `/usr/local/share/certs/`.)
 
+
+### Checking the SSL certificate
+
+#### openssl
+
 Before using the resulting file, ensure that openssl verified the certificate
 successfully. In case of problems, you can test the certificate using a command
 such as (credits to *Daniel Shahaf* for this) to verify the certificate:
 
     {% highlight bash %}
-    $ openssl s_client -CAfile $sslcacertfile -connect ${hostname}:imaps 2>&1 </dev/null
+    $ SSL_CERT_DIR="" openssl s_client -CAfile $sslcacertfile -connect ${hostname}:imaps 2>&1 </dev/null
     {% endhighlight %}
+
+{:.note}
+Make sure to empty the `SSL_CERT_DIR` environment variable.
 
 If the server uses STARTTLS, pass the `-starttls` option and the 'imap' port.
 
-Also, you can test using gnutls:
+#### gnutls
 
 {% highlight bash %}
 $ gnutls-cli --x509cafile certs/mail.mydomain.eu.cert -p 993 mail.mydomain.eu

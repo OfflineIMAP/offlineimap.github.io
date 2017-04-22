@@ -351,9 +351,9 @@ Before using the resulting file, ensure that openssl verified the certificate
 successfully. In case of problems, you can test the certificate using a command
 such as (credits to *Daniel Shahaf* for this) to verify the certificate:
 
-    {% highlight bash %}
+{% highlight bash %}
     $ SSL_CERT_DIR="" openssl s_client -CAfile $sslcacertfile -connect ${hostname}:imaps 2>&1 </dev/null
-    {% endhighlight %}
+{% endhighlight %}
 
 {:.note}
 Make sure to empty the `SSL_CERT_DIR` environment variable.

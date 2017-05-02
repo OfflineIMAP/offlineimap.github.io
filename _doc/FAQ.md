@@ -4,7 +4,7 @@ title: Frequently Asked Questions
 date: 2006-12-02
 author: John Goerzen
 contributors: Nicolas Sebrecht, Sebastian Spaeth, Daniel Shahaf, Vladimir Marek, Eygene Ryabinkin
-updated: 2017-04-23
+updated: 2017-05-02
 ---
 
 {% assign links = site.data.links %}
@@ -380,7 +380,36 @@ support for UIDs, in order to do its job accurately and completely.
 Microsoft products tend to not be full IMAP compliant and add limitations on top
 of IMAP.
 
-It is required to folderfilter the Calendar mailbox.
+It is required to folderfilter the Calendar mailbox. As
+[reported](https://github.com/OfflineIMAP/offlineimap/issues/450), some other
+folders might need to be filtered:
+
+``` python
+folderfilter = lambda folder: folder not in [
+'Calendar',
+'Calendar/Birthdays',
+'Calendar/Sub Folder 1',
+'Calendar/Sub Folder 2',
+'Calendar/United States holidays',
+'Contacts',
+'Contacts/Sub Folder 1',
+'Contacts/Sub Folder 2',
+'Contacts/Skype for Business Contacts',
+'Deleted Items',
+'Drafts',
+'Journal',
+'Junk Email',
+'Notes',
+'Outbox',
+'Sync Issues',
+'Sync Issues/Conflicts',
+'Sync Issues/Local Failures',
+'Sync Issues/Server Failures',
+'Tasks',
+'Tasks/Sub Folder 1',
+'Tasks/Sub Folder 2'
+]
+```
 
 
 ### Client Notes

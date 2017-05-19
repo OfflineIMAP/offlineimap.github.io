@@ -360,6 +360,12 @@ Make sure to empty the `SSL_CERT_DIR` environment variable.
 
 If the server uses STARTTLS, pass the `-starttls` option and the 'imap' port.
 
+##### View the fingerprint
+
+{% highlight bash %}
+    $ SSL_CERT_DIR="" openssl s_client -connect hosname:993 < /dev/null 2>/dev/null | openssl x509 -fingerprint -noout -text -in /dev/stdin
+{% endhighlight %}
+
 #### gnutls
 
 {% highlight bash %}

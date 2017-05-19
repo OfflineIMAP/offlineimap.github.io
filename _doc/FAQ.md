@@ -249,7 +249,19 @@ for that account.
 section in the `offlineimap(1)` man page for details.
 
 
-### I get a "Mailbox already exists" error
+### Case sensitivity
+
+#### Offlineimap stuck while downloading
+
+You should make sure the local file system used by Offlineimap is case
+sensitive. Otherwise, offlineimap might go into troubles. IMAP servers are
+usually case sensitive.
+
+If you don't have the choice, it's possible to manually check there's no
+conflicts in the folder names.
+
+
+#### I get a "Mailbox already exists" error
 
 **Q:** When synchronizing, I receive errors such as:
 

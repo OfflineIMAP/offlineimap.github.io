@@ -7,7 +7,12 @@ title: Documentation
 {% assign contribs = site.data.contribs %}
 
 
-Table of content
+## FAQ
+
+[Frequently Ask Questions]({{ site.base }}/doc/FAQ.html)
+
+
+## Table of content
 
 * junk
 {:toc}
@@ -63,11 +68,6 @@ The source files of the contributions are locally available in `./contrib` or [o
 {% for contrib in contribs %}
 - [{{ contrib.linkname }}]({{ site.base }}/doc/contrib/{{ contrib.filename }}.html)
 {% endfor %}
-
-
-## FAQ
-
-- [Frequently Ask Questions]({{ site.base }}/doc/FAQ.html)
 
 
 {: #documentation-for-contributors}

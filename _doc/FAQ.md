@@ -4,7 +4,7 @@ title: Frequently Asked Questions
 date: 2006-12-02
 author: John Goerzen
 contributors: Nicolas Sebrecht, Sebastian Spaeth, Daniel Shahaf, Vladimir Marek, Eygene Ryabinkin
-updated: 2017-05-02
+updated: 2017-06-01
 ---
 
 {% assign links = site.data.links %}
@@ -175,15 +175,17 @@ vise-versa.
 Some people might think that it would be wise to just delete all their local
 mail folders periodically. Offlineimap will take this as an intentional
 deletion of many messages and will interpret your action as requesting them to
-be deleted from the server as well.  (If you don't understand this, don't worry;
-you probably won't encounter this situation.)
+be deleted from the server as well.
 
-#### After v7.0.0
+#### Since v7.0.0
 
 Starting with v7.0.0, offlineimap won't delete emails if the **directory** is
-removed. Instead, it will re-download the folder. In order to remove all the
-emails of a folder, it is necessary to remove all the **files** ***inside*** the
-maildir.
+removed when the ***parent directory*** still exists. Instead, it will
+re-download the folder. In order to remove all the emails of a folder, it is
+necessary to remove all the **files** ***inside*** the maildir.
+
+See the "deletions" entry in the ["KNOWN ISSUES" section of the man
+page](http://www.offlineimap.org/doc/offlineimap.html).
 
 To prevent from any deletion, it's possible to set the `sync_deletes = no`
 configuration option. See details in `offlineimap.conf`.

@@ -285,6 +285,18 @@ folderfilter = lambda f: f not in ['sent']
 {% endhighlight %}
 
 
+
+
+## Errors
+
+### '%' must be followed by '%' or '(', found: '%!f'
+
+You likely want to use %% to encode the percentage sign, even if it's stored in
+the password.
+
+
+
+
 ## Configuration Questions
 
 ### Can I synchronize multiple accounts with offlineimap?
@@ -514,12 +526,16 @@ set folder=$HOME/Maildirpath
 {% endhighlight %}
 
 
+
+
 ## Advanced questions
 
 ### How to migrate of IMAP server?
 
 The procedure is quite the same as [making a backup]({{ site.base
 }}/doc/backups.html) and [restore it]({{ site.base }}/doc/backups-restore.html).
+
+
 
 
 ## Miscellaneous Questions
@@ -581,6 +597,8 @@ do
   ( exec /usr/bin/offlineimap -u Noninteractive.Quiet )
   sleep 60 # prevents extended failure condition
 {% endhighlight %}
+
+
 
 
 ## Contributing

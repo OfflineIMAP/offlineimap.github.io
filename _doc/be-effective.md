@@ -2,6 +2,7 @@
 layout: page
 title: Be effective
 date: 2015-03-20
+updated: 2017-06-30
 author: Nicolas Sebrecht
 ---
 
@@ -24,7 +25,7 @@ There are 4 official ressources you should know:
 In your learning process, for whatever question that might raise to your mind you should start by checking the documentation.
 
 {:style='color:DarkRed'}
-**Though, be care to not spend too much time at searching for answers.** If you couldn't find the answer to your question after **10 minutes** of researches, you should ask at the mailing list.
+**Though, be care to not spend too much time at searching for answers.** If you couldn't find the answer to your question after **10 minutes** of researches, you should ask at the mailing list or github.
 
 While requesting us, please explain what you'd like to do in few lines and what researches you did (search keywords, documentation overviewed, etc).
 

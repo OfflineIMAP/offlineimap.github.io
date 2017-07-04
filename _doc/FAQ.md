@@ -445,10 +445,10 @@ folderfilter = lambda folder: folder not in [
 
 #### Davmail
 
-We've had
-[report](https://github.com/OfflineIMAP/offlineimap/issues/479#issuecomment-307628319)
-that Davmail must be configured with the keepalive option **disabled** to
-prevent from INBOX not synced.
+We've had reports ([here](https://github.com/OfflineIMAP/offlineimap/issues/479)
+and [here](https://github.com/OfflineIMAP/offlineimap/issues/485)) that Davmail
+must be configured with the keepalive option **disabled**. Otherwise, some
+folders might not be synced properly.
 
 
 ### Client Notes

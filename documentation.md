@@ -59,6 +59,7 @@ Don't change the fixed id: there is a reference to here from the about page.
 - [Folder filtering and nametrans]({{ site.base }}/doc/nametrans.html)
 - [Some real use cases]({{ site.base }}/doc/use_cases.html)
 - [Configuration factorization]({{ site.base }}/doc/ConfigurationFactorization.html)
+- [Tips and Tricks]({{ site.base }}/doc/tipsandtricks.html)
 
 
 ### User contributions

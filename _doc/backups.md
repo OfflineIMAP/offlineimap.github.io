@@ -74,7 +74,7 @@ The idea is just about having an history available in case of damage. It's then 
 
 ### Filesystems
 * LVM *TODO*
-* BTRFS *TODO*
+* [BTRFS](/doc/backups-btrfs.html)
 * [ZFS](/doc/backups-zfs.html)
 
 ### Content trackers

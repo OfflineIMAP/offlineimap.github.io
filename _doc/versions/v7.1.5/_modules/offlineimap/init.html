@@ -1,0 +1,626 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>offlineimap.init &mdash; OfflineIMAP 7.1.5 documentation</title>
+    
+    <link rel="stylesheet" href="../../_static/classic.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '7.1.5',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="OfflineIMAP 7.1.5 documentation" href="../../index.html" />
+    <link rel="up" title="Module code" href="../index.html" /> 
+  </head>
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">OfflineIMAP 7.1.5 documentation</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" accesskey="U">Module code</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for offlineimap.init</h1><div class="highlight"><pre>
+<span></span><span class="c1"># OfflineIMAP initialization code</span>
+<span class="c1"># Copyright (C) 2002-2017 John Goerzen &amp; contributors</span>
+<span class="c1">#</span>
+<span class="c1">#    This program is free software; you can redistribute it and/or modify</span>
+<span class="c1">#    it under the terms of the GNU General Public License as published by</span>
+<span class="c1">#    the Free Software Foundation; either version 2 of the License, or</span>
+<span class="c1">#    (at your option) any later version.</span>
+<span class="c1">#</span>
+<span class="c1">#    This program is distributed in the hope that it will be useful,</span>
+<span class="c1">#    but WITHOUT ANY WARRANTY; without even the implied warranty of</span>
+<span class="c1">#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the</span>
+<span class="c1">#    GNU General Public License for more details.</span>
+<span class="c1">#</span>
+<span class="c1">#    You should have received a copy of the GNU General Public License</span>
+<span class="c1">#    along with this program; if not, write to the Free Software</span>
+<span class="c1">#    Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301 USA</span>
+
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">import</span> <span class="nn">threading</span>
+<span class="kn">import</span> <span class="nn">signal</span>
+<span class="kn">import</span> <span class="nn">socket</span>
+<span class="kn">import</span> <span class="nn">logging</span>
+<span class="kn">import</span> <span class="nn">traceback</span>
+<span class="kn">import</span> <span class="nn">collections</span>
+<span class="kn">from</span> <span class="nn">optparse</span> <span class="kn">import</span> <span class="n">OptionParser</span>
+
+<span class="kn">import</span> <span class="nn">offlineimap</span>
+<span class="kn">import</span> <span class="nn">offlineimap.virtual_imaplib2</span> <span class="kn">as</span> <span class="nn">imaplib</span>
+
+<span class="c1"># Ensure that `ui` gets loaded before `threadutil` in order to</span>
+<span class="c1"># break the circular dependency between `threadutil` and `Curses`.</span>
+<span class="kn">from</span> <span class="nn">offlineimap.ui</span> <span class="kn">import</span> <span class="n">UI_LIST</span><span class="p">,</span> <span class="n">setglobalui</span><span class="p">,</span> <span class="n">getglobalui</span>
+<span class="kn">from</span> <span class="nn">offlineimap</span> <span class="kn">import</span> <span class="n">threadutil</span><span class="p">,</span> <span class="n">accounts</span><span class="p">,</span> <span class="n">folder</span><span class="p">,</span> <span class="n">mbnames</span>
+<span class="kn">from</span> <span class="nn">offlineimap</span> <span class="kn">import</span> <span class="nb">globals</span> <span class="k">as</span> <span class="n">glob</span>
+<span class="kn">from</span> <span class="nn">offlineimap.CustomConfig</span> <span class="kn">import</span> <span class="n">CustomConfigParser</span>
+<span class="kn">from</span> <span class="nn">offlineimap.utils</span> <span class="kn">import</span> <span class="n">stacktrace</span>
+<span class="kn">from</span> <span class="nn">offlineimap.repository</span> <span class="kn">import</span> <span class="n">Repository</span>
+<span class="kn">from</span> <span class="nn">offlineimap.folder.IMAP</span> <span class="kn">import</span> <span class="n">MSGCOPY_NAMESPACE</span>
+
+
+<span class="n">ACCOUNT_LIMITED_THREAD_NAME</span> <span class="o">=</span> <span class="s1">&#39;MAX_ACCOUNTS&#39;</span>
+<span class="n">PYTHON_VERSION</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">version</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+
+
+<span class="k">def</span> <span class="nf">syncitall</span><span class="p">(</span><span class="n">list_accounts</span><span class="p">,</span> <span class="n">config</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;The target when in multithreading mode for running accounts threads.&quot;&quot;&quot;</span>
+
+    <span class="n">threads</span> <span class="o">=</span> <span class="n">threadutil</span><span class="o">.</span><span class="n">accountThreads</span><span class="p">()</span> <span class="c1"># The collection of accounts threads.</span>
+    <span class="k">for</span> <span class="n">accountname</span> <span class="ow">in</span> <span class="n">list_accounts</span><span class="p">:</span>
+        <span class="c1"># Start a new thread per account and store it in the collection.</span>
+        <span class="n">account</span> <span class="o">=</span> <span class="n">accounts</span><span class="o">.</span><span class="n">SyncableAccount</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="n">accountname</span><span class="p">)</span>
+        <span class="n">thread</span> <span class="o">=</span> <span class="n">threadutil</span><span class="o">.</span><span class="n">InstanceLimitedThread</span><span class="p">(</span>
+            <span class="n">ACCOUNT_LIMITED_THREAD_NAME</span><span class="p">,</span>
+            <span class="n">target</span> <span class="o">=</span> <span class="n">account</span><span class="o">.</span><span class="n">syncrunner</span><span class="p">,</span>
+            <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;Account sync </span><span class="si">%s</span><span class="s2">&quot;</span><span class="o">%</span> <span class="n">accountname</span>
+            <span class="p">)</span>
+        <span class="n">thread</span><span class="o">.</span><span class="n">setDaemon</span><span class="p">(</span><span class="bp">True</span><span class="p">)</span>
+        <span class="c1"># The add() method expects a started thread.</span>
+        <span class="n">thread</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+        <span class="n">threads</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">thread</span><span class="p">)</span>
+    <span class="c1"># Wait for the threads to finish.</span>
+    <span class="n">threads</span><span class="o">.</span><span class="n">wait</span><span class="p">()</span> <span class="c1"># Blocks until all accounts are processed.</span>
+
+
+<div class="viewcode-block" id="OfflineImap"><a class="viewcode-back" href="../../API.html#offlineimap.OfflineImap">[docs]</a><span class="k">class</span> <span class="nc">OfflineImap</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;The main class that encapsulates the high level use of OfflineImap.</span>
+
+<span class="sd">    To invoke OfflineImap you would call it with::</span>
+
+<span class="sd">      oi = OfflineImap()</span>
+<span class="sd">      oi.run()</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="OfflineImap.get_env_info"><a class="viewcode-back" href="../../API.html#offlineimap.OfflineImap.get_env_info">[docs]</a>    <span class="k">def</span> <span class="nf">get_env_info</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">info</span> <span class="o">=</span> <span class="s2">&quot;imaplib2 v</span><span class="si">%s</span><span class="s2"> (</span><span class="si">%s</span><span class="s2">), Python v</span><span class="si">%s</span><span class="s2">&quot;</span><span class="o">%</span> <span class="p">(</span>
+              <span class="n">imaplib</span><span class="o">.</span><span class="n">__version__</span><span class="p">,</span> <span class="n">imaplib</span><span class="o">.</span><span class="n">DESC</span><span class="p">,</span> <span class="n">PYTHON_VERSION</span>
+        <span class="p">)</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="kn">import</span> <span class="nn">ssl</span>
+            <span class="n">info</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">%s</span><span class="s2">, </span><span class="si">%s</span><span class="s2">&quot;</span><span class="o">%</span> <span class="p">(</span><span class="n">info</span><span class="p">,</span> <span class="n">ssl</span><span class="o">.</span><span class="n">OPENSSL_VERSION</span><span class="p">)</span>
+        <span class="k">except</span><span class="p">:</span>
+            <span class="k">pass</span>
+        <span class="k">return</span> <span class="n">info</span>
+</div>
+<div class="viewcode-block" id="OfflineImap.run"><a class="viewcode-back" href="../../API.html#offlineimap.OfflineImap.run">[docs]</a>    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Parse the commandline and invoke everything&quot;&quot;&quot;</span>
+        <span class="c1"># next line also sets self.config and self.ui</span>
+        <span class="n">options</span><span class="p">,</span> <span class="n">args</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__parse_cmd_options</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">options</span><span class="o">.</span><span class="n">diagnostics</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">__serverdiagnostics</span><span class="p">(</span><span class="n">options</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">options</span><span class="o">.</span><span class="n">migrate_fmd5</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">__migratefmd5</span><span class="p">(</span><span class="n">options</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">options</span><span class="o">.</span><span class="n">mbnames_prune</span><span class="p">:</span>
+            <span class="n">mbnames</span><span class="o">.</span><span class="n">init</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="p">,</span> <span class="n">options</span><span class="o">.</span><span class="n">dryrun</span><span class="p">)</span>
+            <span class="n">mbnames</span><span class="o">.</span><span class="n">prune</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;general&quot;</span><span class="p">,</span> <span class="s2">&quot;accounts&quot;</span><span class="p">))</span>
+            <span class="n">mbnames</span><span class="o">.</span><span class="n">write</span><span class="p">()</span>
+        <span class="k">elif</span> <span class="n">options</span><span class="o">.</span><span class="n">deletefolder</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__deletefolder</span><span class="p">(</span><span class="n">options</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__sync</span><span class="p">(</span><span class="n">options</span><span class="p">)</span>
+</div>
+    <span class="k">def</span> <span class="nf">__parse_cmd_options</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">parser</span> <span class="o">=</span> <span class="n">OptionParser</span><span class="p">(</span>
+            <span class="n">version</span><span class="o">=</span><span class="n">offlineimap</span><span class="o">.</span><span class="n">__version__</span><span class="p">,</span>
+            <span class="n">description</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2">.</span><span class="se">\n\n</span><span class="si">%s</span><span class="s2">&quot;</span><span class="o">%</span> <span class="p">(</span><span class="n">offlineimap</span><span class="o">.</span><span class="n">__copyright__</span><span class="p">,</span>
+                <span class="n">offlineimap</span><span class="o">.</span><span class="n">__license__</span><span class="p">)</span>
+            <span class="p">)</span>
+
+        <span class="n">parser</span><span class="o">.</span><span class="n">add_option</span><span class="p">(</span><span class="s2">&quot;-V&quot;</span><span class="p">,</span>
+                  <span class="n">action</span><span class="o">=</span><span class="s2">&quot;store_true&quot;</span><span class="p">,</span> <span class="n">dest</span><span class="o">=</span><span class="s2">&quot;version&quot;</span><span class="p">,</span>
+                  <span class="n">default</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span>
+                  <span class="n">help</span><span class="o">=</span><span class="s2">&quot;show full version infos&quot;</span><span class="p">)</span>
+
+        <span class="n">parser</span><span class="o">.</span><span class="n">add_option</span><span class="p">(</span><span class="s2">&quot;--dry-run&quot;</span><span class="p">,</span>
+                  <span class="n">action</span><span class="o">=</span><span class="s2">&quot;store_true&quot;</span><span class="p">,</span> <span class="n">dest</span><span class="o">=</span><span class="s2">&quot;dryrun&quot;</span><span class="p">,</span>
+                  <span class="n">default</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span>
+                  <span class="n">help</span><span class="o">=</span><span class="s2">&quot;dry run mode&quot;</span><span class="p">)</span>
+
+        <span class="n">parser</span><span class="o">.</span><span class="n">add_option</span><span class="p">(</span><span class="s2">&quot;--info&quot;</span><span class="p">,</span>
+                  <span class="n">action</span><span class="o">=</span><span class="s2">&quot;store_true&quot;</span><span class="p">,</span> <span class="n">dest</span><span class="o">=</span><span class="s2">&quot;diagnostics&quot;</span><span class="p">,</span>
+                  <span class="n">default</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span>
+                  <span class="n">help</span><span class="o">=</span><span class="s2">&quot;output information on the configured email repositories&quot;</span><span class="p">)</span>
+
+        <span class="n">parser</span><span class="o">.</span><span class="n">add_option</span><span class="p">(</span><span class="s2">&quot;-1&quot;</span><span class="p">,</span>
+                  <span class="n">action</span><span class="o">=</span><span class="s2">&quot;store_true&quot;</span><span class="p">,</span> <span class="n">dest</span><span class="o">=</span><span class="s2">&quot;singlethreading&quot;</span><span class="p">,</span>
+                  <span class="n">default</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span>
+                  <span class="n">help</span><span class="o">=</span><span class="s2">&quot;(the number one) disable all multithreading operations&quot;</span><span class="p">)</span>
+
+        <span class="n">parser</span><span class="o">.</span><span class="n">add_option</span><span class="p">(</span><span class="s2">&quot;-P&quot;</span><span class="p">,</span> <span class="n">dest</span><span class="o">=</span><span class="s2">&quot;profiledir&quot;</span><span class="p">,</span> <span class="n">metavar</span><span class="o">=</span><span class="s2">&quot;DIR&quot;</span><span class="p">,</span>
+                  <span class="n">help</span><span class="o">=</span><span class="s2">&quot;sets OfflineIMAP into profile mode.&quot;</span><span class="p">)</span>
+
+        <span class="n">parser</span><span class="o">.</span><span class="n">add_option</span><span class="p">(</span><span class="s2">&quot;-a&quot;</span><span class="p">,</span> <span class="n">dest</span><span class="o">=</span><span class="s2">&quot;accounts&quot;</span><span class="p">,</span>
+                  <span class="n">metavar</span><span class="o">=</span><span class="s2">&quot;account1[,account2[,...]]&quot;</span><span class="p">,</span>
+                  <span class="n">help</span><span class="o">=</span><span class="s2">&quot;list of accounts to sync&quot;</span><span class="p">)</span>
+
+        <span class="n">parser</span><span class="o">.</span><span class="n">add_option</span><span class="p">(</span><span class="s2">&quot;-c&quot;</span><span class="p">,</span> <span class="n">dest</span><span class="o">=</span><span class="s2">&quot;configfile&quot;</span><span class="p">,</span> <span class="n">metavar</span><span class="o">=</span><span class="s2">&quot;FILE&quot;</span><span class="p">,</span>
+                  <span class="n">default</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
+                  <span class="n">help</span><span class="o">=</span><span class="s2">&quot;specifies a configuration file to use&quot;</span><span class="p">)</span>
+
+        <span class="n">parser</span><span class="o">.</span><span class="n">add_option</span><span class="p">(</span><span class="s2">&quot;-d&quot;</span><span class="p">,</span> <span class="n">dest</span><span class="o">=</span><span class="s2">&quot;debugtype&quot;</span><span class="p">,</span>
+                  <span class="n">metavar</span><span class="o">=</span><span class="s2">&quot;type1[,type2[,...]]&quot;</span><span class="p">,</span>
+                  <span class="n">help</span><span class="o">=</span><span class="s2">&quot;enables debugging for OfflineIMAP &quot;</span>
+                  <span class="s2">&quot; (types: imap, maildir, thread)&quot;</span><span class="p">)</span>
+
+        <span class="n">parser</span><span class="o">.</span><span class="n">add_option</span><span class="p">(</span><span class="s2">&quot;-l&quot;</span><span class="p">,</span> <span class="n">dest</span><span class="o">=</span><span class="s2">&quot;logfile&quot;</span><span class="p">,</span> <span class="n">metavar</span><span class="o">=</span><span class="s2">&quot;FILE&quot;</span><span class="p">,</span>
+                  <span class="n">help</span><span class="o">=</span><span class="s2">&quot;log to FILE&quot;</span><span class="p">)</span>
+
+        <span class="n">parser</span><span class="o">.</span><span class="n">add_option</span><span class="p">(</span><span class="s2">&quot;-s&quot;</span><span class="p">,</span>
+                  <span class="n">action</span><span class="o">=</span><span class="s2">&quot;store_true&quot;</span><span class="p">,</span> <span class="n">dest</span><span class="o">=</span><span class="s2">&quot;syslog&quot;</span><span class="p">,</span>
+                  <span class="n">default</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span>
+                  <span class="n">help</span><span class="o">=</span><span class="s2">&quot;log to syslog&quot;</span><span class="p">)</span>
+
+        <span class="n">parser</span><span class="o">.</span><span class="n">add_option</span><span class="p">(</span><span class="s2">&quot;-f&quot;</span><span class="p">,</span> <span class="n">dest</span><span class="o">=</span><span class="s2">&quot;folders&quot;</span><span class="p">,</span>
+                  <span class="n">metavar</span><span class="o">=</span><span class="s2">&quot;folder1[,folder2[,...]]&quot;</span><span class="p">,</span>
+                  <span class="n">help</span><span class="o">=</span><span class="s2">&quot;only sync the specified folders&quot;</span><span class="p">)</span>
+
+        <span class="n">parser</span><span class="o">.</span><span class="n">add_option</span><span class="p">(</span><span class="s2">&quot;-k&quot;</span><span class="p">,</span> <span class="n">dest</span><span class="o">=</span><span class="s2">&quot;configoverride&quot;</span><span class="p">,</span>
+                  <span class="n">action</span><span class="o">=</span><span class="s2">&quot;append&quot;</span><span class="p">,</span>
+                  <span class="n">metavar</span><span class="o">=</span><span class="s2">&quot;[section:]option=value&quot;</span><span class="p">,</span>
+                  <span class="n">help</span><span class="o">=</span><span class="s2">&quot;override configuration file option&quot;</span><span class="p">)</span>
+
+        <span class="n">parser</span><span class="o">.</span><span class="n">add_option</span><span class="p">(</span><span class="s2">&quot;-o&quot;</span><span class="p">,</span>
+                  <span class="n">action</span><span class="o">=</span><span class="s2">&quot;store_true&quot;</span><span class="p">,</span> <span class="n">dest</span><span class="o">=</span><span class="s2">&quot;runonce&quot;</span><span class="p">,</span>
+                  <span class="n">default</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span>
+                  <span class="n">help</span><span class="o">=</span><span class="s2">&quot;run only once (ignore autorefresh)&quot;</span><span class="p">)</span>
+
+        <span class="n">parser</span><span class="o">.</span><span class="n">add_option</span><span class="p">(</span><span class="s2">&quot;-q&quot;</span><span class="p">,</span>
+                  <span class="n">action</span><span class="o">=</span><span class="s2">&quot;store_true&quot;</span><span class="p">,</span> <span class="n">dest</span><span class="o">=</span><span class="s2">&quot;quick&quot;</span><span class="p">,</span>
+                  <span class="n">default</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span>
+                  <span class="n">help</span><span class="o">=</span><span class="s2">&quot;run only quick synchronizations (don&#39;t update flags)&quot;</span><span class="p">)</span>
+
+        <span class="n">parser</span><span class="o">.</span><span class="n">add_option</span><span class="p">(</span><span class="s2">&quot;-u&quot;</span><span class="p">,</span> <span class="n">dest</span><span class="o">=</span><span class="s2">&quot;interface&quot;</span><span class="p">,</span>
+                  <span class="n">help</span><span class="o">=</span><span class="s2">&quot;specifies an alternative user interface&quot;</span>
+                  <span class="s2">&quot; (quiet, basic, syslog, ttyui, blinkenlights, machineui)&quot;</span><span class="p">)</span>
+
+        <span class="n">parser</span><span class="o">.</span><span class="n">add_option</span><span class="p">(</span><span class="s2">&quot;--delete-folder&quot;</span><span class="p">,</span> <span class="n">dest</span><span class="o">=</span><span class="s2">&quot;deletefolder&quot;</span><span class="p">,</span>
+                  <span class="n">default</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
+                  <span class="n">metavar</span><span class="o">=</span><span class="s2">&quot;FOLDERNAME&quot;</span><span class="p">,</span>
+                  <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Delete a folder (on the remote repository)&quot;</span><span class="p">)</span>
+
+        <span class="n">parser</span><span class="o">.</span><span class="n">add_option</span><span class="p">(</span><span class="s2">&quot;--migrate-fmd5-using-nametrans&quot;</span><span class="p">,</span>
+                  <span class="n">action</span><span class="o">=</span><span class="s2">&quot;store_true&quot;</span><span class="p">,</span> <span class="n">dest</span><span class="o">=</span><span class="s2">&quot;migrate_fmd5&quot;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span>
+                  <span class="n">help</span><span class="o">=</span><span class="s2">&quot;migrate FMD5 hashes from versions prior to 6.3.5&quot;</span><span class="p">)</span>
+
+        <span class="n">parser</span><span class="o">.</span><span class="n">add_option</span><span class="p">(</span><span class="s2">&quot;--mbnames-prune&quot;</span><span class="p">,</span>
+                  <span class="n">action</span><span class="o">=</span><span class="s2">&quot;store_true&quot;</span><span class="p">,</span> <span class="n">dest</span><span class="o">=</span><span class="s2">&quot;mbnames_prune&quot;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span>
+                  <span class="n">help</span><span class="o">=</span><span class="s2">&quot;remove mbnames entries for accounts not in accounts&quot;</span><span class="p">)</span>
+
+        <span class="p">(</span><span class="n">options</span><span class="p">,</span> <span class="n">args</span><span class="p">)</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">parse_args</span><span class="p">()</span>
+        <span class="n">glob</span><span class="o">.</span><span class="n">set_options</span><span class="p">(</span><span class="n">options</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">options</span><span class="o">.</span><span class="n">version</span><span class="p">:</span>
+            <span class="k">print</span><span class="p">(</span><span class="s2">&quot;offlineimap v</span><span class="si">%s</span><span class="s2">, </span><span class="si">%s</span><span class="s2">&quot;</span><span class="o">%</span> <span class="p">(</span>
+                <span class="n">offlineimap</span><span class="o">.</span><span class="n">__version__</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_env_info</span><span class="p">())</span>
+            <span class="p">)</span>
+            <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+
+        <span class="c1"># Read in configuration file.</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">options</span><span class="o">.</span><span class="n">configfile</span><span class="p">:</span>
+            <span class="c1"># Try XDG location, then fall back to ~/.offlineimaprc</span>
+            <span class="n">xdg_var</span> <span class="o">=</span> <span class="s1">&#39;XDG_CONFIG_HOME&#39;</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">xdg_var</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="n">xdg_var</span><span class="p">]:</span>
+                <span class="n">xdg_home</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">expanduser</span><span class="p">(</span><span class="s1">&#39;~/.config&#39;</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">xdg_home</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="n">xdg_var</span><span class="p">]</span>
+            <span class="n">options</span><span class="o">.</span><span class="n">configfile</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">xdg_home</span><span class="p">,</span> <span class="s2">&quot;offlineimap&quot;</span><span class="p">,</span> <span class="s2">&quot;config&quot;</span><span class="p">)</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">options</span><span class="o">.</span><span class="n">configfile</span><span class="p">):</span>
+                <span class="n">options</span><span class="o">.</span><span class="n">configfile</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">expanduser</span><span class="p">(</span><span class="s1">&#39;~/.offlineimaprc&#39;</span><span class="p">)</span>
+            <span class="n">configfilename</span> <span class="o">=</span> <span class="n">options</span><span class="o">.</span><span class="n">configfile</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">configfilename</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">expanduser</span><span class="p">(</span><span class="n">options</span><span class="o">.</span><span class="n">configfile</span><span class="p">)</span>
+
+        <span class="n">config</span> <span class="o">=</span> <span class="n">CustomConfigParser</span><span class="p">()</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">configfilename</span><span class="p">):</span>
+            <span class="c1"># TODO, initialize and make use of chosen ui for logging</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot; *** Config file &#39;</span><span class="si">%s</span><span class="s2">&#39; does not exist; aborting!&quot;</span><span class="o">%</span>
+                          <span class="n">configfilename</span><span class="p">)</span>
+            <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">config</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">configfilename</span><span class="p">)</span>
+
+        <span class="c1"># Profile mode chosen?</span>
+        <span class="k">if</span> <span class="n">options</span><span class="o">.</span><span class="n">profiledir</span><span class="p">:</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">options</span><span class="o">.</span><span class="n">singlethreading</span><span class="p">:</span>
+                <span class="c1"># TODO, make use of chosen ui for logging</span>
+                <span class="n">logging</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s2">&quot;Profile mode: Forcing to singlethreaded.&quot;</span><span class="p">)</span>
+                <span class="n">options</span><span class="o">.</span><span class="n">singlethreading</span> <span class="o">=</span> <span class="bp">True</span>
+            <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">options</span><span class="o">.</span><span class="n">profiledir</span><span class="p">):</span>
+                <span class="c1"># TODO, make use of chosen ui for logging</span>
+                <span class="n">logging</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s2">&quot;Profile mode: Directory &#39;</span><span class="si">%s</span><span class="s2">&#39; already exists!&quot;</span><span class="o">%</span>
+                             <span class="n">options</span><span class="o">.</span><span class="n">profiledir</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">os</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">options</span><span class="o">.</span><span class="n">profiledir</span><span class="p">)</span>
+            <span class="c1"># TODO, make use of chosen ui for logging</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s2">&quot;Profile mode: Potentially large data will be &quot;</span>
+                         <span class="s2">&quot;created in &#39;</span><span class="si">%s</span><span class="s2">&#39;&quot;</span><span class="o">%</span> <span class="n">options</span><span class="o">.</span><span class="n">profiledir</span><span class="p">)</span>
+
+        <span class="c1"># Override a config value.</span>
+        <span class="k">if</span> <span class="n">options</span><span class="o">.</span><span class="n">configoverride</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">option</span> <span class="ow">in</span> <span class="n">options</span><span class="o">.</span><span class="n">configoverride</span><span class="p">:</span>
+                <span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span> <span class="o">=</span> <span class="n">option</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;=&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+                <span class="k">if</span> <span class="s1">&#39;:&#39;</span> <span class="ow">in</span> <span class="n">key</span><span class="p">:</span>
+                    <span class="p">(</span><span class="n">secname</span><span class="p">,</span> <span class="n">key</span><span class="p">)</span> <span class="o">=</span> <span class="n">key</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;:&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+                    <span class="n">section</span> <span class="o">=</span> <span class="n">secname</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;_&quot;</span><span class="p">,</span> <span class="s2">&quot; &quot;</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">section</span> <span class="o">=</span> <span class="s2">&quot;general&quot;</span>
+                <span class="n">config</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">section</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
+
+        <span class="c1"># Which ui to use? CLI option overrides config file.</span>
+        <span class="n">ui_type</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="n">getdefault</span><span class="p">(</span><span class="s1">&#39;general&#39;</span><span class="p">,</span> <span class="s1">&#39;ui&#39;</span><span class="p">,</span> <span class="s1">&#39;ttyui&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">options</span><span class="o">.</span><span class="n">interface</span> <span class="o">!=</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="n">ui_type</span> <span class="o">=</span> <span class="n">options</span><span class="o">.</span><span class="n">interface</span>
+        <span class="k">if</span> <span class="s1">&#39;.&#39;</span> <span class="ow">in</span> <span class="n">ui_type</span><span class="p">:</span>
+            <span class="c1"># Transform Curses.Blinkenlights -&gt; Blinkenlights.</span>
+            <span class="n">ui_type</span> <span class="o">=</span> <span class="n">ui_type</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+            <span class="c1"># TODO, make use of chosen ui for logging</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s1">&#39;Using old interface name, consider using one &#39;</span>
+                            <span class="s1">&#39;of </span><span class="si">%s</span><span class="s1">&#39;</span><span class="o">%</span> <span class="s1">&#39;, &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">UI_LIST</span><span class="o">.</span><span class="n">keys</span><span class="p">()))</span>
+        <span class="k">if</span> <span class="n">options</span><span class="o">.</span><span class="n">diagnostics</span><span class="p">:</span>
+            <span class="n">ui_type</span> <span class="o">=</span> <span class="s1">&#39;ttyui&#39;</span> <span class="c1"># Enforce this UI for --info.</span>
+
+        <span class="c1"># dry-run? Set [general]dry-run=True.</span>
+        <span class="k">if</span> <span class="n">options</span><span class="o">.</span><span class="n">dryrun</span><span class="p">:</span>
+            <span class="n">dryrun</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s1">&#39;general&#39;</span><span class="p">,</span> <span class="s1">&#39;dry-run&#39;</span><span class="p">,</span> <span class="s1">&#39;True&#39;</span><span class="p">)</span>
+        <span class="n">config</span><span class="o">.</span><span class="n">set_if_not_exists</span><span class="p">(</span><span class="s1">&#39;general&#39;</span><span class="p">,</span> <span class="s1">&#39;dry-run&#39;</span><span class="p">,</span> <span class="s1">&#39;False&#39;</span><span class="p">)</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="c1"># Create the ui class.</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ui</span> <span class="o">=</span> <span class="n">UI_LIST</span><span class="p">[</span><span class="n">ui_type</span><span class="o">.</span><span class="n">lower</span><span class="p">()](</span><span class="n">config</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;UI &#39;</span><span class="si">%s</span><span class="s2">&#39; does not exist, choose one of: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="o">%</span>
+                <span class="p">(</span><span class="n">ui_type</span><span class="p">,</span> <span class="s1">&#39;, &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">UI_LIST</span><span class="o">.</span><span class="n">keys</span><span class="p">())))</span>
+            <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">setglobalui</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="p">)</span>
+
+        <span class="c1"># Set up additional log files.</span>
+        <span class="k">if</span> <span class="n">options</span><span class="o">.</span><span class="n">logfile</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">setlogfile</span><span class="p">(</span><span class="n">options</span><span class="o">.</span><span class="n">logfile</span><span class="p">)</span>
+
+        <span class="c1"># Set up syslog.</span>
+        <span class="k">if</span> <span class="n">options</span><span class="o">.</span><span class="n">syslog</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">setup_sysloghandler</span><span class="p">()</span>
+
+        <span class="c1"># Welcome blurb.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">init_banner</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">get_env_info</span><span class="p">())</span>
+
+        <span class="k">if</span> <span class="n">options</span><span class="o">.</span><span class="n">debugtype</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">setLevel</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">DEBUG</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">options</span><span class="o">.</span><span class="n">debugtype</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s1">&#39;all&#39;</span><span class="p">:</span>
+                <span class="n">options</span><span class="o">.</span><span class="n">debugtype</span> <span class="o">=</span> <span class="s1">&#39;imap,maildir,thread&#39;</span>
+            <span class="c1"># Force single threading?</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span><span class="s1">&#39;thread&#39;</span> <span class="ow">in</span> <span class="n">options</span><span class="o">.</span><span class="n">debugtype</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">)</span> \
+                    <span class="ow">and</span> <span class="ow">not</span> <span class="n">options</span><span class="o">.</span><span class="n">singlethreading</span><span class="p">):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">_msg</span><span class="p">(</span><span class="s2">&quot;Debug mode: Forcing to singlethreaded.&quot;</span><span class="p">)</span>
+                <span class="n">options</span><span class="o">.</span><span class="n">singlethreading</span> <span class="o">=</span> <span class="bp">True</span>
+
+            <span class="n">debugtypes</span> <span class="o">=</span> <span class="n">options</span><span class="o">.</span><span class="n">debugtype</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">)</span> <span class="o">+</span> <span class="p">[</span><span class="s1">&#39;&#39;</span><span class="p">]</span>
+            <span class="k">for</span> <span class="n">dtype</span> <span class="ow">in</span> <span class="n">debugtypes</span><span class="p">:</span>
+                <span class="n">dtype</span> <span class="o">=</span> <span class="n">dtype</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">add_debug</span><span class="p">(</span><span class="n">dtype</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">dtype</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="sa">u</span><span class="s1">&#39;imap&#39;</span><span class="p">:</span>
+                    <span class="n">imaplib</span><span class="o">.</span><span class="n">Debug</span> <span class="o">=</span> <span class="mi">5</span>
+
+        <span class="k">if</span> <span class="n">options</span><span class="o">.</span><span class="n">runonce</span><span class="p">:</span>
+            <span class="c1"># Must kill the possible default option.</span>
+            <span class="k">if</span> <span class="n">config</span><span class="o">.</span><span class="n">has_option</span><span class="p">(</span><span class="s1">&#39;DEFAULT&#39;</span><span class="p">,</span> <span class="s1">&#39;autorefresh&#39;</span><span class="p">):</span>
+                <span class="n">config</span><span class="o">.</span><span class="n">remove_option</span><span class="p">(</span><span class="s1">&#39;DEFAULT&#39;</span><span class="p">,</span> <span class="s1">&#39;autorefresh&#39;</span><span class="p">)</span>
+            <span class="c1"># FIXME: spaghetti code alert!</span>
+            <span class="k">for</span> <span class="n">section</span> <span class="ow">in</span> <span class="n">accounts</span><span class="o">.</span><span class="n">getaccountlist</span><span class="p">(</span><span class="n">config</span><span class="p">):</span>
+                <span class="n">config</span><span class="o">.</span><span class="n">remove_option</span><span class="p">(</span><span class="s1">&#39;Account &#39;</span> <span class="o">+</span> <span class="n">section</span><span class="p">,</span> <span class="s2">&quot;autorefresh&quot;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">options</span><span class="o">.</span><span class="n">quick</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">section</span> <span class="ow">in</span> <span class="n">accounts</span><span class="o">.</span><span class="n">getaccountlist</span><span class="p">(</span><span class="n">config</span><span class="p">):</span>
+                <span class="n">config</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s1">&#39;Account &#39;</span> <span class="o">+</span> <span class="n">section</span><span class="p">,</span> <span class="s2">&quot;quick&quot;</span><span class="p">,</span> <span class="s1">&#39;-1&#39;</span><span class="p">)</span>
+
+        <span class="c1"># Custom folder list specified?</span>
+        <span class="k">if</span> <span class="n">options</span><span class="o">.</span><span class="n">folders</span><span class="p">:</span>
+            <span class="n">foldernames</span> <span class="o">=</span> <span class="n">options</span><span class="o">.</span><span class="n">folders</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;,&quot;</span><span class="p">)</span>
+            <span class="n">folderfilter</span> <span class="o">=</span> <span class="s2">&quot;lambda f: f in </span><span class="si">%s</span><span class="s2">&quot;</span><span class="o">%</span> <span class="n">foldernames</span>
+            <span class="n">folderincludes</span> <span class="o">=</span> <span class="s2">&quot;[]&quot;</span>
+            <span class="k">for</span> <span class="n">accountname</span> <span class="ow">in</span> <span class="n">accounts</span><span class="o">.</span><span class="n">getaccountlist</span><span class="p">(</span><span class="n">config</span><span class="p">):</span>
+                <span class="n">account_section</span> <span class="o">=</span> <span class="s1">&#39;Account &#39;</span> <span class="o">+</span> <span class="n">accountname</span>
+                <span class="n">remote_repo_section</span> <span class="o">=</span> <span class="s1">&#39;Repository &#39;</span> <span class="o">+</span> \
+                    <span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">account_section</span><span class="p">,</span> <span class="s1">&#39;remoterepository&#39;</span><span class="p">)</span>
+                <span class="n">config</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">remote_repo_section</span><span class="p">,</span> <span class="s2">&quot;folderfilter&quot;</span><span class="p">,</span> <span class="n">folderfilter</span><span class="p">)</span>
+                <span class="n">config</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">remote_repo_section</span><span class="p">,</span> <span class="s2">&quot;folderincludes&quot;</span><span class="p">,</span>
+                           <span class="n">folderincludes</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">options</span><span class="o">.</span><span class="n">logfile</span><span class="p">:</span>
+            <span class="n">sys</span><span class="o">.</span><span class="n">stderr</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">logfile</span>
+
+        <span class="n">socktimeout</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="n">getdefaultint</span><span class="p">(</span><span class="s2">&quot;general&quot;</span><span class="p">,</span> <span class="s2">&quot;socktimeout&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">socktimeout</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">socket</span><span class="o">.</span><span class="n">setdefaulttimeout</span><span class="p">(</span><span class="n">socktimeout</span><span class="p">)</span>
+
+        <span class="n">threadutil</span><span class="o">.</span><span class="n">initInstanceLimit</span><span class="p">(</span>
+            <span class="n">ACCOUNT_LIMITED_THREAD_NAME</span><span class="p">,</span>
+            <span class="n">config</span><span class="o">.</span><span class="n">getdefaultint</span><span class="p">(</span><span class="s1">&#39;general&#39;</span><span class="p">,</span> <span class="s1">&#39;maxsyncaccounts&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+            <span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">reposname</span> <span class="ow">in</span> <span class="n">config</span><span class="o">.</span><span class="n">getsectionlist</span><span class="p">(</span><span class="s1">&#39;Repository&#39;</span><span class="p">):</span>
+            <span class="c1"># Limit the number of threads. Limitation on usage is handled at the</span>
+            <span class="c1"># imapserver level.</span>
+            <span class="k">for</span> <span class="n">namespace</span> <span class="ow">in</span> <span class="p">[</span><span class="n">accounts</span><span class="o">.</span><span class="n">FOLDER_NAMESPACE</span> <span class="o">+</span> <span class="n">reposname</span><span class="p">,</span>
+                                 <span class="n">MSGCOPY_NAMESPACE</span> <span class="o">+</span> <span class="n">reposname</span><span class="p">]:</span>
+                <span class="k">if</span> <span class="n">options</span><span class="o">.</span><span class="n">singlethreading</span><span class="p">:</span>
+                    <span class="n">threadutil</span><span class="o">.</span><span class="n">initInstanceLimit</span><span class="p">(</span><span class="n">namespace</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">threadutil</span><span class="o">.</span><span class="n">initInstanceLimit</span><span class="p">(</span>
+                        <span class="n">namespace</span><span class="p">,</span>
+                        <span class="n">config</span><span class="o">.</span><span class="n">getdefaultint</span><span class="p">(</span>
+                            <span class="s1">&#39;Repository &#39;</span> <span class="o">+</span> <span class="n">reposname</span><span class="p">,</span>
+                            <span class="s1">&#39;maxconnections&#39;</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+                        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">config</span> <span class="o">=</span> <span class="n">config</span>
+        <span class="k">return</span> <span class="p">(</span><span class="n">options</span><span class="p">,</span> <span class="n">args</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">__dumpstacks</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">sighandler_deep</span><span class="o">=</span><span class="mi">2</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Signal handler: dump a stack trace for each existing thread.&quot;&quot;&quot;</span>
+
+        <span class="n">currentThreadId</span> <span class="o">=</span> <span class="n">threading</span><span class="o">.</span><span class="n">currentThread</span><span class="p">()</span><span class="o">.</span><span class="n">ident</span>
+
+        <span class="k">def</span> <span class="nf">unique_count</span><span class="p">(</span><span class="n">l</span><span class="p">):</span>
+            <span class="n">d</span> <span class="o">=</span> <span class="n">collections</span><span class="o">.</span><span class="n">defaultdict</span><span class="p">(</span><span class="k">lambda</span><span class="p">:</span> <span class="mi">0</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">l</span><span class="p">:</span>
+                <span class="n">d</span><span class="p">[</span><span class="nb">tuple</span><span class="p">(</span><span class="n">v</span><span class="p">)]</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="k">return</span> <span class="nb">list</span><span class="p">((</span><span class="n">k</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">d</span><span class="o">.</span><span class="n">items</span><span class="p">())</span>
+
+        <span class="n">stack_displays</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">threadId</span><span class="p">,</span> <span class="n">stack</span> <span class="ow">in</span> <span class="n">sys</span><span class="o">.</span><span class="n">_current_frames</span><span class="p">()</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">stack_display</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="k">for</span> <span class="n">filename</span><span class="p">,</span> <span class="n">lineno</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">traceback</span><span class="o">.</span><span class="n">extract_stack</span><span class="p">(</span><span class="n">stack</span><span class="p">):</span>
+                <span class="n">stack_display</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;  File: &quot;</span><span class="si">%s</span><span class="s1">&quot;, line </span><span class="si">%d</span><span class="s1">, in </span><span class="si">%s</span><span class="s1">&#39;</span>
+                                     <span class="o">%</span> <span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">lineno</span><span class="p">,</span> <span class="n">name</span><span class="p">))</span>
+                <span class="k">if</span> <span class="n">line</span><span class="p">:</span>
+                    <span class="n">stack_display</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;    </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">line</span><span class="o">.</span><span class="n">strip</span><span class="p">()))</span>
+            <span class="k">if</span> <span class="n">currentThreadId</span> <span class="o">==</span> <span class="n">threadId</span><span class="p">:</span>
+                <span class="n">stack_display</span> <span class="o">=</span> <span class="n">stack_display</span><span class="p">[:</span><span class="o">-</span> <span class="p">(</span><span class="n">sighandler_deep</span> <span class="o">*</span> <span class="mi">2</span><span class="p">)]</span>
+                <span class="n">stack_display</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;  =&gt; Stopped to handle current signal. &#39;</span><span class="p">)</span>
+            <span class="n">stack_displays</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">stack_display</span><span class="p">)</span>
+        <span class="n">stacks</span> <span class="o">=</span> <span class="n">unique_count</span><span class="p">(</span><span class="n">stack_displays</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s1">&#39;thread&#39;</span><span class="p">,</span> <span class="s2">&quot;** Thread List:</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">stack</span><span class="p">,</span> <span class="n">times</span> <span class="ow">in</span> <span class="n">stacks</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">times</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">%s</span><span class="s2"> Thread is at:</span><span class="se">\n</span><span class="si">%s</span><span class="se">\n</span><span class="s2">&quot;</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">%s</span><span class="s2"> Threads are at:</span><span class="se">\n</span><span class="si">%s</span><span class="se">\n</span><span class="s2">&quot;</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s1">&#39;thread&#39;</span><span class="p">,</span> <span class="n">msg</span> <span class="o">%</span> <span class="p">(</span><span class="n">times</span><span class="p">,</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">stack</span><span class="p">[</span><span class="o">-</span> <span class="p">(</span><span class="n">context</span> <span class="o">*</span> <span class="mi">2</span><span class="p">):])))</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s1">&#39;thread&#39;</span><span class="p">,</span> <span class="s2">&quot;Dumped a total of </span><span class="si">%d</span><span class="s2"> Threads.&quot;</span> <span class="o">%</span>
+                      <span class="nb">len</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">_current_frames</span><span class="p">()</span><span class="o">.</span><span class="n">keys</span><span class="p">()))</span>
+
+<div class="viewcode-block" id="OfflineImap._get_activeaccounts"><a class="viewcode-back" href="../../API.html#offlineimap.OfflineImap._get_activeaccounts">[docs]</a>    <span class="k">def</span> <span class="nf">_get_activeaccounts</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">options</span><span class="p">):</span>
+        <span class="n">activeaccounts</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">errormsg</span> <span class="o">=</span> <span class="bp">None</span>
+
+        <span class="n">activeaccountnames</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;general&quot;</span><span class="p">,</span> <span class="s2">&quot;accounts&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">options</span><span class="o">.</span><span class="n">accounts</span><span class="p">:</span>
+            <span class="n">activeaccountnames</span> <span class="o">=</span> <span class="n">options</span><span class="o">.</span><span class="n">accounts</span>
+        <span class="n">activeaccountnames</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span><span class="o">.</span><span class="n">lstrip</span><span class="p">()</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">activeaccountnames</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;,&quot;</span><span class="p">)]</span>
+
+        <span class="n">allaccounts</span> <span class="o">=</span> <span class="n">accounts</span><span class="o">.</span><span class="n">getaccountlist</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">accountname</span> <span class="ow">in</span> <span class="n">activeaccountnames</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">accountname</span> <span class="ow">in</span> <span class="n">allaccounts</span><span class="p">:</span>
+                <span class="n">activeaccounts</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">accountname</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">errormsg</span> <span class="o">=</span> <span class="s2">&quot;Valid accounts are: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="o">%</span> <span class="p">(</span>
+                    <span class="s2">&quot;, &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">allaccounts</span><span class="p">))</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;The account &#39;</span><span class="si">%s</span><span class="s2">&#39; does not exist&quot;</span><span class="o">%</span> <span class="n">accountname</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">activeaccounts</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">errormsg</span> <span class="o">=</span> <span class="s2">&quot;No accounts are defined!&quot;</span>
+
+        <span class="k">if</span> <span class="n">errormsg</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">terminate</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">errormsg</span><span class="o">=</span><span class="n">errormsg</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">activeaccounts</span>
+</div>
+    <span class="k">def</span> <span class="nf">__sync</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">options</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Invoke the correct single/multithread syncing</span>
+
+<span class="sd">        self.config is supposed to have been correctly initialized</span>
+<span class="sd">        already.&quot;&quot;&quot;</span>
+
+        <span class="k">def</span> <span class="nf">sig_handler</span><span class="p">(</span><span class="n">sig</span><span class="p">,</span> <span class="n">frame</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">sig</span> <span class="o">==</span> <span class="n">signal</span><span class="o">.</span><span class="n">SIGUSR1</span><span class="p">:</span>
+                <span class="c1"># tell each account to stop sleeping</span>
+                <span class="n">accounts</span><span class="o">.</span><span class="n">Account</span><span class="o">.</span><span class="n">set_abort_event</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="n">sig</span> <span class="ow">in</span> <span class="p">(</span><span class="n">signal</span><span class="o">.</span><span class="n">SIGUSR2</span><span class="p">,</span> <span class="n">signal</span><span class="o">.</span><span class="n">SIGABRT</span><span class="p">):</span>
+                <span class="c1"># tell each account to stop looping</span>
+                <span class="n">getglobalui</span><span class="p">()</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s2">&quot;Terminating after this sync...&quot;</span><span class="p">)</span>
+                <span class="n">accounts</span><span class="o">.</span><span class="n">Account</span><span class="o">.</span><span class="n">set_abort_event</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="n">sig</span> <span class="ow">in</span> <span class="p">(</span><span class="n">signal</span><span class="o">.</span><span class="n">SIGTERM</span><span class="p">,</span> <span class="n">signal</span><span class="o">.</span><span class="n">SIGINT</span><span class="p">,</span> <span class="n">signal</span><span class="o">.</span><span class="n">SIGHUP</span><span class="p">):</span>
+                <span class="c1"># tell each account to ABORT ASAP (ctrl-c)</span>
+                <span class="n">getglobalui</span><span class="p">()</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s2">&quot;Terminating NOW (this may &quot;</span>\
+                                   <span class="s2">&quot;take a few seconds)...&quot;</span><span class="p">)</span>
+                <span class="n">accounts</span><span class="o">.</span><span class="n">Account</span><span class="o">.</span><span class="n">set_abort_event</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+                <span class="k">if</span> <span class="s1">&#39;thread&#39;</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">debuglist</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">__dumpstacks</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+
+                <span class="c1"># Abort after three Ctrl-C keystrokes</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">num_sigterm</span> <span class="o">+=</span> <span class="mi">1</span>
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">num_sigterm</span> <span class="o">&gt;=</span> <span class="mi">3</span><span class="p">:</span>
+                    <span class="n">getglobalui</span><span class="p">()</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s2">&quot;Signaled thrice. Aborting!&quot;</span><span class="p">)</span>
+                    <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="n">sig</span> <span class="o">==</span> <span class="n">signal</span><span class="o">.</span><span class="n">SIGQUIT</span><span class="p">:</span>
+                <span class="n">stacktrace</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">stderr</span><span class="p">)</span>
+                <span class="n">os</span><span class="o">.</span><span class="n">abort</span><span class="p">()</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">num_sigterm</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="n">signal</span><span class="o">.</span><span class="n">signal</span><span class="p">(</span><span class="n">signal</span><span class="o">.</span><span class="n">SIGHUP</span><span class="p">,</span> <span class="n">sig_handler</span><span class="p">)</span>
+            <span class="n">signal</span><span class="o">.</span><span class="n">signal</span><span class="p">(</span><span class="n">signal</span><span class="o">.</span><span class="n">SIGUSR1</span><span class="p">,</span> <span class="n">sig_handler</span><span class="p">)</span>
+            <span class="n">signal</span><span class="o">.</span><span class="n">signal</span><span class="p">(</span><span class="n">signal</span><span class="o">.</span><span class="n">SIGUSR2</span><span class="p">,</span> <span class="n">sig_handler</span><span class="p">)</span>
+            <span class="n">signal</span><span class="o">.</span><span class="n">signal</span><span class="p">(</span><span class="n">signal</span><span class="o">.</span><span class="n">SIGABRT</span><span class="p">,</span> <span class="n">sig_handler</span><span class="p">)</span>
+            <span class="n">signal</span><span class="o">.</span><span class="n">signal</span><span class="p">(</span><span class="n">signal</span><span class="o">.</span><span class="n">SIGTERM</span><span class="p">,</span> <span class="n">sig_handler</span><span class="p">)</span>
+            <span class="n">signal</span><span class="o">.</span><span class="n">signal</span><span class="p">(</span><span class="n">signal</span><span class="o">.</span><span class="n">SIGINT</span><span class="p">,</span> <span class="n">sig_handler</span><span class="p">)</span>
+            <span class="n">signal</span><span class="o">.</span><span class="n">signal</span><span class="p">(</span><span class="n">signal</span><span class="o">.</span><span class="n">SIGQUIT</span><span class="p">,</span> <span class="n">sig_handler</span><span class="p">)</span>
+
+            <span class="c1"># Various initializations that need to be performed:</span>
+            <span class="n">activeaccounts</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_activeaccounts</span><span class="p">(</span><span class="n">options</span><span class="p">)</span>
+            <span class="n">mbnames</span><span class="o">.</span><span class="n">init</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="p">,</span> <span class="n">options</span><span class="o">.</span><span class="n">dryrun</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="n">options</span><span class="o">.</span><span class="n">singlethreading</span><span class="p">:</span>
+                <span class="c1"># Singlethreaded.</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">__sync_singlethreaded</span><span class="p">(</span><span class="n">activeaccounts</span><span class="p">,</span> <span class="n">options</span><span class="o">.</span><span class="n">profiledir</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="c1"># Multithreaded.</span>
+                <span class="n">t</span> <span class="o">=</span> <span class="n">threadutil</span><span class="o">.</span><span class="n">ExitNotifyThread</span><span class="p">(</span>
+                    <span class="n">target</span><span class="o">=</span><span class="n">syncitall</span><span class="p">,</span>
+                    <span class="n">name</span><span class="o">=</span><span class="s1">&#39;Sync Runner&#39;</span><span class="p">,</span>
+                    <span class="n">args</span><span class="o">=</span><span class="p">(</span><span class="n">activeaccounts</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">,)</span>
+                    <span class="p">)</span>
+                <span class="c1"># Special exit message for the monitor to stop looping.</span>
+                <span class="n">t</span><span class="o">.</span><span class="n">exit_message</span> <span class="o">=</span> <span class="n">threadutil</span><span class="o">.</span><span class="n">STOP_MONITOR</span>
+                <span class="n">t</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+                <span class="n">threadutil</span><span class="o">.</span><span class="n">monitor</span><span class="p">()</span>
+
+            <span class="c1"># All sync are done.</span>
+            <span class="n">mbnames</span><span class="o">.</span><span class="n">write</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">terminate</span><span class="p">()</span>
+            <span class="k">return</span> <span class="mi">0</span>
+        <span class="k">except</span> <span class="p">(</span><span class="ne">SystemExit</span><span class="p">):</span>
+            <span class="k">raise</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">terminate</span><span class="p">()</span>
+            <span class="k">return</span> <span class="mi">1</span>
+
+    <span class="k">def</span> <span class="nf">__sync_singlethreaded</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">list_accounts</span><span class="p">,</span> <span class="n">profiledir</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Executed in singlethreaded mode only.</span>
+
+<span class="sd">        :param accs: A list of accounts that should be synced</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">accountname</span> <span class="ow">in</span> <span class="n">list_accounts</span><span class="p">:</span>
+            <span class="n">account</span> <span class="o">=</span> <span class="n">accounts</span><span class="o">.</span><span class="n">SyncableAccount</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">,</span> <span class="n">accountname</span><span class="p">)</span>
+            <span class="n">threading</span><span class="o">.</span><span class="n">currentThread</span><span class="p">()</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> \
+                    <span class="s2">&quot;Account sync </span><span class="si">%s</span><span class="s2">&quot;</span><span class="o">%</span> <span class="n">account</span><span class="o">.</span><span class="n">getname</span><span class="p">()</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">profiledir</span><span class="p">:</span>
+                <span class="n">account</span><span class="o">.</span><span class="n">syncrunner</span><span class="p">()</span>
+            <span class="c1"># Profile mode.</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="kn">import</span> <span class="nn">cProfile</span> <span class="kn">as</span> <span class="nn">profile</span>
+                <span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
+                    <span class="kn">import</span> <span class="nn">profile</span>
+                <span class="n">prof</span> <span class="o">=</span> <span class="n">profile</span><span class="o">.</span><span class="n">Profile</span><span class="p">()</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="n">prof</span> <span class="o">=</span> <span class="n">prof</span><span class="o">.</span><span class="n">runctx</span><span class="p">(</span><span class="s2">&quot;account.syncrunner()&quot;</span><span class="p">,</span> <span class="nb">globals</span><span class="p">(),</span> <span class="nb">locals</span><span class="p">())</span>
+                <span class="k">except</span> <span class="ne">SystemExit</span><span class="p">:</span>
+                    <span class="k">pass</span>
+                <span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span>
+                <span class="n">dt</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%Y%m</span><span class="si">%d</span><span class="s1">%H%M%S&#39;</span><span class="p">)</span>
+                <span class="n">prof</span><span class="o">.</span><span class="n">dump_stats</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
+                    <span class="n">profiledir</span><span class="p">,</span> <span class="s2">&quot;</span><span class="si">%s</span><span class="s2">_</span><span class="si">%s</span><span class="s2">.prof&quot;</span><span class="o">%</span> <span class="p">(</span><span class="n">dt</span><span class="p">,</span> <span class="n">account</span><span class="o">.</span><span class="n">getname</span><span class="p">())))</span>
+
+    <span class="k">def</span> <span class="nf">__serverdiagnostics</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">options</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;  imaplib2: </span><span class="si">%s</span><span class="s2"> (</span><span class="si">%s</span><span class="s2">)&quot;</span><span class="o">%</span> <span class="p">(</span><span class="n">imaplib</span><span class="o">.</span><span class="n">__version__</span><span class="p">,</span> <span class="n">imaplib</span><span class="o">.</span><span class="n">DESC</span><span class="p">))</span>
+        <span class="k">for</span> <span class="n">accountname</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_activeaccounts</span><span class="p">(</span><span class="n">options</span><span class="p">):</span>
+            <span class="n">account</span> <span class="o">=</span> <span class="n">accounts</span><span class="o">.</span><span class="n">Account</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">,</span> <span class="n">accountname</span><span class="p">)</span>
+            <span class="n">account</span><span class="o">.</span><span class="n">serverdiagnostics</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">__deletefolder</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">options</span><span class="p">):</span>
+        <span class="n">list_accounts</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_activeaccounts</span><span class="p">(</span><span class="n">options</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">list_accounts</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;you must supply only one account with &#39;-a&#39;&quot;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="mi">1</span>
+        <span class="n">account</span> <span class="o">=</span> <span class="n">accounts</span><span class="o">.</span><span class="n">Account</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">,</span> <span class="n">list_accounts</span><span class="o">.</span><span class="n">pop</span><span class="p">())</span>
+        <span class="k">return</span> <span class="n">account</span><span class="o">.</span><span class="n">deletefolder</span><span class="p">(</span><span class="n">options</span><span class="o">.</span><span class="n">deletefolder</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">__migratefmd5</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">options</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">accountname</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_activeaccounts</span><span class="p">(</span><span class="n">options</span><span class="p">):</span>
+            <span class="n">account</span> <span class="o">=</span> <span class="n">accounts</span><span class="o">.</span><span class="n">Account</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">,</span> <span class="n">accountname</span><span class="p">)</span>
+            <span class="n">localrepo</span> <span class="o">=</span> <span class="n">Repository</span><span class="p">(</span><span class="n">account</span><span class="p">,</span> <span class="s1">&#39;local&#39;</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">localrepo</span><span class="o">.</span><span class="n">getfoldertype</span><span class="p">()</span> <span class="o">!=</span> <span class="n">folder</span><span class="o">.</span><span class="n">Maildir</span><span class="o">.</span><span class="n">MaildirFolder</span><span class="p">:</span>
+                <span class="k">continue</span>
+            <span class="n">folders</span> <span class="o">=</span> <span class="n">localrepo</span><span class="o">.</span><span class="n">getfolders</span><span class="p">()</span>
+            <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">folders</span><span class="p">:</span>
+                <span class="n">f</span><span class="o">.</span><span class="n">migratefmd5</span><span class="p">(</span><span class="n">options</span><span class="o">.</span><span class="n">dryrun</span><span class="p">)</span></div>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">OfflineIMAP 7.1.5 documentation</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" >Module code</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &copy; Copyright Copyright 2002-2018 John Goerzen &amp; contributors.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.1.
+    </div>
+  </body>
+</html>

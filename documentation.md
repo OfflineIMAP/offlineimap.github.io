@@ -35,7 +35,6 @@ Don't change the fixed id: there is a reference to here from the about page.
 ### Starting
 
 - There are good tutorials on the web:
-  - [http://fedoraresources.com/offlineimap.html](http://fedoraresources.com/offlineimap.html)
   - [https://wiki.archlinux.org/index.php/OfflineIMAP](https://wiki.archlinux.org/index.php/OfflineIMAP)
 - [Installation]({{ site.base }}/doc/installation.html)
 - [Quick Start]({{ site.base }}/doc/quick_start.html)

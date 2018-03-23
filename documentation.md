@@ -35,7 +35,7 @@ Don't change the fixed id: there is a reference to here from the about page.
 ### Starting
 
 - There are good tutorials on the web:
-  - [Fedora Resources page on how to use offlineimap](https://web.archive.org/web/20170703235227/http://fedoraresources.com:80/offlineimap.html)
+  - [How to use offlineimap on Fedora](https://hobo.house/2015/09/09/take-control-of-your-email-with-mutt-offlineimap-notmuch/)
   - [https://wiki.archlinux.org/index.php/OfflineIMAP](https://wiki.archlinux.org/index.php/OfflineIMAP)
 - [Installation]({{ site.base }}/doc/installation.html)
 - [Quick Start]({{ site.base }}/doc/quick_start.html)

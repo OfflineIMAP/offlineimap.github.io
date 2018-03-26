@@ -40,7 +40,7 @@ They blogged about offlineimap. :-)
 ## First installation
 
 - [Wiki Archlinux](https://wiki.archlinux.org/index.php/OfflineIMAP)
-- [Fedora](http://fedoraresources.com/offlineimap.html)
+- [Fedora](https://hobo.house/2015/09/09/take-control-of-your-email-with-mutt-offlineimap-notmuch)
 
 ## Others
 

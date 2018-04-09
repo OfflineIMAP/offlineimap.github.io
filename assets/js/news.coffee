@@ -55,12 +55,12 @@ class Releases extends NsJSON
       line += '<a href="' + version_url + '">' + version + '</a> '
 
       links = ''
-      links += '(<a href="' + upload_url + '">upload</a> '
-      links += '[<a href="' + upload_url_sha1 + '">sha1</a>, '
+      links += '(<a href="' + upload_url + '">official upload</a>: '
+      links += '<a href="' + upload_url_sha1 + '">sha1</a>, '
       links += '<a href="' + upload_url_sha256 + '">sha256</a>, '
-      links += '<a href="' + upload_url_sha512 + '">sha512</a>]) '
-      links += '(<a href="' + tarball + '">tarball</a>) '
-      links += '(<a href="' + zipball + '">zipball</a>) '
+      links += '<a href="' + upload_url_sha512 + '">sha512</a>) '
+      links += '(<a href="' + tarball + '">github tarball</a>) '
+      links += '(<a href="' + zipball + '">github zipball</a>) '
       changelogLink = @getChangelogLink(version)
       if changelogLink
         links += '(<a href="' + changelogLink + '">announce</a>) '

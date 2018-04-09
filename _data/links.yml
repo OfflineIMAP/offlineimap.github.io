@@ -23,7 +23,7 @@ imapfw:
   github: 'https://github.com/OfflineIMAP/imapfw'
 
 mailing_list:
-  archives: 'http://dir.gmane.org/gmane.mail.imap.offlineimap.general'
+  archives: 'http://lists.alioth.debian.org/pipermail/offlineimap-project/'
   address: mailto:offlineimap-project@lists.alioth.debian.org
   subscribe: 'http://lists.alioth.debian.org/mailman/listinfo/offlineimap-project'
 

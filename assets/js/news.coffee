@@ -47,12 +47,18 @@ class Releases extends NsJSON
       version_url = 'https://github.com/OfflineIMAP/offlineimap/tree/' + version
       tarball = item.tarball_url
       zipball = item.zipball_url
-      upload_url = 'http://www.offlineimap.org/uploads/offlineimap-' + version + 'tar.gz'
+      upload_url = 'http://www.offlineimap.org/uploads/offlineimap-' + version + '.tar.gz'
+      upload_url_sha1 = upload_url + '.sha1'
+      upload_url_sha256 = upload_url + '.sha256'
+      upload_url_sha512 = upload_url + '.sha512'
 
       line += '<a href="' + version_url + '">' + version + '</a> '
 
       links = ''
-      links += '(<a href="' + upload_url + '">upload</a>) '
+      links += '(<a href="' + upload_url + '">upload</a> '
+      links += '[<a href="' + upload_url_sha1 + '">sha1</a>, '
+      links += '<a href="' + upload_url_sha256 + '">sha256</a>, '
+      links += '<a href="' + upload_url_sha512 + '">sha512</a>]) '
       links += '(<a href="' + tarball + '">tarball</a>) '
       links += '(<a href="' + zipball + '">zipball</a>) '
       changelogLink = @getChangelogLink(version)

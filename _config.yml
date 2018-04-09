@@ -40,3 +40,5 @@ collections:
     output: true
   gsoc:
     output: true
+  uploads:
+    output: true

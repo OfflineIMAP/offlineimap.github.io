@@ -126,15 +126,12 @@ cache data.  For instance, you'd type this:
 
 {% highlight bash %}
 $ mkdir ~/archives
-$ mv ~/.offlineimap/Account-AccountName ~/archives/Account-AccountName
-$ mv ~/.offlineimap/Repository-RemoteRepositoryName ~/archives/Repository-RemoteRepositoryName
-$ mv ~/.offlineimap/Repository-LocalRepositoryName ~/archives/Repository-LocalRepositoryName
+$ mv ~/.offlineimap/Account-AccountName ~/archives
+$ mv ~/.offlineimap/Repository-RemoteRepositoryName ~/archives
+$ mv ~/.offlineimap/Repository-LocalRepositoryName ~/archives
 {% endhighlight %}
 
 {:.note}
-If you're using the plain text backend, change the above `LocalStatus-sqlite` to
-`LocalStatus`.
- 
 Of course, replace `AccountName` and `RemoteRepositoryName` with the names as
 specified in `~/.offlineimaprc`.
  

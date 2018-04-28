@@ -31,6 +31,7 @@ In order to use [OfflineIMAP]({{ links.offlineimap.project }}), you need to have
 Installing OfflineIMAP should usually be quite easy, as you can simply unpack and run OfflineIMAP in place if you wish to do so. There are a number of options though:
 
 - [installation via your distribution package manager](#distribution)
+- [installation with pip](#pip)
 - [installation from a tarball or zipball](#ball)
 - [installation with git](#git)
 
@@ -39,6 +40,16 @@ Installing OfflineIMAP should usually be quite easy, as you can simply unpack an
 ### System-Wide installation via distribution
 
 The easiest way to install OfflineIMAP is via your distribution's package manager. OfflineIMAP is available under the name `offlineimap` in most Linux and BSD distributions.
+
+
+{: #pip}
+### Installation with pip
+
+{% highlight bash %}
+pip install --user offlineimap
+{% endhighlight %}
+
+Remove `--user` for a system-wide installation.
 
 
 {: #ball}
@@ -101,7 +112,7 @@ Next, proceed to below.  Type `offlineimap` to invoke the program.
 {: #single-user}
 #### Single-user installation
 
-Download the git repository as described above. Instead of installing the program as root, you type `./offlineimap.py`; there is no installation step necessary.
+Download the sources as described above. Instead of installing the program as root, you type `./offlineimap.py`; there is no installation step necessary.
 
 > That's it. Have fun without OfflineIMAP!
 

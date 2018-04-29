@@ -4,7 +4,7 @@ title: Installation
 date: 2011-01-15
 author: Nicolas Sebrecht
 contributors: Sebastian Spaeth
-updated: 2015-03-15
+updated: 2018-04-29
 ---
 {% assign links = site.data.links %}
 

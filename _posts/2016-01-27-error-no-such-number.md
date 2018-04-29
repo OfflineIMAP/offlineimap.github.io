@@ -2,7 +2,7 @@
 layout: post
 title: Does not have a message with UID 15541
 date: 2016-01-27
-updated: 2016-01-30
+updated: 2018-04-29
 author: Tomas Nordin
 contributors: (update) Nicolas Sebrecht
 categories: server imap error

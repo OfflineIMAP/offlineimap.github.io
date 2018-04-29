@@ -54,7 +54,7 @@ Mailing list to the rescue. On my first post to the mailing list, Nicolas respon
 > server pretend to have this UID. IOW, I'd say it really looks like a
 > server issue.
 
-That gave me comfort. I was easily convinced it was an issue with the server. It was like, I sort of *wanted* it to be an issue with the server. I mean, rather than it would be a problem with a tool made by developers who maintain a dialog with it's users.
+That gave me comfort. I was easily convinced it was an issue with the server. It was like, I sort of *wanted* it to be an issue with the server. I mean, rather than it would be a problem with a tool made by developers who maintain a dialog with it's users. On the other hand, in that case the problem could have been addressed properly of course, but anyway...
 
 The mailing list dialog continued:
 

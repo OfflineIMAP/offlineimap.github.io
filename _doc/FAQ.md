@@ -522,7 +522,9 @@ set mbox_type=Maildir
 set folder=$HOME/Maildirpath
 {% endhighlight %}
 
+### What can I configure? Is there a list of options?
 
+Yes, there is! Have a look [here](https://github.com/OfflineIMAP/offlineimap/blob/master/offlineimap.conf).
 
 
 ## Advanced questions

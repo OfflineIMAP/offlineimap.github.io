@@ -1,0 +1,661 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>offlineimap.repository.IMAP &mdash; OfflineIMAP 7.2.1 documentation</title>
+    
+    <link rel="stylesheet" href="../../../_static/classic.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../',
+        VERSION:     '7.2.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    <link rel="top" title="OfflineIMAP 7.2.1 documentation" href="../../../index.html" />
+    <link rel="up" title="offlineimap.repository" href="../repository.html" /> 
+  </head>
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="nav-item nav-item-0"><a href="../../../index.html">OfflineIMAP 7.2.1 documentation</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="../../index.html" >Module code</a> &raquo;</li>
+          <li class="nav-item nav-item-2"><a href="../repository.html" accesskey="U">offlineimap.repository</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for offlineimap.repository.IMAP</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot; IMAP repository support &quot;&quot;&quot;</span>
+
+<span class="c1"># Copyright (C) 2002-2017 John Goerzen &amp; contributors</span>
+<span class="c1">#</span>
+<span class="c1">#    This program is free software; you can redistribute it and/or modify</span>
+<span class="c1">#    it under the terms of the GNU General Public License as published by</span>
+<span class="c1">#    the Free Software Foundation; either version 2 of the License, or</span>
+<span class="c1">#    (at your option) any later version.</span>
+<span class="c1">#</span>
+<span class="c1">#    This program is distributed in the hope that it will be useful,</span>
+<span class="c1">#    but WITHOUT ANY WARRANTY; without even the implied warranty of</span>
+<span class="c1">#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the</span>
+<span class="c1">#    GNU General Public License for more details.</span>
+<span class="c1">#</span>
+<span class="c1">#    You should have received a copy of the GNU General Public License</span>
+<span class="c1">#    along with this program; if not, write to the Free Software</span>
+<span class="c1">#    Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301 USA</span>
+
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">netrc</span>
+<span class="kn">import</span> <span class="nn">errno</span>
+<span class="kn">import</span> <span class="nn">codecs</span>
+<span class="kn">from</span> <span class="nn">sys</span> <span class="kn">import</span> <span class="n">exc_info</span>
+<span class="kn">from</span> <span class="nn">threading</span> <span class="kn">import</span> <span class="n">Event</span>
+
+<span class="kn">import</span> <span class="nn">six</span>
+
+<span class="kn">from</span> <span class="nn">offlineimap</span> <span class="kn">import</span> <span class="n">folder</span><span class="p">,</span> <span class="n">imaputil</span><span class="p">,</span> <span class="n">imapserver</span><span class="p">,</span> <span class="n">OfflineImapError</span>
+<span class="kn">from</span> <span class="nn">offlineimap.repository.Base</span> <span class="kn">import</span> <span class="n">BaseRepository</span>
+<span class="kn">from</span> <span class="nn">offlineimap.threadutil</span> <span class="kn">import</span> <span class="n">ExitNotifyThread</span>
+<span class="kn">from</span> <span class="nn">offlineimap.utils.distro</span> <span class="kn">import</span> <span class="n">get_os_sslcertfile</span><span class="p">,</span> <span class="n">get_os_sslcertfile_searchpath</span>
+
+
+<div class="viewcode-block" id="IMAPRepository"><a class="viewcode-back" href="../../../repository.html#offlineimap.repository.IMAPRepository">[docs]</a><span class="k">class</span> <span class="nc">IMAPRepository</span><span class="p">(</span><span class="n">BaseRepository</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">reposname</span><span class="p">,</span> <span class="n">account</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">idlefolders</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="n">BaseRepository</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">reposname</span><span class="p">,</span> <span class="n">account</span><span class="p">)</span>
+        <span class="c1"># self.ui is being set by the BaseRepository</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_host</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="c1"># Must be set before calling imapserver.IMAPServer(self)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">oauth2_request_url</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">imapserver</span> <span class="o">=</span> <span class="n">imapserver</span><span class="o">.</span><span class="n">IMAPServer</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">folders</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">copy_ignore_eval</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="c1"># Keep alive.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">kaevent</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">kathread</span> <span class="o">=</span> <span class="bp">None</span>
+
+        <span class="c1"># Only set the newmail_hook in an IMAP repository.</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">has_option</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">getsection</span><span class="p">(),</span> <span class="s1">&#39;newmail_hook&#39;</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">newmail_hook</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">localeval</span><span class="o">.</span><span class="n">eval</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">getconf</span><span class="p">(</span><span class="s1">&#39;newmail_hook&#39;</span><span class="p">))</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">getconf</span><span class="p">(</span><span class="s1">&#39;sep&#39;</span><span class="p">,</span> <span class="bp">None</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;The &#39;sep&#39; setting is being ignored for IMAP &quot;</span>
+                         <span class="s2">&quot;repository &#39;</span><span class="si">%s</span><span class="s2">&#39; (it&#39;s autodetected)&quot;</span><span class="o">%</span> <span class="bp">self</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">startkeepalive</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">keepalivetime</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">getkeepalive</span><span class="p">()</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">keepalivetime</span><span class="p">:</span>
+            <span class="k">return</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">kaevent</span> <span class="o">=</span> <span class="n">Event</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">kathread</span> <span class="o">=</span> <span class="n">ExitNotifyThread</span><span class="p">(</span><span class="n">target</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">imapserver</span><span class="o">.</span><span class="n">keepalive</span><span class="p">,</span>
+                                         <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Keep alive &quot;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">getname</span><span class="p">(),</span>
+                                         <span class="n">args</span><span class="o">=</span><span class="p">(</span><span class="n">keepalivetime</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">kaevent</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">kathread</span><span class="o">.</span><span class="n">setDaemon</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">kathread</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">stopkeepalive</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">kaevent</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="c1"># Keepalive is not active.</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">kaevent</span><span class="o">.</span><span class="n">set</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">kathread</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">kaevent</span> <span class="o">=</span> <span class="bp">None</span>
+
+    <span class="k">def</span> <span class="nf">holdordropconnections</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">getholdconnectionopen</span><span class="p">():</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">dropconnections</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">dropconnections</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">imapserver</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">get_copy_ignore_UIDs</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">foldername</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Return a list of UIDs to not copy for this foldername.&quot;&quot;&quot;</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">copy_ignore_eval</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">has_option</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">getsection</span><span class="p">(),</span>
+                                     <span class="s1">&#39;copy_ignore_eval&#39;</span><span class="p">):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">copy_ignore_eval</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">localeval</span><span class="o">.</span><span class="n">eval</span><span class="p">(</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">getconf</span><span class="p">(</span><span class="s1">&#39;copy_ignore_eval&#39;</span><span class="p">))</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">copy_ignore_eval</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="bp">None</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">copy_ignore_eval</span><span class="p">(</span><span class="n">foldername</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">getholdconnectionopen</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">getidlefolders</span><span class="p">():</span>
+            <span class="k">return</span> <span class="bp">True</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">getconfboolean</span><span class="p">(</span><span class="s2">&quot;holdconnectionopen&quot;</span><span class="p">,</span> <span class="bp">False</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">getkeepalive</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">num</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">getconfint</span><span class="p">(</span><span class="s2">&quot;keepalive&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">num</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">getidlefolders</span><span class="p">():</span>
+            <span class="k">return</span> <span class="mi">29</span><span class="o">*</span><span class="mi">60</span>
+        <span class="k">return</span> <span class="n">num</span>
+
+    <span class="k">def</span> <span class="nf">getsep</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Return the folder separator for the IMAP repository</span>
+
+<span class="sd">        This requires that self.imapserver has been initialized with an</span>
+<span class="sd">        acquireconnection() or it will still be `None`&quot;&quot;&quot;</span>
+        <span class="k">assert</span> <span class="bp">self</span><span class="o">.</span><span class="n">imapserver</span><span class="o">.</span><span class="n">delim</span> <span class="o">!=</span> <span class="bp">None</span><span class="p">,</span> <span class="s2">&quot;&#39;</span><span class="si">%s</span><span class="s2">&#39; &quot;</span> \
+            <span class="s2">&quot;repository called getsep() before the folder separator was &quot;</span> \
+            <span class="s2">&quot;queried from the server&quot;</span><span class="o">%</span> <span class="bp">self</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">imapserver</span><span class="o">.</span><span class="n">delim</span>
+
+    <span class="k">def</span> <span class="nf">gethost</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Return the configured hostname to connect to</span>
+
+<span class="sd">        :returns: hostname as string or throws Exception&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_host</span><span class="p">:</span>  <span class="c1"># Use cached value if possible.</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_host</span>
+
+        <span class="c1"># 1) Check for remotehosteval setting.</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">has_option</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">getsection</span><span class="p">(),</span> <span class="s1">&#39;remotehosteval&#39;</span><span class="p">):</span>
+            <span class="n">host</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">getconf</span><span class="p">(</span><span class="s1">&#39;remotehosteval&#39;</span><span class="p">)</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">host</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">localeval</span><span class="o">.</span><span class="n">eval</span><span class="p">(</span><span class="n">host</span><span class="p">)</span>
+            <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+                <span class="n">six</span><span class="o">.</span><span class="n">reraise</span><span class="p">(</span><span class="n">OfflineImapError</span><span class="p">,</span>
+                            <span class="n">OfflineImapError</span><span class="p">(</span>
+                                <span class="s2">&quot;remotehosteval option for repository &quot;</span>
+                                <span class="s2">&quot;&#39;</span><span class="si">%s</span><span class="s2">&#39; failed:</span><span class="se">\n</span><span class="si">%s</span><span class="s2">&quot;</span><span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">e</span><span class="p">),</span>
+                                <span class="n">OfflineImapError</span><span class="o">.</span><span class="n">ERROR</span><span class="o">.</span><span class="n">REPO</span><span class="p">),</span>
+                            <span class="n">exc_info</span><span class="p">()[</span><span class="mi">2</span><span class="p">])</span>
+            <span class="k">if</span> <span class="n">host</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_host</span> <span class="o">=</span> <span class="n">host</span>
+                <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_host</span>
+        <span class="c1"># 2) Check for plain remotehost setting.</span>
+        <span class="n">host</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">getconf</span><span class="p">(</span><span class="s1">&#39;remotehost&#39;</span><span class="p">,</span> <span class="bp">None</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">host</span> <span class="o">!=</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_host</span> <span class="o">=</span> <span class="n">host</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_host</span>
+
+        <span class="c1"># No success.</span>
+        <span class="k">raise</span> <span class="n">OfflineImapError</span><span class="p">(</span><span class="s2">&quot;No remote host for repository &quot;</span>
+            <span class="s2">&quot;&#39;</span><span class="si">%s</span><span class="s2">&#39; specified.&quot;</span><span class="o">%</span> <span class="bp">self</span><span class="p">,</span> <span class="n">OfflineImapError</span><span class="o">.</span><span class="n">ERROR</span><span class="o">.</span><span class="n">REPO</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">get_remote_identity</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Remote identity is used for certain SASL mechanisms</span>
+<span class="sd">        (currently -- PLAIN) to inform server about the ID</span>
+<span class="sd">        we want to authorize as instead of our login name.&quot;&quot;&quot;</span>
+
+        <span class="n">identity</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">getconf</span><span class="p">(</span><span class="s1">&#39;remote_identity&#39;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="bp">None</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">identity</span> <span class="o">!=</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="n">identity</span> <span class="o">=</span> <span class="n">identity</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s1">&#39;UTF-8&#39;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">identity</span>
+
+    <span class="k">def</span> <span class="nf">get_auth_mechanisms</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">supported</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;GSSAPI&quot;</span><span class="p">,</span> <span class="s2">&quot;XOAUTH2&quot;</span><span class="p">,</span> <span class="s2">&quot;CRAM-MD5&quot;</span><span class="p">,</span> <span class="s2">&quot;PLAIN&quot;</span><span class="p">,</span> <span class="s2">&quot;LOGIN&quot;</span><span class="p">]</span>
+        <span class="c1"># Mechanisms are ranged from the strongest to the</span>
+        <span class="c1"># weakest ones.</span>
+        <span class="c1"># TODO: we need DIGEST-MD5, it must come before CRAM-MD5</span>
+        <span class="c1"># due to the chosen-plaintext resistance.</span>
+        <span class="n">default</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;GSSAPI&quot;</span><span class="p">,</span> <span class="s2">&quot;XOAUTH2&quot;</span><span class="p">,</span> <span class="s2">&quot;CRAM-MD5&quot;</span><span class="p">,</span> <span class="s2">&quot;PLAIN&quot;</span><span class="p">,</span> <span class="s2">&quot;LOGIN&quot;</span><span class="p">]</span>
+
+        <span class="n">mechs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">getconflist</span><span class="p">(</span><span class="s1">&#39;auth_mechanisms&#39;</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;,\s*&#39;</span><span class="p">,</span>
+          <span class="n">default</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="n">mechs</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">m</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">supported</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="n">OfflineImapError</span><span class="p">(</span><span class="s2">&quot;Repository </span><span class="si">%s</span><span class="s2">: &quot;</span><span class="o">%</span> <span class="bp">self</span> <span class="o">+</span> \
+                  <span class="s2">&quot;unknown authentication mechanism &#39;</span><span class="si">%s</span><span class="s2">&#39;&quot;</span><span class="o">%</span> <span class="n">m</span><span class="p">,</span>
+                  <span class="n">OfflineImapError</span><span class="o">.</span><span class="n">ERROR</span><span class="o">.</span><span class="n">REPO</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s1">&#39;imap&#39;</span><span class="p">,</span> <span class="s2">&quot;Using authentication mechanisms </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">mechs</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">mechs</span>
+
+    <span class="k">def</span> <span class="nf">getuser</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">user</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="n">localeval</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">localeval</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">has_option</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">getsection</span><span class="p">(),</span> <span class="s1">&#39;remoteusereval&#39;</span><span class="p">):</span>
+            <span class="n">user</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">getconf</span><span class="p">(</span><span class="s1">&#39;remoteusereval&#39;</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">user</span> <span class="o">!=</span> <span class="bp">None</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">localeval</span><span class="o">.</span><span class="n">eval</span><span class="p">(</span><span class="n">user</span><span class="p">)</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s1">&#39;UTF-8&#39;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">has_option</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">getsection</span><span class="p">(),</span> <span class="s1">&#39;remoteuser&#39;</span><span class="p">):</span>
+            <span class="c1"># Assume the configuration file to be UTF-8 encoded so we must not</span>
+            <span class="c1"># encode this string again.</span>
+            <span class="n">user</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">getconf</span><span class="p">(</span><span class="s1">&#39;remoteuser&#39;</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">user</span> <span class="o">!=</span> <span class="bp">None</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">user</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">netrcentry</span> <span class="o">=</span> <span class="n">netrc</span><span class="o">.</span><span class="n">netrc</span><span class="p">()</span><span class="o">.</span><span class="n">authenticators</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">gethost</span><span class="p">())</span>
+        <span class="k">except</span> <span class="ne">IOError</span> <span class="k">as</span> <span class="n">inst</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">inst</span><span class="o">.</span><span class="n">errno</span> <span class="o">!=</span> <span class="n">errno</span><span class="o">.</span><span class="n">ENOENT</span><span class="p">:</span>
+                <span class="k">raise</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">netrcentry</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">netrcentry</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">netrcentry</span> <span class="o">=</span> <span class="n">netrc</span><span class="o">.</span><span class="n">netrc</span><span class="p">(</span><span class="s1">&#39;/etc/netrc&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">authenticators</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">gethost</span><span class="p">())</span>
+        <span class="k">except</span> <span class="ne">IOError</span> <span class="k">as</span> <span class="n">inst</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">inst</span><span class="o">.</span><span class="n">errno</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">(</span><span class="n">errno</span><span class="o">.</span><span class="n">ENOENT</span><span class="p">,</span> <span class="n">errno</span><span class="o">.</span><span class="n">EACCES</span><span class="p">):</span>
+                <span class="k">raise</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">netrcentry</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">netrcentry</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+    <span class="k">def</span> <span class="nf">getport</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">port</span> <span class="o">=</span> <span class="bp">None</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">has_option</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">getsection</span><span class="p">(),</span> <span class="s1">&#39;remoteporteval&#39;</span><span class="p">):</span>
+            <span class="n">port</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">getconf</span><span class="p">(</span><span class="s1">&#39;remoteporteval&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">port</span> <span class="o">!=</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">localeval</span><span class="o">.</span><span class="n">eval</span><span class="p">(</span><span class="n">port</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">getconfint</span><span class="p">(</span><span class="s1">&#39;remoteport&#39;</span><span class="p">,</span> <span class="bp">None</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">getipv6</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">getconfboolean</span><span class="p">(</span><span class="s1">&#39;ipv6&#39;</span><span class="p">,</span> <span class="bp">None</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">getssl</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">getconfboolean</span><span class="p">(</span><span class="s1">&#39;ssl&#39;</span><span class="p">,</span> <span class="bp">True</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">getsslclientcert</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">xforms</span> <span class="o">=</span> <span class="p">[</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">expanduser</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">expandvars</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">]</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">getconf_xform</span><span class="p">(</span><span class="s1">&#39;sslclientcert&#39;</span><span class="p">,</span> <span class="n">xforms</span><span class="p">,</span> <span class="bp">None</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">getsslclientkey</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">xforms</span> <span class="o">=</span> <span class="p">[</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">expanduser</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">expandvars</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">]</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">getconf_xform</span><span class="p">(</span><span class="s1">&#39;sslclientkey&#39;</span><span class="p">,</span> <span class="n">xforms</span><span class="p">,</span> <span class="bp">None</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">getsslcacertfile</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Determines CA bundle.</span>
+
+<span class="sd">        Returns path to the CA bundle.  It is either explicitely specified</span>
+<span class="sd">        or requested via &quot;OS-DEFAULT&quot; value (and we will search known</span>
+<span class="sd">        locations for the current OS and distribution).</span>
+
+<span class="sd">        If search via &quot;OS-DEFAULT&quot; route yields nothing, we will throw an</span>
+<span class="sd">        exception to make our callers distinguish between not specified</span>
+<span class="sd">        value and non-existent default CA bundle.</span>
+
+<span class="sd">        It is also an error to specify non-existent file via configuration:</span>
+<span class="sd">        it will error out later, but, perhaps, with less verbose explanation,</span>
+<span class="sd">        so we will also throw an exception.  It is consistent with</span>
+<span class="sd">        the above behaviour, so any explicitely-requested configuration</span>
+<span class="sd">        that doesn&#39;t result in an existing file will give an exception.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">xforms</span> <span class="o">=</span> <span class="p">[</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">expanduser</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">expandvars</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">]</span>
+        <span class="n">cacertfile</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">getconf_xform</span><span class="p">(</span><span class="s1">&#39;sslcacertfile&#39;</span><span class="p">,</span> <span class="n">xforms</span><span class="p">,</span> <span class="bp">None</span><span class="p">)</span>
+        <span class="c1"># Can&#39;t use above cacertfile because of abspath.</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">getconf</span><span class="p">(</span><span class="s1">&#39;sslcacertfile&#39;</span><span class="p">,</span> <span class="bp">None</span><span class="p">)</span> <span class="o">==</span> <span class="s2">&quot;OS-DEFAULT&quot;</span><span class="p">:</span>
+            <span class="n">cacertfile</span> <span class="o">=</span> <span class="n">get_os_sslcertfile</span><span class="p">()</span>
+            <span class="k">if</span> <span class="n">cacertfile</span> <span class="o">==</span> <span class="bp">None</span><span class="p">:</span>
+                <span class="n">searchpath</span> <span class="o">=</span> <span class="n">get_os_sslcertfile_searchpath</span><span class="p">()</span>
+                <span class="k">if</span> <span class="n">searchpath</span><span class="p">:</span>
+                    <span class="n">reason</span> <span class="o">=</span> <span class="s2">&quot;Default CA bundle was requested, &quot;</span>\
+                             <span class="s2">&quot;but no existing locations available.  &quot;</span>\
+                             <span class="s2">&quot;Tried </span><span class="si">%s</span><span class="s2">.&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="s2">&quot;, &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">searchpath</span><span class="p">))</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">reason</span> <span class="o">=</span> <span class="s2">&quot;Default CA bundle was requested, &quot;</span>\
+                             <span class="s2">&quot;but OfflineIMAP doesn&#39;t know any for your &quot;</span>\
+                             <span class="s2">&quot;current operating system.&quot;</span>
+                <span class="k">raise</span> <span class="n">OfflineImapError</span><span class="p">(</span><span class="n">reason</span><span class="p">,</span> <span class="n">OfflineImapError</span><span class="o">.</span><span class="n">ERROR</span><span class="o">.</span><span class="n">REPO</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">cacertfile</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">None</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">cacertfile</span><span class="p">):</span>
+            <span class="n">reason</span> <span class="o">=</span> <span class="s2">&quot;CA certfile for repository &#39;</span><span class="si">%s</span><span class="s2">&#39; couldn&#39;t be found.  &quot;</span>\
+                     <span class="s2">&quot;No such file: &#39;</span><span class="si">%s</span><span class="s2">&#39;&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">cacertfile</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="n">OfflineImapError</span><span class="p">(</span><span class="n">reason</span><span class="p">,</span> <span class="n">OfflineImapError</span><span class="o">.</span><span class="n">ERROR</span><span class="o">.</span><span class="n">REPO</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">cacertfile</span>
+
+    <span class="k">def</span> <span class="nf">gettlslevel</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">getconf</span><span class="p">(</span><span class="s1">&#39;tls_level&#39;</span><span class="p">,</span> <span class="s1">&#39;tls_compat&#39;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">getsslversion</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">getconf</span><span class="p">(</span><span class="s1">&#39;ssl_version&#39;</span><span class="p">,</span> <span class="bp">None</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">getstarttls</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">getconfboolean</span><span class="p">(</span><span class="s1">&#39;starttls&#39;</span><span class="p">,</span> <span class="bp">True</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">get_ssl_fingerprint</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Return array of possible certificate fingerprints.</span>
+
+<span class="sd">        Configuration item cert_fingerprint can contain multiple</span>
+<span class="sd">        comma-separated fingerprints in hex form.&quot;&quot;&quot;</span>
+
+        <span class="n">value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">getconf</span><span class="p">(</span><span class="s1">&#39;cert_fingerprint&#39;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="p">[</span><span class="n">f</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;:&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span> <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">value</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">)</span> <span class="k">if</span> <span class="n">f</span><span class="p">]</span>
+
+    <span class="k">def</span> <span class="nf">setoauth2_request_url</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">url</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">oauth2_request_url</span> <span class="o">=</span> <span class="n">url</span>
+
+    <span class="k">def</span> <span class="nf">getoauth2_request_url</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">oauth2_request_url</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span> <span class="c1"># Use cached value if possible.</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">oauth2_request_url</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">setoauth2_request_url</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">getconf</span><span class="p">(</span><span class="s1">&#39;oauth2_request_url&#39;</span><span class="p">,</span> <span class="bp">None</span><span class="p">))</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">oauth2_request_url</span>
+
+    <span class="k">def</span> <span class="nf">getoauth2_refresh_token</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">refresh_token</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">getconf</span><span class="p">(</span><span class="s1">&#39;oauth2_refresh_token&#39;</span><span class="p">,</span> <span class="bp">None</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">refresh_token</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="n">refresh_token</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">localeval</span><span class="o">.</span><span class="n">eval</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">getconf</span><span class="p">(</span><span class="s1">&#39;oauth2_refresh_token_eval&#39;</span><span class="p">,</span> <span class="s2">&quot;None&quot;</span><span class="p">)</span>
+            <span class="p">)</span>
+            <span class="k">if</span> <span class="n">refresh_token</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+                <span class="n">refresh_token</span> <span class="o">=</span> <span class="n">refresh_token</span><span class="o">.</span><span class="n">strip</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">refresh_token</span>
+
+    <span class="k">def</span> <span class="nf">getoauth2_access_token</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">access_token</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">getconf</span><span class="p">(</span><span class="s1">&#39;oauth2_access_token&#39;</span><span class="p">,</span> <span class="bp">None</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">access_token</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="n">access_token</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">localeval</span><span class="o">.</span><span class="n">eval</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">getconf</span><span class="p">(</span><span class="s1">&#39;oauth2_access_token_eval&#39;</span><span class="p">,</span> <span class="s2">&quot;None&quot;</span><span class="p">)</span>
+            <span class="p">)</span>
+            <span class="k">if</span> <span class="n">access_token</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+                <span class="n">access_token</span> <span class="o">=</span> <span class="n">access_token</span><span class="o">.</span><span class="n">strip</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">access_token</span>
+
+    <span class="k">def</span> <span class="nf">getoauth2_client_id</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">client_id</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">getconf</span><span class="p">(</span><span class="s1">&#39;oauth2_client_id&#39;</span><span class="p">,</span> <span class="bp">None</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">client_id</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="n">client_id</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">localeval</span><span class="o">.</span><span class="n">eval</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">getconf</span><span class="p">(</span><span class="s1">&#39;oauth2_client_id_eval&#39;</span><span class="p">,</span> <span class="s2">&quot;None&quot;</span><span class="p">)</span>
+            <span class="p">)</span>
+            <span class="k">if</span> <span class="n">client_id</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+                <span class="n">client_id</span> <span class="o">=</span> <span class="n">client_id</span><span class="o">.</span><span class="n">strip</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">client_id</span>
+
+    <span class="k">def</span> <span class="nf">getoauth2_client_secret</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">client_secret</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">getconf</span><span class="p">(</span><span class="s1">&#39;oauth2_client_secret&#39;</span><span class="p">,</span> <span class="bp">None</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">client_secret</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="n">client_secret</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">localeval</span><span class="o">.</span><span class="n">eval</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">getconf</span><span class="p">(</span><span class="s1">&#39;oauth2_client_secret_eval&#39;</span><span class="p">,</span> <span class="s2">&quot;None&quot;</span><span class="p">)</span>
+            <span class="p">)</span>
+            <span class="k">if</span> <span class="n">client_secret</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+                <span class="n">client_secret</span> <span class="o">=</span> <span class="n">client_secret</span><span class="o">.</span><span class="n">strip</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">client_secret</span>
+
+    <span class="k">def</span> <span class="nf">getpreauthtunnel</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">getconf</span><span class="p">(</span><span class="s1">&#39;preauthtunnel&#39;</span><span class="p">,</span> <span class="bp">None</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">gettransporttunnel</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">getconf</span><span class="p">(</span><span class="s1">&#39;transporttunnel&#39;</span><span class="p">,</span> <span class="bp">None</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">getreference</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">getconf</span><span class="p">(</span><span class="s1">&#39;reference&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">getdecodefoldernames</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">getconfboolean</span><span class="p">(</span><span class="s1">&#39;decodefoldernames&#39;</span><span class="p">,</span> <span class="bp">False</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">getidlefolders</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">idlefolders</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">idlefolders</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">localeval</span><span class="o">.</span><span class="n">eval</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">getconf</span><span class="p">(</span><span class="s1">&#39;idlefolders&#39;</span><span class="p">,</span> <span class="s1">&#39;[]&#39;</span><span class="p">)</span>
+            <span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">idlefolders</span>
+
+    <span class="k">def</span> <span class="nf">getmaxconnections</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">num1</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">getidlefolders</span><span class="p">())</span>
+        <span class="n">num2</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">getconfint</span><span class="p">(</span><span class="s1">&#39;maxconnections&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="k">return</span> <span class="nb">max</span><span class="p">(</span><span class="n">num1</span><span class="p">,</span> <span class="n">num2</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">getexpunge</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">getconfboolean</span><span class="p">(</span><span class="s1">&#39;expunge&#39;</span><span class="p">,</span> <span class="bp">True</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">getpassword</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Return the IMAP password for this repository.</span>
+
+<span class="sd">        It tries to get passwords in the following order:</span>
+
+<span class="sd">        1. evaluate Repository &#39;remotepasseval&#39;</span>
+<span class="sd">        2. read password from Repository &#39;remotepass&#39;</span>
+<span class="sd">        3. read password from file specified in Repository &#39;remotepassfile&#39;</span>
+<span class="sd">        4. read password from ~/.netrc</span>
+<span class="sd">        5. read password from /etc/netrc</span>
+
+<span class="sd">        On success we return the password.</span>
+<span class="sd">        If all strategies fail we return None.&quot;&quot;&quot;</span>
+
+        <span class="c1"># 1. Evaluate Repository &#39;remotepasseval&#39;.</span>
+        <span class="n">passwd</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">getconf</span><span class="p">(</span><span class="s1">&#39;remotepasseval&#39;</span><span class="p">,</span> <span class="bp">None</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">passwd</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">localeval</span><span class="o">.</span><span class="n">eval</span><span class="p">(</span><span class="n">passwd</span><span class="p">)</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s1">&#39;UTF-8&#39;</span><span class="p">)</span>
+        <span class="c1"># 2. Read password from Repository &#39;remotepass&#39;.</span>
+        <span class="n">password</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">getconf</span><span class="p">(</span><span class="s1">&#39;remotepass&#39;</span><span class="p">,</span> <span class="bp">None</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">password</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="c1"># Assume the configuration file to be UTF-8 encoded so we must not</span>
+            <span class="c1"># encode this string again.</span>
+            <span class="k">return</span> <span class="n">password</span>
+        <span class="c1"># 3. Read password from file specified in Repository &#39;remotepassfile&#39;.</span>
+        <span class="n">passfile</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">getconf</span><span class="p">(</span><span class="s1">&#39;remotepassfile&#39;</span><span class="p">,</span> <span class="bp">None</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">passfile</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="n">fd</span> <span class="o">=</span> <span class="n">codecs</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">expanduser</span><span class="p">(</span><span class="n">passfile</span><span class="p">),</span> <span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="s1">&#39;UTF-8&#39;</span><span class="p">)</span>
+            <span class="n">password</span> <span class="o">=</span> <span class="n">fd</span><span class="o">.</span><span class="n">readline</span><span class="p">()</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+            <span class="n">fd</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+            <span class="k">return</span> <span class="n">password</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s1">&#39;UTF-8&#39;</span><span class="p">)</span>
+        <span class="c1"># 4. Read password from ~/.netrc.</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">netrcentry</span> <span class="o">=</span> <span class="n">netrc</span><span class="o">.</span><span class="n">netrc</span><span class="p">()</span><span class="o">.</span><span class="n">authenticators</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">gethost</span><span class="p">())</span>
+        <span class="k">except</span> <span class="ne">IOError</span> <span class="k">as</span> <span class="n">inst</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">inst</span><span class="o">.</span><span class="n">errno</span> <span class="o">!=</span> <span class="n">errno</span><span class="o">.</span><span class="n">ENOENT</span><span class="p">:</span>
+                <span class="k">raise</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">netrcentry</span><span class="p">:</span>
+                <span class="n">user</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">getuser</span><span class="p">()</span>
+                <span class="k">if</span> <span class="n">user</span> <span class="ow">is</span> <span class="bp">None</span> <span class="ow">or</span> <span class="n">user</span> <span class="o">==</span> <span class="n">netrcentry</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span>
+                    <span class="k">return</span> <span class="n">netrcentry</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+        <span class="c1"># 5. Read password from /etc/netrc.</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">netrcentry</span> <span class="o">=</span> <span class="n">netrc</span><span class="o">.</span><span class="n">netrc</span><span class="p">(</span><span class="s1">&#39;/etc/netrc&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">authenticators</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">gethost</span><span class="p">())</span>
+        <span class="k">except</span> <span class="ne">IOError</span> <span class="k">as</span> <span class="n">inst</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">inst</span><span class="o">.</span><span class="n">errno</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">(</span><span class="n">errno</span><span class="o">.</span><span class="n">ENOENT</span><span class="p">,</span> <span class="n">errno</span><span class="o">.</span><span class="n">EACCES</span><span class="p">):</span>
+                <span class="k">raise</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">netrcentry</span><span class="p">:</span>
+                <span class="n">user</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">getuser</span><span class="p">()</span>
+                <span class="k">if</span> <span class="n">user</span> <span class="ow">is</span> <span class="bp">None</span> <span class="ow">or</span> <span class="n">user</span> <span class="o">==</span> <span class="n">netrcentry</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span>
+                    <span class="k">return</span> <span class="n">netrcentry</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+        <span class="c1"># No strategy yielded a password!</span>
+        <span class="k">return</span> <span class="bp">None</span>
+
+    <span class="k">def</span> <span class="nf">getfolder</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">foldername</span><span class="p">,</span> <span class="n">decode</span><span class="o">=</span><span class="bp">True</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Return instance of OfflineIMAP representative folder.&quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">getfoldertype</span><span class="p">()(</span><span class="bp">self</span><span class="o">.</span><span class="n">imapserver</span><span class="p">,</span> <span class="n">foldername</span><span class="p">,</span> <span class="bp">self</span><span class="p">,</span> <span class="n">decode</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">getfoldertype</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">folder</span><span class="o">.</span><span class="n">IMAP</span><span class="o">.</span><span class="n">IMAPFolder</span>
+
+    <span class="k">def</span> <span class="nf">connect</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">imapobj</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">imapserver</span><span class="o">.</span><span class="n">acquireconnection</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">imapserver</span><span class="o">.</span><span class="n">releaseconnection</span><span class="p">(</span><span class="n">imapobj</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">forgetfolders</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">folders</span> <span class="o">=</span> <span class="bp">None</span>
+
+    <span class="k">def</span> <span class="nf">getfolders</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Return a list of instances of OfflineIMAP representative folder.&quot;&quot;&quot;</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">folders</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">folders</span>
+        <span class="n">retval</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">imapobj</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">imapserver</span><span class="o">.</span><span class="n">acquireconnection</span><span class="p">()</span>
+        <span class="c1"># check whether to list all folders, or subscribed only</span>
+        <span class="n">listfunction</span> <span class="o">=</span> <span class="n">imapobj</span><span class="o">.</span><span class="n">list</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">getconfboolean</span><span class="p">(</span><span class="s1">&#39;subscribedonly&#39;</span><span class="p">,</span> <span class="bp">False</span><span class="p">):</span>
+            <span class="n">listfunction</span> <span class="o">=</span> <span class="n">imapobj</span><span class="o">.</span><span class="n">lsub</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">result</span><span class="p">,</span> <span class="n">listresult</span> <span class="o">=</span> <span class="n">listfunction</span><span class="p">(</span><span class="n">directory</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">imapserver</span><span class="o">.</span><span class="n">reference</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">result</span> <span class="o">!=</span> <span class="s1">&#39;OK&#39;</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="n">OfflineImapError</span><span class="p">(</span><span class="s2">&quot;Could not list the folders for&quot;</span>
+                        <span class="s2">&quot; repository </span><span class="si">%s</span><span class="s2">. Server responded: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="o">%</span>
+                        <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="bp">self</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">listresult</span><span class="p">)),</span>
+                    <span class="n">OfflineImapError</span><span class="o">.</span><span class="n">ERROR</span><span class="o">.</span><span class="n">FOLDER</span><span class="p">)</span>
+        <span class="k">finally</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">imapserver</span><span class="o">.</span><span class="n">releaseconnection</span><span class="p">(</span><span class="n">imapobj</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">listresult</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">s</span> <span class="o">==</span> <span class="bp">None</span> <span class="ow">or</span> \
+                   <span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span> <span class="ow">and</span> <span class="n">s</span> <span class="o">==</span> <span class="s1">&#39;&#39;</span><span class="p">):</span>
+                <span class="c1"># Bug in imaplib: empty strings in results from</span>
+                <span class="c1"># literals. TODO: still relevant?</span>
+                <span class="k">continue</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">flags</span><span class="p">,</span> <span class="n">delim</span><span class="p">,</span> <span class="n">name</span> <span class="o">=</span> <span class="n">imaputil</span><span class="o">.</span><span class="n">imapsplit</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+            <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">error</span><span class="p">(</span>
+                    <span class="s2">&quot;could not correctly parse server response; got: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="o">%</span> <span class="n">s</span><span class="p">)</span>
+                <span class="k">raise</span>
+            <span class="n">flaglist</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">imaputil</span><span class="o">.</span><span class="n">flagsplit</span><span class="p">(</span><span class="n">flags</span><span class="p">)]</span>
+            <span class="k">if</span> <span class="s1">&#39;</span><span class="se">\\</span><span class="s1">noselect&#39;</span> <span class="ow">in</span> <span class="n">flaglist</span><span class="p">:</span>
+                <span class="k">continue</span>
+            <span class="n">retval</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">getfoldertype</span><span class="p">()(</span><span class="bp">self</span><span class="o">.</span><span class="n">imapserver</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span>
+                                               <span class="bp">self</span><span class="p">))</span>
+        <span class="c1"># Add all folderincludes</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">folderincludes</span><span class="p">):</span>
+            <span class="n">imapobj</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">imapserver</span><span class="o">.</span><span class="n">acquireconnection</span><span class="p">()</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="k">for</span> <span class="n">foldername</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">folderincludes</span><span class="p">:</span>
+                    <span class="k">try</span><span class="p">:</span>
+                        <span class="n">imapobj</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">imaputil</span><span class="o">.</span><span class="n">utf8_IMAP</span><span class="p">(</span><span class="n">foldername</span><span class="p">),</span> <span class="n">readonly</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+                    <span class="k">except</span> <span class="n">OfflineImapError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+                        <span class="c1"># couldn&#39;t select this folderinclude, so ignore folder.</span>
+                        <span class="k">if</span> <span class="n">e</span><span class="o">.</span><span class="n">severity</span> <span class="o">&gt;</span> <span class="n">OfflineImapError</span><span class="o">.</span><span class="n">ERROR</span><span class="o">.</span><span class="n">FOLDER</span><span class="p">:</span>
+                            <span class="k">raise</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="n">e</span><span class="p">,</span> <span class="n">exc_info</span><span class="p">()[</span><span class="mi">2</span><span class="p">],</span>
+                                      <span class="s1">&#39;Invalid folderinclude:&#39;</span><span class="p">)</span>
+                        <span class="k">continue</span>
+                    <span class="n">retval</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">getfoldertype</span><span class="p">()(</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">imapserver</span><span class="p">,</span> <span class="n">foldername</span><span class="p">,</span> <span class="bp">self</span><span class="p">,</span> <span class="n">decode</span><span class="o">=</span><span class="bp">False</span><span class="p">))</span>
+            <span class="k">finally</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">imapserver</span><span class="o">.</span><span class="n">releaseconnection</span><span class="p">(</span><span class="n">imapobj</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">foldersort</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="c1"># default sorting by case insensitive transposed name</span>
+            <span class="n">retval</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="nb">str</span><span class="o">.</span><span class="n">lower</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">getvisiblename</span><span class="p">()))</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># do foldersort in a python3-compatible way</span>
+            <span class="c1"># http://bytes.com/topic/python/answers/844614-python-3-sorting-comparison-function</span>
+            <span class="k">def</span> <span class="nf">cmp2key</span><span class="p">(</span><span class="n">mycmp</span><span class="p">):</span>
+                <span class="sd">&quot;&quot;&quot;Converts a cmp= function into a key= function</span>
+<span class="sd">                We need to keep cmp functions for backward compatibility&quot;&quot;&quot;</span>
+                <span class="k">class</span> <span class="nc">K</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+                    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">obj</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">obj</span> <span class="o">=</span> <span class="n">obj</span>
+                    <span class="k">def</span> <span class="fm">__cmp__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+                        <span class="k">return</span> <span class="n">mycmp</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">obj</span><span class="o">.</span><span class="n">getvisiblename</span><span class="p">(),</span> <span class="n">other</span><span class="o">.</span><span class="n">obj</span><span class="o">.</span><span class="n">getvisiblename</span><span class="p">())</span>
+                <span class="k">return</span> <span class="n">K</span>
+            <span class="n">retval</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">key</span><span class="o">=</span><span class="n">cmp2key</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">foldersort</span><span class="p">))</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">folders</span> <span class="o">=</span> <span class="n">retval</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">folders</span>
+
+    <span class="k">def</span> <span class="nf">deletefolder</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">foldername</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Delete a folder on the IMAP server.&quot;&quot;&quot;</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">account</span><span class="o">.</span><span class="n">utf_8_support</span><span class="p">:</span>
+            <span class="n">foldername</span> <span class="o">=</span> <span class="n">imaputil</span><span class="o">.</span><span class="n">utf8_IMAP</span><span class="p">(</span><span class="n">foldername</span><span class="p">)</span>
+        <span class="n">imapobj</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">imapserver</span><span class="o">.</span><span class="n">acquireconnection</span><span class="p">()</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="n">imapobj</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="n">foldername</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">result</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">!=</span> <span class="s1">&#39;OK&#39;</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="n">OfflineImapError</span><span class="p">(</span><span class="s2">&quot;Folder &#39;</span><span class="si">%s</span><span class="s2">&#39;[</span><span class="si">%s</span><span class="s2">] could not be deleted. &quot;</span>
+                    <span class="s2">&quot;Server responded: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="o">%</span> <span class="p">(</span><span class="n">foldername</span><span class="p">,</span> <span class="bp">self</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">result</span><span class="p">)),</span>
+                    <span class="n">OfflineImapError</span><span class="o">.</span><span class="n">ERROR</span><span class="o">.</span><span class="n">FOLDER</span><span class="p">)</span>
+        <span class="k">finally</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">imapserver</span><span class="o">.</span><span class="n">releaseconnection</span><span class="p">(</span><span class="n">imapobj</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">makefolder</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">foldername</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Create a folder on the IMAP server</span>
+
+<span class="sd">        This will not update the list cached in :meth:`getfolders`. You</span>
+<span class="sd">        will need to invoke :meth:`forgetfolders` to force new caching</span>
+<span class="sd">        when you are done creating folders yourself.</span>
+
+<span class="sd">        :param foldername: Full path of the folder to be created.&quot;&quot;&quot;</span>
+
+        <span class="k">if</span> <span class="n">foldername</span> <span class="ow">is</span> <span class="s1">&#39;&#39;</span><span class="p">:</span>
+            <span class="k">return</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">getreference</span><span class="p">():</span>
+            <span class="n">foldername</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">getreference</span><span class="p">()</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">getsep</span><span class="p">()</span> <span class="o">+</span> <span class="n">foldername</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">foldername</span><span class="p">:</span> <span class="c1"># Create top level folder as folder separator.</span>
+            <span class="n">foldername</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">getsep</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">makefolder</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">foldername</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">account</span><span class="o">.</span><span class="n">dryrun</span><span class="p">:</span>
+            <span class="k">return</span>
+        <span class="n">imapobj</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">imapserver</span><span class="o">.</span><span class="n">acquireconnection</span><span class="p">()</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">account</span><span class="o">.</span><span class="n">utf_8_support</span><span class="p">:</span>
+                <span class="n">foldername</span> <span class="o">=</span> <span class="n">imaputil</span><span class="o">.</span><span class="n">utf8_IMAP</span><span class="p">(</span><span class="n">foldername</span><span class="p">)</span>
+
+            <span class="n">result</span> <span class="o">=</span> <span class="n">imapobj</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="n">foldername</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">result</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">!=</span> <span class="s1">&#39;OK&#39;</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="n">OfflineImapError</span><span class="p">(</span><span class="s2">&quot;Folder &#39;</span><span class="si">%s</span><span class="s2">&#39;[</span><span class="si">%s</span><span class="s2">] could not be created. &quot;</span>
+                    <span class="s2">&quot;Server responded: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="o">%</span> <span class="p">(</span><span class="n">foldername</span><span class="p">,</span> <span class="bp">self</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">result</span><span class="p">)),</span>
+                    <span class="n">OfflineImapError</span><span class="o">.</span><span class="n">ERROR</span><span class="o">.</span><span class="n">FOLDER</span><span class="p">)</span>
+        <span class="k">finally</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">imapserver</span><span class="o">.</span><span class="n">releaseconnection</span><span class="p">(</span><span class="n">imapobj</span><span class="p">)</span>
+</div>
+<div class="viewcode-block" id="MappedIMAPRepository"><a class="viewcode-back" href="../../../repository.html#offlineimap.repository.MappedIMAPRepository">[docs]</a><span class="k">class</span> <span class="nc">MappedIMAPRepository</span><span class="p">(</span><span class="n">IMAPRepository</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">getfoldertype</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">folder</span><span class="o">.</span><span class="n">UIDMaps</span><span class="o">.</span><span class="n">MappedIMAPFolder</span></div>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="nav-item nav-item-0"><a href="../../../index.html">OfflineIMAP 7.2.1 documentation</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="../../index.html" >Module code</a> &raquo;</li>
+          <li class="nav-item nav-item-2"><a href="../repository.html" >offlineimap.repository</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &copy; Copyright Copyright 2002-2018 John Goerzen &amp; contributors.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.1.
+    </div>
+  </body>
+</html>

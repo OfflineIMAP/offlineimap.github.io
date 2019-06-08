@@ -1,7 +1,7 @@
 #!/bin/sh
 
 JEKYLL_BIN=jekyll
-HOST=localhost
+HOST=0.0.0.0
 PORT=4000
 
 # Remove old cache.

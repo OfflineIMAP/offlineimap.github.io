@@ -25,7 +25,8 @@ They blogged about offlineimap. :-)
 
 ### mutt/neomutt
 
-- [mutt Email + OfflineIMAP and msmtp - See your email offline!](https://vid.me/QdUYM) (video)
+- [Mutt - The Mutt E-Mail Client](http://mutt.org/)
+- [NeoMutt - mutt Email + OfflineIMAP and msmtp - See your email offline!](https://neomutt.org/)
 
 ### emacs
 

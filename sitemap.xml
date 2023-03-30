@@ -1,315 +1,642 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset
+      xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
+            http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
+<!-- created with Free Online Sitemap Generator www.xml-sitemaps.com -->
+
+
 <url>
-<loc>https://www.offlineimap.org/</loc>
-<lastmod>2015-03-09T22:40:30+01:00</lastmod>
+  <loc>https://www.offlineimap.org/</loc>
+  <lastmod>2023-03-30T14:19:16+00:00</lastmod>
+  <priority>1.00</priority>
 </url>
 <url>
-<loc>https://www.offlineimap.org/news.html</loc>
-<lastmod>2018-04-09T17:13:14+02:00</lastmod>
+  <loc>https://www.offlineimap.org/about/</loc>
+  <lastmod>2023-03-30T14:19:16+00:00</lastmod>
+  <priority>0.80</priority>
 </url>
 <url>
-<loc>https://www.offlineimap.org/posts.html</loc>
-<lastmod>2016-02-16T21:52:06+01:00</lastmod>
+  <loc>https://www.offlineimap.org/documentation.html</loc>
+  <lastmod>2023-03-30T14:19:16+00:00</lastmod>
+  <priority>0.80</priority>
 </url>
 <url>
-<loc>https://www.offlineimap.org/_doc/offlineimap.html</loc>
-<lastmod>2019-12-15T23:51:39+01:00</lastmod>
+  <loc>https://www.offlineimap.org/gsoc/</loc>
+  <lastmod>2023-03-30T14:19:16+00:00</lastmod>
+  <priority>0.80</priority>
 </url>
 <url>
-<loc>https://www.offlineimap.org/_doc/offlineimapui.html</loc>
-<lastmod>2019-12-15T23:51:39+01:00</lastmod>
+  <loc>https://www.offlineimap.org/news.html</loc>
+  <lastmod>2023-03-30T14:19:16+00:00</lastmod>
+  <priority>0.80</priority>
 </url>
 <url>
-<loc>https://www.offlineimap.org/_includes/footer.html</loc>
-<lastmod>2016-02-20T14:28:41+01:00</lastmod>
+  <loc>https://www.offlineimap.org/posts.html</loc>
+  <lastmod>2023-03-30T14:19:16+00:00</lastmod>
+  <priority>0.80</priority>
 </url>
 <url>
-<loc>https://www.offlineimap.org/_includes/head.html</loc>
-<lastmod>2016-03-04T15:45:18+01:00</lastmod>
+  <loc>https://www.offlineimap.org/resources/</loc>
+  <lastmod>2023-03-30T14:19:16+00:00</lastmod>
+  <priority>0.80</priority>
 </url>
 <url>
-<loc>https://www.offlineimap.org/_includes/header.html</loc>
-<lastmod>2015-03-09T22:40:30+01:00</lastmod>
+  <loc>https://www.offlineimap.org/screenshots/</loc>
+  <lastmod>2023-03-30T14:19:16+00:00</lastmod>
+  <priority>0.80</priority>
 </url>
 <url>
-<loc>https://www.offlineimap.org/_layouts/default.html</loc>
-<lastmod>2015-03-09T22:40:30+01:00</lastmod>
+  <loc>https://www.offlineimap.org/sponsors/</loc>
+  <lastmod>2023-03-30T14:19:16+00:00</lastmod>
+  <priority>0.80</priority>
 </url>
 <url>
-<loc>https://www.offlineimap.org/_layouts/page.html</loc>
-<lastmod>2016-03-11T10:50:38+01:00</lastmod>
+  <loc>https://www.offlineimap.org/doc/FAQ.html</loc>
+  <lastmod>2023-03-30T14:19:16+00:00</lastmod>
+  <priority>0.64</priority>
 </url>
 <url>
-<loc>https://www.offlineimap.org/_layouts/post.html</loc>
-<lastmod>2016-06-28T18:33:12+02:00</lastmod>
+  <loc>https://www.offlineimap.org/doc/be-effective.html</loc>
+  <lastmod>2023-03-30T14:19:16+00:00</lastmod>
+  <priority>0.64</priority>
 </url>
 <url>
-<loc>https://www.offlineimap.org/_doc/versions/v7.0.14/</loc>
-<lastmod>2017-03-11T13:22:30+01:00</lastmod>
+  <loc>https://www.offlineimap.org/doc/installation.html</loc>
+  <lastmod>2023-03-30T14:19:16+00:00</lastmod>
+  <priority>0.64</priority>
 </url>
 <url>
-<loc>https://www.offlineimap.org/_doc/versions/v7.0.14/API.html</loc>
-<lastmod>2017-03-11T13:22:30+01:00</lastmod>
+  <loc>https://www.offlineimap.org/doc/quick_start.html</loc>
+  <lastmod>2023-03-30T14:19:16+00:00</lastmod>
+  <priority>0.64</priority>
 </url>
 <url>
-<loc>https://www.offlineimap.org/_doc/versions/v7.0.14/dco.html</loc>
-<lastmod>2017-03-11T13:22:30+01:00</lastmod>
+  <loc>https://www.offlineimap.org/doc/conf_examples.html</loc>
+  <lastmod>2023-03-30T14:19:16+00:00</lastmod>
+  <priority>0.64</priority>
 </url>
 <url>
-<loc>https://www.offlineimap.org/_doc/versions/v7.0.14/genindex.html</loc>
-<lastmod>2017-03-11T13:22:30+01:00</lastmod>
+  <loc>https://www.offlineimap.org/doc/offlineimap.html</loc>
+  <lastmod>2023-03-30T14:19:09+00:00</lastmod>
+  <priority>0.64</priority>
 </url>
 <url>
-<loc>https://www.offlineimap.org/_doc/versions/v7.0.14/repository.html</loc>
-<lastmod>2017-03-11T13:22:30+01:00</lastmod>
+  <loc>https://www.offlineimap.org/doc/offlineimapui.html</loc>
+  <lastmod>2023-03-30T14:19:09+00:00</lastmod>
+  <priority>0.64</priority>
 </url>
 <url>
-<loc>https://www.offlineimap.org/_doc/versions/v7.0.14/search.html</loc>
-<lastmod>2017-03-11T13:22:30+01:00</lastmod>
+  <loc>https://www.offlineimap.org/doc/backups.html</loc>
+  <lastmod>2023-03-30T14:19:16+00:00</lastmod>
+  <priority>0.64</priority>
 </url>
 <url>
-<loc>https://www.offlineimap.org/_doc/versions/v7.0.14/ui.html</loc>
-<lastmod>2017-03-11T13:22:30+01:00</lastmod>
+  <loc>https://www.offlineimap.org/doc/backups-restore.html</loc>
+  <lastmod>2023-03-30T14:19:16+00:00</lastmod>
+  <priority>0.64</priority>
 </url>
 <url>
-<loc>https://www.offlineimap.org/_doc/versions/v7.1.5/</loc>
-<lastmod>2018-01-13T13:55:38+01:00</lastmod>
+  <loc>https://www.offlineimap.org/doc/nametrans.html</loc>
+  <lastmod>2023-03-30T14:19:16+00:00</lastmod>
+  <priority>0.64</priority>
 </url>
 <url>
-<loc>https://www.offlineimap.org/_doc/versions/v7.1.5/API.html</loc>
-<lastmod>2018-01-13T13:55:38+01:00</lastmod>
+  <loc>https://www.offlineimap.org/doc/use_cases.html</loc>
+  <lastmod>2023-03-30T14:19:16+00:00</lastmod>
+  <priority>0.64</priority>
 </url>
 <url>
-<loc>https://www.offlineimap.org/_doc/versions/v7.1.5/dco.html</loc>
-<lastmod>2018-01-13T13:55:38+01:00</lastmod>
+  <loc>https://www.offlineimap.org/doc/ConfigurationFactorization.html</loc>
+  <lastmod>2023-03-30T14:19:16+00:00</lastmod>
+  <priority>0.64</priority>
 </url>
 <url>
-<loc>https://www.offlineimap.org/_doc/versions/v7.1.5/genindex.html</loc>
-<lastmod>2018-01-13T13:55:38+01:00</lastmod>
+  <loc>https://www.offlineimap.org/doc/tipsandtricks.html</loc>
+  <lastmod>2023-03-30T14:19:16+00:00</lastmod>
+  <priority>0.64</priority>
 </url>
 <url>
-<loc>https://www.offlineimap.org/_doc/versions/v7.1.5/repository.html</loc>
-<lastmod>2018-01-13T13:55:38+01:00</lastmod>
+  <loc>https://www.offlineimap.org/doc/contrib/systemd.html</loc>
+  <lastmod>2023-03-30T14:19:16+00:00</lastmod>
+  <priority>0.64</priority>
 </url>
 <url>
-<loc>https://www.offlineimap.org/_doc/versions/v7.1.5/search.html</loc>
-<lastmod>2018-01-13T13:55:38+01:00</lastmod>
+  <loc>https://www.offlineimap.org/doc/git-bisect.html</loc>
+  <lastmod>2023-03-30T14:19:16+00:00</lastmod>
+  <priority>0.64</priority>
 </url>
 <url>
-<loc>https://www.offlineimap.org/_doc/versions/v7.1.5/ui.html</loc>
-<lastmod>2018-01-13T13:55:38+01:00</lastmod>
+  <loc>https://www.offlineimap.org/doc/website-quick-start.html</loc>
+  <lastmod>2023-03-30T14:19:16+00:00</lastmod>
+  <priority>0.64</priority>
 </url>
 <url>
-<loc>https://www.offlineimap.org/_doc/versions/v7.2.4/</loc>
-<lastmod>2019-06-08T11:33:36+02:00</lastmod>
+  <loc>https://www.offlineimap.org/doc/contribute-wiki.html</loc>
+  <lastmod>2023-03-30T14:19:16+00:00</lastmod>
+  <priority>0.64</priority>
 </url>
 <url>
-<loc>https://www.offlineimap.org/_doc/versions/v7.2.4/API.html</loc>
-<lastmod>2019-06-08T11:33:36+02:00</lastmod>
+  <loc>https://www.offlineimap.org/doc/Testing.html</loc>
+  <lastmod>2023-03-30T14:19:16+00:00</lastmod>
+  <priority>0.64</priority>
 </url>
 <url>
-<loc>https://www.offlineimap.org/_doc/versions/v7.2.4/dco.html</loc>
-<lastmod>2019-06-08T11:33:36+02:00</lastmod>
+  <loc>https://www.offlineimap.org/doc/dco.html</loc>
+  <lastmod>2023-03-30T14:19:16+00:00</lastmod>
+  <priority>0.64</priority>
 </url>
 <url>
-<loc>https://www.offlineimap.org/_doc/versions/v7.2.4/genindex.html</loc>
-<lastmod>2019-06-08T11:33:36+02:00</lastmod>
+  <loc>https://www.offlineimap.org/doc/CodingGuidelines.html</loc>
+  <lastmod>2023-03-30T14:19:16+00:00</lastmod>
+  <priority>0.64</priority>
 </url>
 <url>
-<loc>https://www.offlineimap.org/_doc/versions/v7.2.4/py-modindex.html</loc>
-<lastmod>2019-06-08T11:33:36+02:00</lastmod>
+  <loc>https://www.offlineimap.org/doc/GitAdvanced.html</loc>
+  <lastmod>2023-03-30T14:19:16+00:00</lastmod>
+  <priority>0.64</priority>
 </url>
 <url>
-<loc>https://www.offlineimap.org/_doc/versions/v7.2.4/repository.html</loc>
-<lastmod>2019-06-08T11:33:36+02:00</lastmod>
+  <loc>https://www.offlineimap.org/doc/versions/v7.0.14/</loc>
+  <lastmod>2023-03-30T14:19:09+00:00</lastmod>
+  <priority>0.64</priority>
 </url>
 <url>
-<loc>https://www.offlineimap.org/_doc/versions/v7.2.4/search.html</loc>
-<lastmod>2019-06-08T11:33:36+02:00</lastmod>
+  <loc>https://www.offlineimap.org/doc/versions/v7.1.5/</loc>
+  <lastmod>2023-03-30T14:19:09+00:00</lastmod>
+  <priority>0.64</priority>
 </url>
 <url>
-<loc>https://www.offlineimap.org/_doc/versions/v7.2.4/ui.html</loc>
-<lastmod>2019-06-08T11:33:36+02:00</lastmod>
+  <loc>https://www.offlineimap.org/doc/versions/v7.2.4/</loc>
+  <lastmod>2023-03-30T14:19:09+00:00</lastmod>
+  <priority>0.64</priority>
 </url>
 <url>
-<loc>https://www.offlineimap.org/_doc/versions/v7.0.14/_modules/</loc>
-<lastmod>2017-03-11T13:22:30+01:00</lastmod>
+  <loc>https://www.offlineimap.org/doc/become-a-maintainer.html</loc>
+  <lastmod>2023-03-30T14:19:16+00:00</lastmod>
+  <priority>0.64</priority>
 </url>
 <url>
-<loc>https://www.offlineimap.org/_doc/versions/v7.1.5/_modules/</loc>
-<lastmod>2018-01-13T13:55:38+01:00</lastmod>
+  <loc>https://www.offlineimap.org/doc/make-new-release.html</loc>
+  <lastmod>2023-03-30T14:19:16+00:00</lastmod>
+  <priority>0.64</priority>
 </url>
 <url>
-<loc>https://www.offlineimap.org/_doc/versions/v7.2.4/_modules/</loc>
-<lastmod>2019-06-08T11:33:36+02:00</lastmod>
+  <loc>https://www.offlineimap.org/doc/maintain-website.html</loc>
+  <lastmod>2023-03-30T14:19:16+00:00</lastmod>
+  <priority>0.64</priority>
 </url>
 <url>
-<loc>https://www.offlineimap.org/_doc/versions/v7.0.14/_modules/offlineimap/CustomConfig.html</loc>
-<lastmod>2017-03-11T13:22:30+01:00</lastmod>
+  <loc>https://www.offlineimap.org/doc/maintain-wiki.html</loc>
+  <lastmod>2023-03-30T14:19:16+00:00</lastmod>
+  <priority>0.64</priority>
 </url>
 <url>
-<loc>https://www.offlineimap.org/_doc/versions/v7.0.14/_modules/offlineimap/accounts.html</loc>
-<lastmod>2017-03-11T13:22:30+01:00</lastmod>
+  <loc>https://www.offlineimap.org/doc/Changelog.html</loc>
+  <lastmod>2023-03-30T14:19:16+00:00</lastmod>
+  <priority>0.64</priority>
 </url>
 <url>
-<loc>https://www.offlineimap.org/_doc/versions/v7.0.14/_modules/offlineimap/error.html</loc>
-<lastmod>2017-03-11T13:22:30+01:00</lastmod>
+  <loc>https://www.offlineimap.org/doc/Changelog.maint.html</loc>
+  <lastmod>2023-03-30T14:19:16+00:00</lastmod>
+  <priority>0.64</priority>
 </url>
 <url>
-<loc>https://www.offlineimap.org/_doc/versions/v7.0.14/_modules/offlineimap/globals.html</loc>
-<lastmod>2017-03-11T13:22:30+01:00</lastmod>
+  <loc>https://www.offlineimap.org/gsoc2016/2016/04/23/GSoC2016-with-Gentoo.html</loc>
+  <lastmod>2023-03-30T14:19:16+00:00</lastmod>
+  <priority>0.64</priority>
 </url>
 <url>
-<loc>https://www.offlineimap.org/_doc/versions/v7.0.14/_modules/offlineimap/init.html</loc>
-<lastmod>2017-03-11T13:22:30+01:00</lastmod>
+  <loc>https://www.offlineimap.org/development/2015/10/08/imapfw-is-made-public.html</loc>
+  <lastmod>2023-03-30T14:19:16+00:00</lastmod>
+  <priority>0.64</priority>
 </url>
 <url>
-<loc>https://www.offlineimap.org/_doc/versions/v7.0.14/_modules/offlineimap/repository.html</loc>
-<lastmod>2017-03-11T13:22:30+01:00</lastmod>
+  <loc>https://www.offlineimap.org/gsoc/helpers.html</loc>
+  <lastmod>2023-03-30T14:19:16+00:00</lastmod>
+  <priority>0.64</priority>
 </url>
 <url>
-<loc>https://www.offlineimap.org/_doc/versions/v7.1.5/_modules/offlineimap/CustomConfig.html</loc>
-<lastmod>2018-01-13T13:55:38+01:00</lastmod>
+  <loc>https://www.offlineimap.org/development/2017/03/11/v7.0-series-is-ready.html</loc>
+  <lastmod>2023-03-30T14:19:16+00:00</lastmod>
+  <priority>0.64</priority>
 </url>
 <url>
-<loc>https://www.offlineimap.org/_doc/versions/v7.1.5/_modules/offlineimap/accounts.html</loc>
-<lastmod>2018-01-13T13:55:38+01:00</lastmod>
+  <loc>https://www.offlineimap.org/development/2016/07/29/tracking-regressions.html</loc>
+  <lastmod>2023-03-30T14:19:16+00:00</lastmod>
+  <priority>0.64</priority>
 </url>
 <url>
-<loc>https://www.offlineimap.org/_doc/versions/v7.1.5/_modules/offlineimap/error.html</loc>
-<lastmod>2018-01-13T13:55:38+01:00</lastmod>
+  <loc>https://www.offlineimap.org/configuration/2016/07/18/ignoring-UIDs.html</loc>
+  <lastmod>2023-03-30T14:19:16+00:00</lastmod>
+  <priority>0.64</priority>
 </url>
 <url>
-<loc>https://www.offlineimap.org/_doc/versions/v7.1.5/_modules/offlineimap/globals.html</loc>
-<lastmod>2018-01-13T13:55:38+01:00</lastmod>
+  <loc>https://www.offlineimap.org/development/2016/06/14/dependencies-policy.html</loc>
+  <lastmod>2023-03-30T14:19:16+00:00</lastmod>
+  <priority>0.64</priority>
 </url>
 <url>
-<loc>https://www.offlineimap.org/_doc/versions/v7.1.5/_modules/offlineimap/init.html</loc>
-<lastmod>2018-01-13T13:55:38+01:00</lastmod>
+  <loc>https://www.offlineimap.org/development/2016/06/04/python3-support.html</loc>
+  <lastmod>2023-03-30T14:19:16+00:00</lastmod>
+  <priority>0.64</priority>
 </url>
 <url>
-<loc>https://www.offlineimap.org/_doc/versions/v7.1.5/_modules/offlineimap/repository.html</loc>
-<lastmod>2018-01-13T13:55:38+01:00</lastmod>
+  <loc>https://www.offlineimap.org/configuration/2016/05/19/sqlite-becomes-default.html</loc>
+  <lastmod>2023-03-30T14:19:16+00:00</lastmod>
+  <priority>0.64</priority>
 </url>
 <url>
-<loc>https://www.offlineimap.org/_doc/versions/v7.2.4/_modules/offlineimap/CustomConfig.html</loc>
-<lastmod>2019-06-08T11:33:36+02:00</lastmod>
+  <loc>https://www.offlineimap.org/github/2016/03/08/github-pr-suck.html</loc>
+  <lastmod>2023-03-30T14:19:16+00:00</lastmod>
+  <priority>0.64</priority>
 </url>
 <url>
-<loc>https://www.offlineimap.org/_doc/versions/v7.2.4/_modules/offlineimap/accounts.html</loc>
-<lastmod>2019-06-08T11:33:36+02:00</lastmod>
+  <loc>https://www.offlineimap.org/imapfw/gsoc2016/2016/02/29/students-welcome.html</loc>
+  <lastmod>2023-03-30T14:19:16+00:00</lastmod>
+  <priority>0.64</priority>
 </url>
 <url>
-<loc>https://www.offlineimap.org/_doc/versions/v7.2.4/_modules/offlineimap/error.html</loc>
-<lastmod>2019-06-08T11:33:36+02:00</lastmod>
+  <loc>https://www.offlineimap.org/configuration/2016/02/12/debian-upgrade-from-jessie-to-stretch.html</loc>
+  <lastmod>2023-03-30T14:19:16+00:00</lastmod>
+  <priority>0.64</priority>
 </url>
 <url>
-<loc>https://www.offlineimap.org/_doc/versions/v7.2.4/_modules/offlineimap/globals.html</loc>
-<lastmod>2019-06-08T11:33:36+02:00</lastmod>
+  <loc>https://www.offlineimap.org/configuration/2016/01/29/why-i-m-not-using-maxconnctions.html</loc>
+  <lastmod>2023-03-30T14:19:16+00:00</lastmod>
+  <priority>0.64</priority>
 </url>
 <url>
-<loc>https://www.offlineimap.org/_doc/versions/v7.2.4/_modules/offlineimap/init.html</loc>
-<lastmod>2019-06-08T11:33:36+02:00</lastmod>
+  <loc>https://www.offlineimap.org/server/imap/error/2016/01/27/error-no-such-number.html</loc>
+  <lastmod>2023-03-30T14:19:16+00:00</lastmod>
+  <priority>0.64</priority>
 </url>
 <url>
-<loc>https://www.offlineimap.org/_doc/versions/v7.2.4/_modules/offlineimap/repository.html</loc>
-<lastmod>2019-06-08T11:33:36+02:00</lastmod>
+  <loc>https://www.offlineimap.org/project/2016/01/25/gmail-users-my-mails-goes-to-spam.html</loc>
+  <lastmod>2023-03-30T14:19:16+00:00</lastmod>
+  <priority>0.64</priority>
 </url>
 <url>
-<loc>https://www.offlineimap.org/_doc/versions/v7.0.14/_modules/offlineimap/folder/Base.html</loc>
-<lastmod>2017-03-11T13:22:30+01:00</lastmod>
+  <loc>https://www.offlineimap.org/imapfw/development/2015/12/04/opening-imapfw-to-contributors.html</loc>
+  <lastmod>2023-03-30T14:19:16+00:00</lastmod>
+  <priority>0.64</priority>
 </url>
 <url>
-<loc>https://www.offlineimap.org/_doc/versions/v7.0.14/_modules/offlineimap/repository/Base.html</loc>
-<lastmod>2017-03-11T13:22:30+01:00</lastmod>
+  <loc>https://www.offlineimap.org/devel/2015/04/14/why-we-changed-maxage.html</loc>
+  <lastmod>2023-03-30T14:19:16+00:00</lastmod>
+  <priority>0.64</priority>
 </url>
 <url>
-<loc>https://www.offlineimap.org/_doc/versions/v7.0.14/_modules/offlineimap/repository/Gmail.html</loc>
-<lastmod>2017-03-11T13:22:30+01:00</lastmod>
+  <loc>https://www.offlineimap.org/development/2015/04/04/planning-deep-refactoring.html</loc>
+  <lastmod>2023-03-30T14:19:16+00:00</lastmod>
+  <priority>0.64</priority>
 </url>
 <url>
-<loc>https://www.offlineimap.org/_doc/versions/v7.0.14/_modules/offlineimap/repository/IMAP.html</loc>
-<lastmod>2017-03-11T13:22:30+01:00</lastmod>
+  <loc>https://www.offlineimap.org/community/project/2015/03/12/offlineimap-history.html</loc>
+  <lastmod>2023-03-30T14:19:16+00:00</lastmod>
+  <priority>0.64</priority>
 </url>
 <url>
-<loc>https://www.offlineimap.org/_doc/versions/v7.0.14/_modules/offlineimap/repository/LocalStatus.html</loc>
-<lastmod>2017-03-11T13:22:30+01:00</lastmod>
+  <loc>https://www.offlineimap.org/website/2015/03/07/welcome-to-new-website.html</loc>
+  <lastmod>2023-03-30T14:19:16+00:00</lastmod>
+  <priority>0.64</priority>
 </url>
 <url>
-<loc>https://www.offlineimap.org/_doc/versions/v7.0.14/_modules/offlineimap/repository/Maildir.html</loc>
-<lastmod>2017-03-11T13:22:30+01:00</lastmod>
+  <loc>https://www.offlineimap.org/doc/backups-btrfs.html</loc>
+  <lastmod>2023-03-30T14:19:16+00:00</lastmod>
+  <priority>0.51</priority>
 </url>
 <url>
-<loc>https://www.offlineimap.org/_doc/versions/v7.0.14/_modules/offlineimap/ui/UIBase.html</loc>
-<lastmod>2017-03-11T13:22:30+01:00</lastmod>
+  <loc>https://www.offlineimap.org/doc/backups-zfs.html</loc>
+  <lastmod>2023-03-30T14:19:16+00:00</lastmod>
+  <priority>0.51</priority>
 </url>
 <url>
-<loc>https://www.offlineimap.org/_doc/versions/v7.0.14/_modules/offlineimap/utils/const.html</loc>
-<lastmod>2017-03-11T13:22:30+01:00</lastmod>
+  <loc>https://www.offlineimap.org/doc/GitAdvanced-send-long.html</loc>
+  <lastmod>2023-03-30T14:19:16+00:00</lastmod>
+  <priority>0.51</priority>
 </url>
 <url>
-<loc>https://www.offlineimap.org/_doc/versions/v7.1.5/_modules/offlineimap/folder/Base.html</loc>
-<lastmod>2018-01-13T13:55:38+01:00</lastmod>
+  <loc>https://www.offlineimap.org/doc/versions/v7.0.14/genindex.html</loc>
+  <lastmod>2023-03-30T14:19:09+00:00</lastmod>
+  <priority>0.51</priority>
 </url>
 <url>
-<loc>https://www.offlineimap.org/_doc/versions/v7.1.5/_modules/offlineimap/repository/Base.html</loc>
-<lastmod>2018-01-13T13:55:38+01:00</lastmod>
+  <loc>https://www.offlineimap.org/doc/versions/v7.0.14/API.html</loc>
+  <lastmod>2023-03-30T14:19:09+00:00</lastmod>
+  <priority>0.51</priority>
 </url>
 <url>
-<loc>https://www.offlineimap.org/_doc/versions/v7.1.5/_modules/offlineimap/repository/Gmail.html</loc>
-<lastmod>2018-01-13T13:55:38+01:00</lastmod>
+  <loc>https://www.offlineimap.org/doc/versions/v7.0.14/dco.html</loc>
+  <lastmod>2023-03-30T14:19:09+00:00</lastmod>
+  <priority>0.51</priority>
 </url>
 <url>
-<loc>https://www.offlineimap.org/_doc/versions/v7.1.5/_modules/offlineimap/repository/IMAP.html</loc>
-<lastmod>2018-01-13T13:55:38+01:00</lastmod>
+  <loc>https://www.offlineimap.org/doc/versions/v7.0.14/repository.html</loc>
+  <lastmod>2023-03-30T14:19:09+00:00</lastmod>
+  <priority>0.51</priority>
 </url>
 <url>
-<loc>https://www.offlineimap.org/_doc/versions/v7.1.5/_modules/offlineimap/repository/LocalStatus.html</loc>
-<lastmod>2018-01-13T13:55:38+01:00</lastmod>
+  <loc>https://www.offlineimap.org/doc/versions/v7.0.14/ui.html</loc>
+  <lastmod>2023-03-30T14:19:09+00:00</lastmod>
+  <priority>0.51</priority>
 </url>
 <url>
-<loc>https://www.offlineimap.org/_doc/versions/v7.1.5/_modules/offlineimap/repository/Maildir.html</loc>
-<lastmod>2018-01-13T13:55:38+01:00</lastmod>
+  <loc>https://www.offlineimap.org/doc/versions/v7.1.5/genindex.html</loc>
+  <lastmod>2023-03-30T14:19:09+00:00</lastmod>
+  <priority>0.51</priority>
 </url>
 <url>
-<loc>https://www.offlineimap.org/_doc/versions/v7.1.5/_modules/offlineimap/ui/UIBase.html</loc>
-<lastmod>2018-01-13T13:55:38+01:00</lastmod>
+  <loc>https://www.offlineimap.org/doc/versions/v7.1.5/API.html</loc>
+  <lastmod>2023-03-30T14:19:09+00:00</lastmod>
+  <priority>0.51</priority>
 </url>
 <url>
-<loc>https://www.offlineimap.org/_doc/versions/v7.1.5/_modules/offlineimap/utils/const.html</loc>
-<lastmod>2018-01-13T13:55:38+01:00</lastmod>
+  <loc>https://www.offlineimap.org/doc/versions/v7.1.5/dco.html</loc>
+  <lastmod>2023-03-30T14:19:09+00:00</lastmod>
+  <priority>0.51</priority>
 </url>
 <url>
-<loc>https://www.offlineimap.org/_doc/versions/v7.2.4/_modules/offlineimap/folder/Base.html</loc>
-<lastmod>2019-06-08T11:33:36+02:00</lastmod>
+  <loc>https://www.offlineimap.org/doc/versions/v7.1.5/repository.html</loc>
+  <lastmod>2023-03-30T14:19:09+00:00</lastmod>
+  <priority>0.51</priority>
 </url>
 <url>
-<loc>https://www.offlineimap.org/_doc/versions/v7.2.4/_modules/offlineimap/repository/Base.html</loc>
-<lastmod>2019-06-08T11:33:36+02:00</lastmod>
+  <loc>https://www.offlineimap.org/doc/versions/v7.1.5/ui.html</loc>
+  <lastmod>2023-03-30T14:19:09+00:00</lastmod>
+  <priority>0.51</priority>
 </url>
 <url>
-<loc>https://www.offlineimap.org/_doc/versions/v7.2.4/_modules/offlineimap/repository/Gmail.html</loc>
-<lastmod>2019-06-08T11:33:36+02:00</lastmod>
+  <loc>https://www.offlineimap.org/doc/versions/v7.2.4/genindex.html</loc>
+  <lastmod>2023-03-30T14:19:09+00:00</lastmod>
+  <priority>0.51</priority>
 </url>
 <url>
-<loc>https://www.offlineimap.org/_doc/versions/v7.2.4/_modules/offlineimap/repository/IMAP.html</loc>
-<lastmod>2019-06-08T11:33:36+02:00</lastmod>
+  <loc>https://www.offlineimap.org/doc/versions/v7.2.4/py-modindex.html</loc>
+  <lastmod>2023-03-30T14:19:09+00:00</lastmod>
+  <priority>0.51</priority>
 </url>
 <url>
-<loc>https://www.offlineimap.org/_doc/versions/v7.2.4/_modules/offlineimap/repository/LocalStatus.html</loc>
-<lastmod>2019-06-08T11:33:36+02:00</lastmod>
+  <loc>https://www.offlineimap.org/doc/versions/v7.2.4/API.html</loc>
+  <lastmod>2023-03-30T14:19:09+00:00</lastmod>
+  <priority>0.51</priority>
 </url>
 <url>
-<loc>https://www.offlineimap.org/_doc/versions/v7.2.4/_modules/offlineimap/repository/Maildir.html</loc>
-<lastmod>2019-06-08T11:33:36+02:00</lastmod>
+  <loc>https://www.offlineimap.org/doc/versions/v7.2.4/dco.html</loc>
+  <lastmod>2023-03-30T14:19:09+00:00</lastmod>
+  <priority>0.51</priority>
 </url>
 <url>
-<loc>https://www.offlineimap.org/_doc/versions/v7.2.4/_modules/offlineimap/ui/UIBase.html</loc>
-<lastmod>2019-06-08T11:33:36+02:00</lastmod>
+  <loc>https://www.offlineimap.org/doc/versions/v7.2.4/repository.html</loc>
+  <lastmod>2023-03-30T14:19:09+00:00</lastmod>
+  <priority>0.51</priority>
 </url>
 <url>
-<loc>https://www.offlineimap.org/_doc/versions/v7.2.4/_modules/offlineimap/utils/const.html</loc>
-<lastmod>2019-06-08T11:33:36+02:00</lastmod>
+  <loc>https://www.offlineimap.org/doc/versions/v7.2.4/ui.html</loc>
+  <lastmod>2023-03-30T14:19:09+00:00</lastmod>
+  <priority>0.51</priority>
 </url>
+<url>
+  <loc>https://www.offlineimap.org/doc/versions/v7.0.14/index.html</loc>
+  <lastmod>2023-03-30T14:19:09+00:00</lastmod>
+  <priority>0.41</priority>
+</url>
+<url>
+  <loc>https://www.offlineimap.org/doc/versions/v7.0.14/_modules/offlineimap/init.html</loc>
+  <lastmod>2023-03-30T14:19:09+00:00</lastmod>
+  <priority>0.41</priority>
+</url>
+<url>
+  <loc>https://www.offlineimap.org/doc/versions/v7.0.14/_modules/offlineimap/accounts.html</loc>
+  <lastmod>2023-03-30T14:19:09+00:00</lastmod>
+  <priority>0.41</priority>
+</url>
+<url>
+  <loc>https://www.offlineimap.org/doc/versions/v7.0.14/_modules/offlineimap/error.html</loc>
+  <lastmod>2023-03-30T14:19:09+00:00</lastmod>
+  <priority>0.41</priority>
+</url>
+<url>
+  <loc>https://www.offlineimap.org/doc/versions/v7.0.14/_modules/offlineimap/globals.html</loc>
+  <lastmod>2023-03-30T14:19:09+00:00</lastmod>
+  <priority>0.41</priority>
+</url>
+<url>
+  <loc>https://www.offlineimap.org/doc/versions/v7.0.14/_modules/offlineimap/repository.html</loc>
+  <lastmod>2023-03-30T14:19:09+00:00</lastmod>
+  <priority>0.41</priority>
+</url>
+<url>
+  <loc>https://www.offlineimap.org/doc/versions/v7.0.14/_modules/offlineimap/repository/Base.html</loc>
+  <lastmod>2023-03-30T14:19:09+00:00</lastmod>
+  <priority>0.41</priority>
+</url>
+<url>
+  <loc>https://www.offlineimap.org/doc/versions/v7.0.14/_modules/offlineimap/repository/IMAP.html</loc>
+  <lastmod>2023-03-30T14:19:09+00:00</lastmod>
+  <priority>0.41</priority>
+</url>
+<url>
+  <loc>https://www.offlineimap.org/doc/versions/v7.0.14/_modules/offlineimap/repository/Gmail.html</loc>
+  <lastmod>2023-03-30T14:19:09+00:00</lastmod>
+  <priority>0.41</priority>
+</url>
+<url>
+  <loc>https://www.offlineimap.org/doc/versions/v7.0.14/_modules/offlineimap/repository/Maildir.html</loc>
+  <lastmod>2023-03-30T14:19:09+00:00</lastmod>
+  <priority>0.41</priority>
+</url>
+<url>
+  <loc>https://www.offlineimap.org/doc/versions/v7.0.14/_modules/offlineimap/repository/LocalStatus.html</loc>
+  <lastmod>2023-03-30T14:19:09+00:00</lastmod>
+  <priority>0.41</priority>
+</url>
+<url>
+  <loc>https://www.offlineimap.org/doc/versions/v7.0.14/_modules/offlineimap/folder/Base.html</loc>
+  <lastmod>2023-03-30T14:19:09+00:00</lastmod>
+  <priority>0.41</priority>
+</url>
+<url>
+  <loc>https://www.offlineimap.org/doc/versions/v7.0.14/_modules/offlineimap/ui/UIBase.html</loc>
+  <lastmod>2023-03-30T14:19:09+00:00</lastmod>
+  <priority>0.41</priority>
+</url>
+<url>
+  <loc>https://www.offlineimap.org/doc/versions/v7.1.5/index.html</loc>
+  <lastmod>2023-03-30T14:19:09+00:00</lastmod>
+  <priority>0.41</priority>
+</url>
+<url>
+  <loc>https://www.offlineimap.org/doc/versions/v7.1.5/_modules/offlineimap/init.html</loc>
+  <lastmod>2023-03-30T14:19:09+00:00</lastmod>
+  <priority>0.41</priority>
+</url>
+<url>
+  <loc>https://www.offlineimap.org/doc/versions/v7.1.5/_modules/offlineimap/accounts.html</loc>
+  <lastmod>2023-03-30T14:19:09+00:00</lastmod>
+  <priority>0.41</priority>
+</url>
+<url>
+  <loc>https://www.offlineimap.org/doc/versions/v7.1.5/_modules/offlineimap/error.html</loc>
+  <lastmod>2023-03-30T14:19:09+00:00</lastmod>
+  <priority>0.41</priority>
+</url>
+<url>
+  <loc>https://www.offlineimap.org/doc/versions/v7.1.5/_modules/offlineimap/globals.html</loc>
+  <lastmod>2023-03-30T14:19:09+00:00</lastmod>
+  <priority>0.41</priority>
+</url>
+<url>
+  <loc>https://www.offlineimap.org/doc/versions/v7.1.5/_modules/offlineimap/repository.html</loc>
+  <lastmod>2023-03-30T14:19:09+00:00</lastmod>
+  <priority>0.41</priority>
+</url>
+<url>
+  <loc>https://www.offlineimap.org/doc/versions/v7.1.5/_modules/offlineimap/repository/Base.html</loc>
+  <lastmod>2023-03-30T14:19:09+00:00</lastmod>
+  <priority>0.41</priority>
+</url>
+<url>
+  <loc>https://www.offlineimap.org/doc/versions/v7.1.5/_modules/offlineimap/repository/IMAP.html</loc>
+  <lastmod>2023-03-30T14:19:09+00:00</lastmod>
+  <priority>0.41</priority>
+</url>
+<url>
+  <loc>https://www.offlineimap.org/doc/versions/v7.1.5/_modules/offlineimap/repository/Gmail.html</loc>
+  <lastmod>2023-03-30T14:19:09+00:00</lastmod>
+  <priority>0.41</priority>
+</url>
+<url>
+  <loc>https://www.offlineimap.org/doc/versions/v7.1.5/_modules/offlineimap/repository/Maildir.html</loc>
+  <lastmod>2023-03-30T14:19:09+00:00</lastmod>
+  <priority>0.41</priority>
+</url>
+<url>
+  <loc>https://www.offlineimap.org/doc/versions/v7.1.5/_modules/offlineimap/repository/LocalStatus.html</loc>
+  <lastmod>2023-03-30T14:19:09+00:00</lastmod>
+  <priority>0.41</priority>
+</url>
+<url>
+  <loc>https://www.offlineimap.org/doc/versions/v7.1.5/_modules/offlineimap/folder/Base.html</loc>
+  <lastmod>2023-03-30T14:19:09+00:00</lastmod>
+  <priority>0.41</priority>
+</url>
+<url>
+  <loc>https://www.offlineimap.org/doc/versions/v7.1.5/_modules/offlineimap/ui/UIBase.html</loc>
+  <lastmod>2023-03-30T14:19:09+00:00</lastmod>
+  <priority>0.41</priority>
+</url>
+<url>
+  <loc>https://www.offlineimap.org/doc/versions/v7.2.4/index.html</loc>
+  <lastmod>2023-03-30T14:19:09+00:00</lastmod>
+  <priority>0.41</priority>
+</url>
+<url>
+  <loc>https://www.offlineimap.org/doc/versions/v7.2.4/_modules/offlineimap/init.html</loc>
+  <lastmod>2023-03-30T14:19:09+00:00</lastmod>
+  <priority>0.41</priority>
+</url>
+<url>
+  <loc>https://www.offlineimap.org/doc/versions/v7.2.4/_modules/offlineimap/accounts.html</loc>
+  <lastmod>2023-03-30T14:19:09+00:00</lastmod>
+  <priority>0.41</priority>
+</url>
+<url>
+  <loc>https://www.offlineimap.org/doc/versions/v7.2.4/_modules/offlineimap/error.html</loc>
+  <lastmod>2023-03-30T14:19:09+00:00</lastmod>
+  <priority>0.41</priority>
+</url>
+<url>
+  <loc>https://www.offlineimap.org/doc/versions/v7.2.4/_modules/offlineimap/globals.html</loc>
+  <lastmod>2023-03-30T14:19:09+00:00</lastmod>
+  <priority>0.41</priority>
+</url>
+<url>
+  <loc>https://www.offlineimap.org/doc/versions/v7.2.4/_modules/offlineimap/repository.html</loc>
+  <lastmod>2023-03-30T14:19:09+00:00</lastmod>
+  <priority>0.41</priority>
+</url>
+<url>
+  <loc>https://www.offlineimap.org/doc/versions/v7.2.4/_modules/offlineimap/repository/Base.html</loc>
+  <lastmod>2023-03-30T14:19:09+00:00</lastmod>
+  <priority>0.41</priority>
+</url>
+<url>
+  <loc>https://www.offlineimap.org/doc/versions/v7.2.4/_modules/offlineimap/repository/IMAP.html</loc>
+  <lastmod>2023-03-30T14:19:09+00:00</lastmod>
+  <priority>0.41</priority>
+</url>
+<url>
+  <loc>https://www.offlineimap.org/doc/versions/v7.2.4/_modules/offlineimap/repository/Gmail.html</loc>
+  <lastmod>2023-03-30T14:19:09+00:00</lastmod>
+  <priority>0.41</priority>
+</url>
+<url>
+  <loc>https://www.offlineimap.org/doc/versions/v7.2.4/_modules/offlineimap/repository/Maildir.html</loc>
+  <lastmod>2023-03-30T14:19:09+00:00</lastmod>
+  <priority>0.41</priority>
+</url>
+<url>
+  <loc>https://www.offlineimap.org/doc/versions/v7.2.4/_modules/offlineimap/repository/LocalStatus.html</loc>
+  <lastmod>2023-03-30T14:19:09+00:00</lastmod>
+  <priority>0.41</priority>
+</url>
+<url>
+  <loc>https://www.offlineimap.org/doc/versions/v7.2.4/_modules/offlineimap/folder/Base.html</loc>
+  <lastmod>2023-03-30T14:19:09+00:00</lastmod>
+  <priority>0.41</priority>
+</url>
+<url>
+  <loc>https://www.offlineimap.org/doc/versions/v7.2.4/_modules/offlineimap/ui/UIBase.html</loc>
+  <lastmod>2023-03-30T14:19:09+00:00</lastmod>
+  <priority>0.41</priority>
+</url>
+<url>
+  <loc>https://www.offlineimap.org/doc/versions/v7.0.14/_modules/index.html</loc>
+  <lastmod>2023-03-30T14:19:09+00:00</lastmod>
+  <priority>0.33</priority>
+</url>
+<url>
+  <loc>https://www.offlineimap.org/doc/versions/v7.1.5/_modules/index.html</loc>
+  <lastmod>2023-03-30T14:19:09+00:00</lastmod>
+  <priority>0.33</priority>
+</url>
+<url>
+  <loc>https://www.offlineimap.org/doc/versions/v7.2.4/_modules/index.html</loc>
+  <lastmod>2023-03-30T14:19:09+00:00</lastmod>
+  <priority>0.33</priority>
+</url>
+<url>
+  <loc>https://www.offlineimap.org/doc/versions/v7.0.14/_modules/offlineimap/CustomConfig.html</loc>
+  <lastmod>2023-03-30T14:19:09+00:00</lastmod>
+  <priority>0.26</priority>
+</url>
+<url>
+  <loc>https://www.offlineimap.org/doc/versions/v7.0.14/_modules/offlineimap/utils/const.html</loc>
+  <lastmod>2023-03-30T14:19:09+00:00</lastmod>
+  <priority>0.26</priority>
+</url>
+<url>
+  <loc>https://www.offlineimap.org/doc/versions/v7.1.5/_modules/offlineimap/CustomConfig.html</loc>
+  <lastmod>2023-03-30T14:19:09+00:00</lastmod>
+  <priority>0.26</priority>
+</url>
+<url>
+  <loc>https://www.offlineimap.org/doc/versions/v7.1.5/_modules/offlineimap/utils/const.html</loc>
+  <lastmod>2023-03-30T14:19:09+00:00</lastmod>
+  <priority>0.26</priority>
+</url>
+<url>
+  <loc>https://www.offlineimap.org/doc/versions/v7.2.4/_modules/offlineimap/CustomConfig.html</loc>
+  <lastmod>2023-03-30T14:19:09+00:00</lastmod>
+  <priority>0.26</priority>
+</url>
+<url>
+  <loc>https://www.offlineimap.org/doc/versions/v7.2.4/_modules/offlineimap/utils/const.html</loc>
+  <lastmod>2023-03-30T14:19:09+00:00</lastmod>
+  <priority>0.26</priority>
+</url>
+
+
 </urlset>

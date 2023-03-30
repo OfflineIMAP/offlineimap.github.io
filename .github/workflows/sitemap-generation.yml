@@ -27,12 +27,14 @@ jobs:
         echo "url-count = ${{ steps.sitemap.outputs.url-count }}"
         echo "excluded-count = ${{ steps.sitemap.outputs.excluded-count }}"
 
-    - name: Commit and push
-      run: |
-        if [[ `git status --porcelain sitemap.xml` ]]; then
-          git config --global user.name 'Chris Coleman'
-          git config --global user.email 'chris001@users.noreply.github.com'
-          git add sitemap.xml
-          git commit -m "Automated sitemap update" sitemap.xml
-          git push
-        fi
+# TODO: fix the generate-sitemap to crawl the files as if it was the website. 
+#       it's including inaccessible files ending in .html and not including menu links.
+#    - name: Commit and push
+#      run: |
+#        if [[ `git status --porcelain sitemap.xml` ]]; then
+#          git config --global user.name 'Chris Coleman'
+#          git config --global user.email 'chris001@users.noreply.github.com'
+#          git add sitemap.xml
+#          git commit -m "Automated sitemap update" sitemap.xml
+#          git push
+#        fi

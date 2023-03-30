@@ -24,7 +24,7 @@ permalink: /sponsors/
 [silver]: https://opencollective.com/offlineimap-organization/tiers/silver-sponsor.svg
 [bronze]: https://opencollective.com/offlineimap-organization/tiers/bronze-sponsor.svg
 [silver-zeronet-link]: https://zeronet.co.nz/ "Zeronet - naturally fast internet."
-[silver-zeronet-logo]: /assets/img/sponsors/zeronet-logo.svg
+[silver-zeronet-logo]: /assets/img/sponsors/zeronet.svg
 
 <!--
 vim: ts=2 expandtab :

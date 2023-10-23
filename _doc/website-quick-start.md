@@ -44,7 +44,7 @@ $ cd ./website
 If you don't have the offlineimap Git sources, you can download the script:
 
 {% highlight bash %}
-$ wget 'https://raw.githubusercontent.com/OfflineIMAP/offlineimap/next/scripts/get-repository.sh'-O get-repository.sh
+$ wget 'https://raw.githubusercontent.com/OfflineIMAP/offlineimap3/next/scripts/get-repository.sh' -O get-repository.sh
 $ ./scripts/get-repository.sh website
 {% endhighlight %}
 

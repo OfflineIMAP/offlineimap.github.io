@@ -52,12 +52,6 @@ OfflineIMAP will synchronize both sides via *IMAP*.
 
 Checkout the [OfflineIMAP official project]({{ links.offlineimap.project }}) in Github.
 
-> **Side note from a maintainer:**
-While I'm still maintaining OfflineIMAP, I'm mostly focusing on [imapfw]({{
-links.imapfw.website }}) which I intend to come as a replacement in the long term.
-\\
-― Nicolas Sebrecht
-
 # Download
 
 Download releases as [tarball or zipball]({{ links.offlineimap.downloads }}).

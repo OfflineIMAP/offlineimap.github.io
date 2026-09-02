@@ -10,9 +10,7 @@ updated: 2026-09-02
 
 
 
-### From a [blog](https://blog.ezyang.com/2012/08/how-offlineimap-works/) by @ezyang
-
-License: CCC BY-SA 3.0.
+### From a [blog](https://blog.ezyang.com/2012/08/how-offlineimap-works/) by @ezyang.  License: CCC BY-SA 3.0.
 
 As software engineers, we are trained to be a little distrustful of marketing copy like this:
 

@@ -8,11 +8,14 @@ updated: 2026-09-02
 ---
 {% assign icons = site.data.icons %}
 
-
-
 ### Reposted from a [blog](https://blog.ezyang.com/2012/08/how-offlineimap-works/), licensed under CCC BY-SA 3.0.
 
 As software engineers, we are trained to be a little distrustful of marketing copy like this:
+
+<!--more-->
+
+* junk
+{:toc}
 
 > OfflineIMAP is SAFE; it uses an algorithm designed to prevent mail loss at all costs. Because of the design of this algorithm, even programming errors should not result in loss of mail. I am so confident in the algorithm that I use my own personal and work accounts for testing of OfflineIMAP pre-release, development, and beta releases.
 

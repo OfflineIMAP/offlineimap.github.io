@@ -1,7 +1,18 @@
+---
+layout: post
+title: How OfflineIMAP Works
+date: 2012-08-27 12:00
+author: @ezyang
+categories: community project
+updated: 2026-09-02
+---
+{% assign icons = site.data.icons %}
+
+
+
 # [How OfflineIMAP works]
 From a [blog](https://blog.ezyang.com/2012/08/how-offlineimap-works/) by @ezyang
 
-Publish Date: August 27, 2012.
 License: CCC BY-SA 3.0.
 
 As software engineers, we are trained to be a little distrustful of marketing copy like this:

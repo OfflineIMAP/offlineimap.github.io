@@ -1,4 +1,5 @@
-# [How OfflineIMAP works : from @ezyang 's blog](https://blog.ezyang.com/2012/08/how-offlineimap-works/)
+# [How OfflineIMAP works]
+From a [blog](https://blog.ezyang.com/2012/08/how-offlineimap-works/) by @ezyang
 Publish Date: August 27, 2012.
 License: CCC BY-SA 3.0.
 

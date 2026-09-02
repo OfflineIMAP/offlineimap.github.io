@@ -10,8 +10,7 @@ updated: 2026-09-02
 
 
 
-# [How OfflineIMAP works]
-From a [blog](https://blog.ezyang.com/2012/08/how-offlineimap-works/) by @ezyang
+# From a [blog](https://blog.ezyang.com/2012/08/how-offlineimap-works/) by @ezyang
 
 License: CCC BY-SA 3.0.
 

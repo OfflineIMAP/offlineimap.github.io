@@ -2,7 +2,7 @@
 layout: post
 title: How OfflineIMAP Works
 date: 2012-08-27 12:00
-author: @ezyang
+author: ezyang
 categories: community project
 updated: 2026-09-02
 ---

@@ -24,7 +24,7 @@ Define our local and remote repositories (Maildir and IMAP, respectively) to con
 
 However, no-delete synchronization schemes work poorly for email, where we would like the ability to delete messages and have those changes be propagated too. To this end, OfflineIMAP defines a third repository called the status repository, also a set over messages, which says whether or not a message has been synchronized in the past without an intervening synchronized delete. There are now seven possible states for a message to have, based on which repositories it is a member:
 
-![image](../assets/img/blog/state-space.png)
+![image](/assets/img/blog/state-space.png)
 
 Considering all possible combinations:
 
@@ -54,7 +54,7 @@ The full synchronization algorithm is then:
 
 In the absence of crashes, the correctness proof only involves verifying that the status repository invariant (that messages in status have been synchronized in the past without an intervening synchronized delete) is preserved over all four operations, and that the set differences are, in fact, precisely the sets of messages we want to copy and delete. However, we can also try and look at how the local, remote and status repositories change as the algorithm progresses. In particular, the contents of the status repository in the first `syncto` is slightly surprising as it evolves differently from `local`, despite having the same operations applied to it (it then evolves in lockstep with `remote`).
 
-![image](../assets/img/blog/normal.png)
+![image](/assets/img/blog/normal.png)
 
 Another important correctness claim is that OfflineIMAP never “loses mail”. Under what conditions is mail deleted? When it is present in status repository, but not in the local or remote repository. So it is easy to see that when the status repository is “lost” (either corrupted, or deleted as the instructions tell you to if you delete the contents of your local folders), OfflineIMAP will conservatively perform a full, no-delete synchronization between the two sources. So long as the status repository never contains data for more messages than it ought to, OfflineIMAP will not delete your mail.
 
@@ -64,7 +64,7 @@ Suppose that I have more disk space available on local disk for Maildir than my 
 
 Simple: Skip step 1-2.
 
-![image](../assets/img/blog/asymmetric.png)
+![image](/assets/img/blog/asymmetric.png)
 
 ### Conclusion
 

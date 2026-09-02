@@ -8,7 +8,7 @@ updated: 2026-09-02
 ---
 {% assign icons = site.data.icons %}
 
-### Reposted from a [blog](https://blog.ezyang.com/2012/08/how-offlineimap-works/), licensed under CCC BY-SA 3.0.
+Reposted from: [blog](https://blog.ezyang.com/2012/08/how-offlineimap-works/).  License: CCC BY-SA 3.0.
 
 As software engineers, we are trained to be a little distrustful of marketing copy like this:
 
@@ -73,3 +73,4 @@ Simple: Skip step 1-2.
 
 By utilizing a third repository, for which data loss results in a _conservative_ action on the part of the program, OfflineIMAP achieves its claims of _an algorithm designed to prevent mail loss at all costs_. It is also a simple algorithm, and I hope that any computer scientist or software engineer using this software will take the time to convince themselves of its correctness, rather than relying on the hearsay of some marketing material.
 
+Converted by [chris001](https://github.com/chris001).

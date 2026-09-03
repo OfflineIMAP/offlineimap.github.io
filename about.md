@@ -9,6 +9,11 @@ author: Nicolas Sebrecht
 {% assign website = site.data.links.website %}
 {% assign others = site.data.links.others %}
 
+## About OfflineIMAP
+
+offlineimap performs sync of email messages, between an IMAP server, and either another IMAP server, or a Maildir.  The sync can be either bidirectional, or one-way.  The Documentation page is [here](https://www.offlineimap.org/documentation.html).  Blog post about how it works is [here](https://www.offlineimap.org/community/project/2012/08/27/howitworks.html).
+
+## About the website
 
 This is the *OfflineIMAP community's website*. It is made **open**, **static** and **easy**.
 

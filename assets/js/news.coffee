@@ -44,7 +44,7 @@ class Releases extends NsJSON
     for item in @items
       line = ''
       version = item.name
-      version_url = 'https://github.com/OfflineIMAP/offlineimap/tree/' + version
+      version_url = 'https://github.com/OfflineIMAP/offlineimap3/tree/' + version
       tarball = item.tarball_url
       zipball = item.zipball_url
       upload_url = 'http://www.offlineimap.org/uploads/offlineimap-' + version + '.tar.gz'
@@ -91,7 +91,7 @@ fillerJSON = (url, objType, limit, where) ->
 # Called from news.html.
 #
 fillNews = ->
-  fillerJSON('https://api.github.com/repos/offlineimap/offlineimap/tags',
+  fillerJSON('https://api.github.com/repos/offlineimap/offlineimap3/tags',
     Releases, 14, '#releases')
 
 #

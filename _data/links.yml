@@ -9,14 +9,14 @@
 
 offlineimap:
   organization: 'https://github.com/OfflineIMAP'
-  project: 'https://github.com/OfflineIMAP/offlineimap'
-  repository: 'https://github.com/OfflineIMAP/offlineimap.git'
-  downloads: 'https://github.com/OfflineIMAP/offlineimap/tags'
-  issues: 'https://github.com/OfflineIMAP/offlineimap/issues'
+  project: 'https://github.com/OfflineIMAP/offlineimap3'
+  repository: 'https://github.com/OfflineIMAP/offlineimap3.git'
+  downloads: 'https://github.com/OfflineIMAP/offlineimap3/tags'
+  issues: 'https://github.com/OfflineIMAP/offlineimap3/issues'
   rss:
-    commits: 'https://github.com/OfflineIMAP/offlineimap/commits/next.atom'
+    commits: 'https://github.com/OfflineIMAP/offlineimap3/commits/next.atom'
   blobs:
-    contributing: 'https://github.com/OfflineIMAP/offlineimap/blob/next/CONTRIBUTING.rst'
+    contributing: 'https://github.com/OfflineIMAP/offlineimap3/blob/next/CONTRIBUTING.rst'
 
 imapfw:
   website: 'http://imapfw.offlineimap.org'

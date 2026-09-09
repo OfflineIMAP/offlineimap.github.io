@@ -37,7 +37,7 @@ jobs:
           cp node_modules/font-awesome/css/font-awesome.min.css assets/js/
 
       - name: Setup Ruby
-        uses: actions/configure-pages-github-pages@v4 # Configures Jekyll for Pages
+        uses: actions/configure-pages@v4 # Configures Jekyll for Pages
 
       - name: Build with Jekyll
         run: bundle exec jekyll build

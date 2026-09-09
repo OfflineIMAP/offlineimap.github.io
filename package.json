@@ -2,7 +2,7 @@
   "name": "OfflineIMAP-website",
   "version": "1.0.0",
   "description": "OfflineIMAP website project using jQuery, jQuery Migrate, Moment.js, and Font Awesome",
-  "main": "index.html,
+  "main": "index.html",
   "private": true,
   "scripts": {
     "start": "echo 'Add a build or server tool if needed'"

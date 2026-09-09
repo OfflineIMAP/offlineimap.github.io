@@ -36,6 +36,12 @@ jobs:
           cp node_modules/font-awesome/css/font-awesome.min.css assets/js/
 
       - name: Setup Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.3' # Installs Ruby
+          bundler-cache: true # Caches your gems automatically if a Gemfile.lock exists
+
+      - name: Configure Github Pages metadata
         uses: actions/configure-pages@v4 # Configures Jekyll for Pages
 
       - name: Build with Jekyll

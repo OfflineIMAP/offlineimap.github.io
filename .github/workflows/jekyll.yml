@@ -2,7 +2,7 @@ name: Deploy Jekyll site with node_modules to Pages
 
 on:
   push:
-    branches: ["main"] # Change to "master" if your default branch is master
+    branches: ["master"] # Change to "master" if your default branch is master
 
 permissions:
   contents: read

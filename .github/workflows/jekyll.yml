@@ -24,10 +24,9 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '20'
-          cache: 'npm'
 
       - name: Install npm dependencies
-        run: npm ci # This installs your node_modules on the fly
+        run: npm install # This installs your node_modules on the fly
       - name: Copy jQuery to assets folder
         run: |
           mkdir -p assets/js

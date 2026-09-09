@@ -4,11 +4,18 @@
 
 # User drafts (no collaboration on them).
 /_mydrafts/
+
 # Whatever else private.
 /_private/
+
 # Jekyll
 /_site/
 /.sass-cache/
 /.jekyll-metadata
+.jekyll-cache/
+.bundle/
+vendor/
+_site/
+
 # Renderer
 /render.sh

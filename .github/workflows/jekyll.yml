@@ -28,6 +28,13 @@ jobs:
 
       - name: Install npm dependencies
         run: npm ci # This installs your node_modules on the fly
+      - name: Copy jQuery to assets folder
+        run: |
+          mkdir -p assets/js
+          cp node_modules/jquery/dist/jquery.min.js assets/js/
+          cp node_modules/jquery-migrate/dist/jquery-migrate.min.js assets/js/
+          cp node_modules/moment/min/moment.min.js assets/js/
+          cp node_modules/font-awesome/css/font-awesome.min.css assets/js/
 
       - name: Setup Ruby
         uses: actions/configure-pages-github-pages@v4 # Configures Jekyll for Pages

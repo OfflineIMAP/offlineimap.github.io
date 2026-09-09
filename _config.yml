@@ -42,3 +42,8 @@ collections:
     output: true
   uploads:
     output: true
+
+# include node_modules because it contains required jquery, jquery-migrate, moment, and font-awesome.css
+include:
+  - node_modules
+

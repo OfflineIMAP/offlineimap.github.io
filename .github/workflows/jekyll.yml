@@ -38,7 +38,7 @@ jobs:
       - name: Setup Ruby
         uses: ruby/setup-ruby@v1
         with:
-          ruby-version: '3.3' # Installs Ruby
+          ruby-version: '3.4' # Installs Ruby
           bundler-cache: true # Caches your gems automatically if a Gemfile.lock exists
 
       - name: Configure Github Pages metadata
